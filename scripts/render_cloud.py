@@ -84,14 +84,14 @@ def main():
 
     # 2. Sync Git changes
     if not args.skip_push:
-        print("\n🔄 Syncing project timeline and code to GitHub...")
-        run_cmd(["git", "add", f"projects/{args.project}"], cwd=str(repo_root))
+        print("\n🔄 Syncing project timeline, scripts, and workflow to GitHub...")
+        run_cmd(["git", "add", "-A"], cwd=str(repo_root))
         # Check if there are changes to commit
         status = run_cmd(["git", "status", "--porcelain"], cwd=str(repo_root)).stdout.strip()
         if status:
-            run_cmd(["git", "commit", "-m", f"chore: sync timeline for {args.project}"], cwd=str(repo_root))
+            run_cmd(["git", "commit", "-m", f"chore: sync timeline and workflow for {args.project}"], cwd=str(repo_root))
             run_cmd(["git", "push", "origin", "main"], cwd=str(repo_root))
-            print("✓ Pushed latest timeline to GitHub origin/main.")
+            print("✓ Pushed latest timeline and workflow to GitHub origin/main.")
         else:
             print("✓ Working tree clean, no pending changes.")
 
@@ -117,9 +117,14 @@ def main():
 
     # 4. Watch Execution
     print("\n⏳ Monitoring cloud render progress (Mac M1 remains 100% idle & cool)...")
-    watch_res = subprocess.run(["gh", "run", "watch", run_id], cwd=str(repo_root))
-    if watch_res.returncode != 0:
-        print(f"\n[ERROR] Workflow failed. Check logs at: {run_url}")
+    subprocess.run(["gh", "run", "watch", run_id], cwd=str(repo_root))
+
+    # Authoritative check of workflow conclusion
+    view_res = run_cmd(["gh", "run", "view", run_id, "--json", "conclusion"], cwd=str(repo_root))
+    conclusion = json.loads(view_res.stdout).get("conclusion")
+    if conclusion != "success":
+        print(f"\n[ERROR] Workflow completed with failure: '{conclusion}'.")
+        print(f"🔗 Check failed logs with: gh run view --log-failed {run_id}")
         sys.exit(1)
 
     # 5. Download Output Artifact
