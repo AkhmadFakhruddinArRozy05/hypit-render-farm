@@ -21,6 +21,7 @@
         "expectedDevice": "cpu",
         "expectedCompute": "int8",
         "expectedBatchSize": 8,
+        "alignmentLanguages": ["id"],
         "defaultConcurrency": 1
       }
     },

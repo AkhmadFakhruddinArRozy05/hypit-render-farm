@@ -117,6 +117,11 @@ jobs:
           cd "projects/${{ inputs.project }}"
           RUN_FILE=$(python3 -c "import json; print(json.load(open('source_manifest.json'))['run_file'])")
           OUTPUT_NAME=$(python3 -c "import json; print(json.load(open('source_manifest.json'))['output_name'])")
+
+          # Ensure all declared runtime programs (browser, whisperx) are active
+          export HYPIT_WHISPERX_INPUT_ROOTS="$GITHUB_WORKSPACE:/tmp"
+          node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" programs up --runtime hypit.runtime.json || true
+
           echo "Building target: $RUN_FILE using 16 GB RAM cloud runner..."
           node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" build "$RUN_FILE" --runtime hypit.runtime.json --follow
 
