@@ -54,9 +54,9 @@ jobs:
             ~/.cache/huggingface
             ~/.cache/torch
             ~/.cache/puppeteer
-          key: hypit-engine-ubuntu-v1-${{ hashFiles('pnpm-workspace.yaml') }}
+          key: hypit-engine-ubuntu-v2-${{ hashFiles('.github/workflows/render.yml') }}
           restore-keys: |
-            hypit-engine-ubuntu-v1-
+            hypit-engine-ubuntu-v2-
 
       - name: Setup Hypit Monorepo Engine
         run: |
@@ -73,9 +73,12 @@ jobs:
           uv sync
           cd ../../../..
 
-      - name: Install Project Dependencies
+      - name: Install Project Dependencies (if needed)
         run: |
-          pnpm install --frozen-lockfile=false
+          cd "projects/${{ inputs.project }}"
+          if [ -f "package.json" ]; then
+            pnpm install --no-frozen-lockfile || true
+          fi
 
       - name: Universal Ingest Media Assets
         env:
@@ -84,26 +87,31 @@ jobs:
           pip install yt-dlp
           python3 scripts/ingest.py --project "${{ inputs.project }}" --release-tag "${{ inputs.release_tag }}"
 
-      - name: Start Warm WhisperX Service
+      - name: Start Warm WhisperX Service (if needed)
         run: |
-          cd hypit/packages/provider-whisperx-local/runtime
-          uv run hypit-whisperx-service &
-          echo "Waiting for WhisperX service to bind port 8765..."
-          for i in {1..30}; do
-            if curl -s http://127.0.0.1:8765/health 2>/dev/null || curl -s http://127.0.0.1:8765/ 2>/dev/null; then
-              echo "WhisperX service is live!"
-              break
-            fi
-            sleep 1
-          done
-          cd ../../../..
+          if grep -q "whisperx" "projects/${{ inputs.project }}/hypit.runtime.json"; then
+            echo "Starting local WhisperX service..."
+            cd hypit/packages/provider-whisperx-local/runtime
+            uv run hypit-whisperx-service &
+            echo "Waiting for WhisperX service on port 8765..."
+            for i in {1..30}; do
+              if curl -s http://127.0.0.1:8765/ 2>/dev/null; then
+                echo "WhisperX service is live!"
+                break
+              fi
+              sleep 1
+            done
+            cd ../../../..
+          else
+            echo "Project does not require WhisperX service, skipping."
+          fi
 
       - name: Execute Hypit Build
         run: |
           cd "projects/${{ inputs.project }}"
           RUN_FILE=$(python3 -c "import json; print(json.load(open('source_manifest.json'))['run_file'])")
           echo "Building target: $RUN_FILE using 16 GB RAM cloud runner..."
-          node ../../hypit/bin/hypit.mjs build "$RUN_FILE" --runtime hypit.runtime.json
+          node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" build "$RUN_FILE" --runtime hypit.runtime.json
           ls -la dist/
 
       - name: Upload Final Rendered MP4 Artifact
