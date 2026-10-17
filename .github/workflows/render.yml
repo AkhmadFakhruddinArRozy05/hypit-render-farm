@@ -1,0 +1,123 @@
+name: Hypit Cloud Render Farm
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'Target project folder inside projects/ (e.g. nutriflakes-cr7-hypit or zaraleolaa-tiktok-clone)'
+        required: true
+        type: string
+      release_tag:
+        description: 'Temporary GitHub Release tag containing local media assets (leave empty if none)'
+        required: false
+        type: string
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    name: "Render: ${{ inputs.project }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout Render Farm Repository
+        uses: actions/checkout@v4
+
+      - name: Install System Dependencies & FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2t64
+
+      - name: Setup Node.js 22 & pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup Python 3.11 & uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+          python-version: "3.11"
+
+      - name: Cache Hypit Engine & WhisperX Models
+        id: cache-hypit
+        uses: actions/cache@v4
+        with:
+          path: |
+            hypit
+            ~/.cache/huggingface
+            ~/.cache/torch
+            ~/.cache/puppeteer
+          key: hypit-engine-ubuntu-v1-${{ hashFiles('pnpm-workspace.yaml') }}
+          restore-keys: |
+            hypit-engine-ubuntu-v1-
+
+      - name: Setup Hypit Monorepo Engine
+        run: |
+          if [ ! -d "hypit" ]; then
+            echo "Cloning official hypit-ai/hypit engine..."
+            git clone --depth 1 https://github.com/hypit-ai/hypit.git hypit
+          fi
+          cd hypit
+          pnpm install --frozen-lockfile=false
+          # Ensure Chrome for Testing is available
+          pnpm exec tsx packages/browser-capture/src/cli.ts install
+          # Setup WhisperX local runtime virtualenv
+          cd packages/provider-whisperx-local/runtime
+          uv sync
+          cd ../../../..
+
+      - name: Install Project Dependencies
+        run: |
+          pnpm install --frozen-lockfile=false
+
+      - name: Universal Ingest Media Assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install yt-dlp
+          python3 scripts/ingest.py --project "${{ inputs.project }}" --release-tag "${{ inputs.release_tag }}"
+
+      - name: Start Warm WhisperX Service
+        run: |
+          cd hypit/packages/provider-whisperx-local/runtime
+          uv run hypit-whisperx-service &
+          echo "Waiting for WhisperX service to bind port 8765..."
+          for i in {1..30}; do
+            if curl -s http://127.0.0.1:8765/health 2>/dev/null || curl -s http://127.0.0.1:8765/ 2>/dev/null; then
+              echo "WhisperX service is live!"
+              break
+            fi
+            sleep 1
+          done
+          cd ../../../..
+
+      - name: Execute Hypit Build
+        run: |
+          cd "projects/${{ inputs.project }}"
+          RUN_FILE=$(python3 -c "import json; print(json.load(open('source_manifest.json'))['run_file'])")
+          echo "Building target: $RUN_FILE using 16 GB RAM cloud runner..."
+          node ../../hypit/bin/hypit.mjs build "$RUN_FILE" --runtime hypit.runtime.json
+          ls -la dist/
+
+      - name: Upload Final Rendered MP4 Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-video-${{ inputs.project }}
+          path: projects/${{ inputs.project }}/dist/*.mp4
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Cleanup Temporary Release (Security & Storage)
+        if: always() && inputs.release_tag != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Cleaning up temporary release: ${{ inputs.release_tag }}"
+          gh release delete "${{ inputs.release_tag }}" --yes --cleanup-tag || true

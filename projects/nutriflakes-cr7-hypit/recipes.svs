@@ -1,0 +1,85 @@
+<?svml using="@hypit/recipe@1"?>
+<sheet version="1">
+  film.vertical {
+    background: #000000;
+  }
+
+  caption.primary {
+    stack-order: 70;
+    x: 0.5;
+    y: 0.82;
+    width: 0.88;
+    height: 0.18;
+    anchor-x: center;
+    anchor-y: bottom;
+    align: center;
+    block-align: end;
+    inline-size: fixed;
+    wrap: word;
+    size: 56;
+    line-height: 1.25;
+    fill: #FFFFFF;
+    stroke-color: #000000;
+    stroke-width: 4;
+    background: #000000A6;
+    padding: "14 26";
+    radius: 16;
+    karaoke: current;
+    active-fill: #FFF500;
+    cue-enter: spring;
+    cue-enter-frames: 3;
+    cue-enter-start-scale: 0.85;
+    cue-exit: none;
+    lead-frames: 2;
+    tail-frames: 2;
+    handoff: cut;
+  }
+
+  card.hook {
+    stack-order: 85;
+    background: "#0c1322e6";
+    border-color: "#ffffff33";
+    border-width: 2;
+    radius: 28;
+    padding-x: 36;
+    padding-y: 32;
+    gap: 20;
+    rotation: 0;
+    shadow-color: "#00000099";
+    shadow-x: 0;
+    shadow-y: 16;
+    shadow-blur: 40;
+    shadow-spread: 0;
+    tail: false;
+    avatar-fallback: initial;
+    avatar-size: 56;
+    avatar-border-width: 2;
+    avatar-border-color: "#60a5fa";
+    avatar-background: "#1e293b";
+    avatar-text-color: "#ffffff";
+    header-size: 26;
+    header-weight: 700;
+    header-line-height: 1.2;
+    header-color: "#60a5fa";
+    body-size: 38;
+    body-weight: 900;
+    body-line-height: 1.25;
+    body-color: "#ffffff";
+    body-max-lines: 4;
+    meta-size: 22;
+    meta-weight: 600;
+    meta-line-height: 1.2;
+    meta-color: "#94a3b8";
+    enter: pop;
+    enter-frames: 14;
+    enter-offset-y: -100;
+    enter-start-scale: 0.82;
+    enter-rotation-delta: 0;
+    enter-easing: ease-out;
+    exit: fade;
+    exit-frames: 12;
+    exit-offset-y: 0;
+    exit-easing: ease-in;
+    hold: none;
+  }
+</sheet>

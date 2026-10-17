@@ -1,0 +1,13 @@
+{
+  "project_name": "zaraleolaa-tiktok-clone",
+  "run_file": "reference.svrun",
+  "output_name": "zara-leola-clone.mp4",
+  "sources": [
+    {
+      "id": "source-video",
+      "type": "social_url",
+      "url": "https://www.tiktok.com/@zaraleolaa/video/7670880753441361172",
+      "destination": "references/source.mp4"
+    }
+  ]
+}

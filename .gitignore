@@ -1,0 +1,26 @@
+# Node & Package Managers
+node_modules/
+dist/
+.pnpm-store/
+
+# Hypit Cache & Runtimes
+.hypit/
+hypit/
+
+# Media Binaries (Keep Public Repo Clean & Lightweight)
+*.mp4
+*.m4a
+*.mov
+*.avi
+*.mkv
+*.wav
+*.mp3
+
+# Python Virtual Environments & Cache
+.venv/
+__pycache__/
+*.pyc
+
+# OS Specific
+.DS_Store
+Thumbs.db

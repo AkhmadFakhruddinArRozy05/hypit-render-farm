@@ -1,0 +1,93 @@
+<?svml using="@hypit/recipe@1"?>
+
+<sheet version="1">
+  film.vertical {
+    background: #000000;
+  }
+
+  comment.tiktok {
+    stack-order: 60;
+    background: #FFFFFF;
+    border-color: #00000010;
+    border-width: 1;
+    radius: 18;
+    padding-x: 20;
+    padding-y: 16;
+    gap: 14;
+    rotation: 0;
+    shadow-color: #00000030;
+    shadow-x: 0;
+    shadow-y: 8;
+    shadow-blur: 24;
+    shadow-spread: 0;
+    tail: true;
+    tail-width: 24;
+    tail-height: 16;
+    tail-offset-x: 32;
+    avatar-size: 46;
+    avatar-border-width: 0;
+    avatar-background: #EAEAEA;
+    header-size: 19;
+    header-weight: 500;
+    header-color: #737373;
+    header-line-height: 1.2;
+    body-size: 28;
+    body-weight: 750;
+    body-color: #000000;
+    body-line-height: 1.18;
+    body-max-lines: 3;
+    enter: pop;
+    enter-frames: 12;
+    enter-start-scale: 0.9;
+    enter-rotation-delta: 0;
+    enter-easing: ease-out;
+    exit: none;
+    hold: none;
+  }
+
+  caption.primary {
+    stack-order: 70;
+    x: 0.5;
+    y: 0.72;
+    width: 0.88;
+    height: 0.16;
+    anchor-x: center;
+    anchor-y: center;
+    align: center;
+    block-align: center;
+    inline-size: hug;
+    wrap: word;
+    max-lines: 2;
+    max-words-per-line: 4;
+    line-height: 1.28;
+    size: 38;
+    letter-spacing: -0.5;
+    fill: #FFFFFF;
+    stroke-color: #000000;
+    stroke-width: 2;
+    shadow-color: #000000;
+    shadow-opacity: 0.7;
+    shadow-x: 0;
+    shadow-y: 2;
+    shadow-blur: 5;
+    background: #00000000;
+    border-color: #00000000;
+    border-width: 0;
+    padding: 0 0;
+    radius: 0;
+    karaoke: current;
+    karaoke-transition: step;
+    active-fill: #FFF500;
+    active-box: none;
+    active-response: pop;
+    active-response-frames: 2;
+    active-scale: 1.05;
+    lead-frames: 2;
+    tail-frames: 2;
+    handoff: cut;
+    cue-enter: fade;
+    cue-enter-frames: 2;
+    cue-exit: fade;
+    cue-exit-frames: 2;
+  }
+</sheet>

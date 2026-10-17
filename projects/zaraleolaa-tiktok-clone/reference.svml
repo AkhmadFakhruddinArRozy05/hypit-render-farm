@@ -1,0 +1,102 @@
+<?svml using="@hypit/markup@1"?>
+
+<svml>
+  <import from="@hypit/script@1"/>
+  <import as="text" from="@hypit/text@1"/>
+  <import as="asset" from="@hypit/media@1"/>
+  <import as="mediaop" from="@hypit/media-operations@1"/>
+  <import as="time" from="@hypit/timeline-author@1"/>
+  <import as="visual" from="@hypit/visual-track@1"/>
+  <import as="audio" from="@hypit/audio-track@1"/>
+  <import as="caption" from="@hypit/caption@1"/>
+  <import as="caption-fine" from="@hypit/caption-fine@1"/>
+  <import as="comment" from="@hypit/comment-sticker@1"/>
+  <import as="fonts" from="@hypit/fontsource@1"/>
+  <import as="space" from="@hypit/spatial@1"/>
+  <import as="film" from="@hypit/film@1"/>
+  <import as="html" from="@hypit/html-video@1"/>
+  <import as="recipes" source="./recipes.svs"/>
+
+  <script id="story">
+    <hook>
+      <ZARA>gantian gak icha || make up zaraa || aku tunggu
+    </hook>
+    <makeup-reaction>
+      <ZARA>Maksud saya, || saya tidak bisa menangis.
+    </makeup-reaction>
+    <closing>
+      <ZARA>Terima kasih sudah menonton!
+    </closing>
+  </script>
+
+  <!-- Assets -->
+  <asset:Video id="source-video" src="./references/source.mp4"/>
+  <asset:Image id="avatar-gulabatu" src="./assets/avatar-gulabatu.png"/>
+
+  <!-- Texts for Comment Sticker -->
+  <text:Value id="comment-author">@Gulabatu</text:Value>
+  <text:Value id="comment-header">Reply to Gulabatu's comment</text:Value>
+  <text:Value id="comment-body">gantian gak icha make up zaraa aku tunggu</text:Value>
+
+  <!-- Canvas, Clock & Timeline -->
+  <space:Canvas id="vertical" width="720" height="1280"/>
+  <time:Clock id="clock" frame-rate="30"/>
+
+  <mediaop:Normalize id="source-media" source={source-video}
+    video="primary-moving" audio="default" span-authority="video" clock={clock}/>
+
+  <time:Timeline id="main-timeline" clock={clock} end="video-window.end">
+    <time:Window id="video-window" from="start" for="230f"/>
+  </time:Timeline>
+
+  <!-- Fullscreen frame for background video -->
+  <space:Frame id="full-frame" within={vertical.bounds}
+    left="0%" top="0%" right="100%" bottom="100%"/>
+
+  <!-- Exact position frame for TikTok Comment Sticker: x=198px, y=172px, w=330px, h=173px in 720x1280 -->
+  <space:Frame id="comment-frame" within={vertical.bounds}
+    left="27.5%" top="13.4%" right="73.3%" bottom="27%"/>
+
+  <!-- Fonts -->
+  <fonts:Face id="font-inter-regular" package="@fontsource-variable/inter" weight="500" style="normal"/>
+  <fonts:Face id="font-inter-bold" package="@fontsource-variable/inter" weight="700" style="normal"/>
+  <asset:FontStack id="ui-font" primary={font-inter-regular}/>
+
+  <!-- Comment Sticker Track -->
+  <comment:Style id="comment-style" recipe={recipes.comment.tiktok} font={ui-font}/>
+  <comment:Track id="comment-track" timeline={main-timeline.timeline}>
+    <comment:Sticker
+      id="opening-comment"
+      comment={comment-body}
+      frame={comment-frame}
+      style={comment-style}
+      author={comment-author}
+      header={comment-header}
+      during={main-timeline.video-window}
+    />
+  </comment:Track>
+
+  <!-- Background Video Track -->
+  <visual:Track id="background-track" timeline={main-timeline.timeline}>
+    <visual:Clip id="source-take" media={source-media.media} fit="cover" z="10"
+      frame={full-frame} during={main-timeline.video-window}/>
+  </visual:Track>
+
+  <!-- Audio Track -->
+  <audio:Track id="audio-track" timeline={main-timeline.timeline}>
+    <audio:Clip id="source-audio" source={source-media.media}
+      during={main-timeline.video-window} gain="1.0"/>
+  </audio:Track>
+
+  <!-- Master Composition -->
+  <film:Film id="main" canvas={vertical.canvas} timeline={main-timeline.timeline}
+    appearance={recipes.film.vertical}>
+    <film:Track source={background-track.visual}/>
+    <film:Track source={comment-track.visual}/>
+    <film:Track source={audio-track.audio}/>
+  </film:Film>
+
+  <!-- Output Video Target -->
+  <html:Video id="final" composition={main.composition}
+    timeline={main-timeline.timeline}/>
+</svml>
