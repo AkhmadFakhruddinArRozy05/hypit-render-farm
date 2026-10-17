@@ -84,7 +84,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pip install yt-dlp
+          pip install "yt-dlp[default,curl-cffi]"
           python3 scripts/ingest.py --project "${{ inputs.project }}" --release-tag "${{ inputs.release_tag }}"
 
       - name: Start Warm WhisperX Service (if needed)

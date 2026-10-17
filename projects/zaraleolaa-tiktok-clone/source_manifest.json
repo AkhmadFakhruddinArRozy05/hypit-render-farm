@@ -5,8 +5,9 @@
   "sources": [
     {
       "id": "source-video",
-      "type": "social_url",
-      "url": "https://www.tiktok.com/@zaraleolaa/video/7670880753441361172",
+      "type": "local_asset",
+      "file_name": "source.mp4",
+      "local_path": "/Users/ozy/Projects/zaraleolaa-tiktok-clone/references/source.mp4",
       "destination": "references/source.mp4"
     }
   ]
