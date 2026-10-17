@@ -45,18 +45,19 @@ jobs:
           version: "latest"
           python-version: "3.11"
 
-      - name: Cache Hypit Engine & WhisperX Models
+      - name: Cache Hypit Engine, Browser & Models
         id: cache-hypit
         uses: actions/cache@v4
         with:
           path: |
             hypit
+            ~/.cache/hypit
             ~/.cache/huggingface
             ~/.cache/torch
             ~/.cache/puppeteer
-          key: hypit-engine-ubuntu-v2-${{ hashFiles('.github/workflows/render.yml') }}
+          key: hypit-engine-ubuntu-v3-${{ hashFiles('.github/workflows/render.yml') }}
           restore-keys: |
-            hypit-engine-ubuntu-v2-
+            hypit-engine-ubuntu-v3-
 
       - name: Setup Hypit Monorepo Engine
         run: |
@@ -66,8 +67,6 @@ jobs:
           fi
           cd hypit
           pnpm install --frozen-lockfile=false
-          # Ensure Chrome for Testing is available
-          pnpm exec tsx packages/browser-capture/src/cli.ts install
           # Setup WhisperX local runtime virtualenv
           cd packages/provider-whisperx-local/runtime
           uv sync
@@ -86,6 +85,12 @@ jobs:
         run: |
           pip install "yt-dlp[default,curl-cffi]"
           python3 scripts/ingest.py --project "${{ inputs.project }}" --release-tag "${{ inputs.release_tag }}"
+
+      - name: Prepare Hypit Programs & Headless Browser
+        run: |
+          cd "projects/${{ inputs.project }}"
+          echo "Preparing Hypit runtime programs and headless shell..."
+          node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" programs prepare --runtime hypit.runtime.json
 
       - name: Start Warm WhisperX Service (if needed)
         run: |
