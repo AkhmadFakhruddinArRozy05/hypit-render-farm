@@ -84,7 +84,7 @@
     border-color: #000000;
     border-width: 3;
     radius: 14;
-    padding-x: 32;
+    padding-x: 26;
     padding-y: 22;
     gap: 12;
     rotation: 0;
@@ -104,7 +104,7 @@
     header-weight: 700;
     header-line-height: 1.2;
     header-color: #FFFFFF;
-    body-size: 46;
+    body-size: 44;
     body-weight: 900;
     body-line-height: 1.2;
     body-color: #FFFFFF;
