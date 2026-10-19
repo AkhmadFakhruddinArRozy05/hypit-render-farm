@@ -1,615 +1,1110 @@
 {
+  "schema_version": "1.0",
+  "source_fingerprint": "06497f4efa7a030024ad146c137934b43b54685a7ec6c4a20363559e23711a4a",
+  "duration": 37.85,
+  "engine": "cloudflare-workers-ai",
+  "model": "@cf/openai/whisper",
+  "language": "id",
   "text": "Bapak, satu teg, nah kurang, kurang, kurang, kurang, kurang, kurang Satu kema-satu hujalan Dia terita kalo biaya produksi untuk marat ton itu seharinya itu tinggi banget Dan di podcast itu dia juga bilang, kemarin marat ton itu ga Gak menghasilkan gitu loh, ga, ga yang sampai untung banyak banget Karena biaya produksi juga tinggi, gue juga kan, biaya gueira cuma ya udah sofa, rumah, fila, kamera, dan... Ternyata, ngelakuinnya bener-bener banyak gitu, kayak udah mau shooting sinetron. Nah, ini juga menentukan, ya, kualitas dari klitingnya.",
-  "duration": 37.88,
-  "words": [
+  "segments": [
     {
-      "index": 0,
-      "word": "Bapak,",
+      "id": 0,
       "start": 0.0,
-      "end": 0.62,
-      "duration": 0.62
-    },
-    {
-      "index": 1,
-      "word": "satu",
-      "start": 0.62,
-      "end": 0.82,
-      "duration": 0.2
-    },
-    {
-      "index": 2,
-      "word": "teg,",
-      "start": 0.82,
-      "end": 1.4,
-      "duration": 0.58
-    },
-    {
-      "index": 3,
-      "word": "nah",
-      "start": 1.4,
-      "end": 1.48,
-      "duration": 0.08
-    },
-    {
-      "index": 4,
-      "word": "kurang,",
-      "start": 1.48,
-      "end": 2.36,
-      "duration": 0.88
-    },
-    {
-      "index": 5,
-      "word": "kurang,",
-      "start": 2.36,
-      "end": 3.78,
-      "duration": 1.42
-    },
-    {
-      "index": 6,
-      "word": "kurang,",
-      "start": 3.78,
-      "end": 4.32,
-      "duration": 0.54
-    },
-    {
-      "index": 7,
-      "word": "kurang,",
-      "start": 4.32,
-      "end": 4.36,
-      "duration": 0.04
-    },
-    {
-      "index": 8,
-      "word": "kurang,",
-      "start": 4.36,
-      "end": 4.68,
-      "duration": 0.32
-    },
-    {
-      "index": 9,
-      "word": "kurang",
-      "start": 4.68,
-      "end": 4.8,
-      "duration": 0.12
-    },
-    {
-      "index": 10,
-      "word": "Satu",
-      "start": 5.14,
-      "end": 5.7,
-      "duration": 0.56
-    },
-    {
-      "index": 11,
-      "word": "kema",
-      "start": 5.7,
-      "end": 5.9,
-      "duration": 0.2
-    },
-    {
-      "index": 12,
-      "word": "-satu",
-      "start": 5.9,
-      "end": 6.14,
-      "duration": 0.24
-    },
-    {
-      "index": 13,
-      "word": "hujalan",
-      "start": 6.14,
-      "end": 6.48,
-      "duration": 0.34
-    },
-    {
-      "index": 14,
-      "word": "Dia",
-      "start": 6.82,
-      "end": 6.94,
-      "duration": 0.12
-    },
-    {
-      "index": 15,
-      "word": "terita",
-      "start": 6.94,
-      "end": 7.26,
-      "duration": 0.32
-    },
-    {
-      "index": 16,
-      "word": "kalo",
-      "start": 7.26,
-      "end": 7.74,
-      "duration": 0.48
-    },
-    {
-      "index": 17,
-      "word": "biaya",
-      "start": 7.74,
       "end": 8.64,
-      "duration": 0.9
+      "text": "Bapak,satuteg,nahkurang,kurang,kurang,kurang,kurang,kurangSatukema-satuhujalanDiateritakalobiaya",
+      "words": [
+        {
+          "word": "Bapak,",
+          "start": 0.0,
+          "end": 0.62,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "satu",
+          "start": 0.62,
+          "end": 0.82,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "teg,",
+          "start": 0.82,
+          "end": 1.4,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "nah",
+          "start": 1.4,
+          "end": 1.48,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kurang,",
+          "start": 1.48,
+          "end": 2.36,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kurang,",
+          "start": 2.36,
+          "end": 3.78,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kurang,",
+          "start": 3.78,
+          "end": 4.32,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kurang,",
+          "start": 4.32,
+          "end": 4.36,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kurang,",
+          "start": 4.36,
+          "end": 4.68,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kurang",
+          "start": 4.68,
+          "end": 4.8,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "Satu",
+          "start": 5.14,
+          "end": 5.7,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kema",
+          "start": 5.7,
+          "end": 5.9,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "-satu",
+          "start": 5.9,
+          "end": 6.14,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "hujalan",
+          "start": 6.14,
+          "end": 6.48,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "Dia",
+          "start": 6.82,
+          "end": 6.94,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "terita",
+          "start": 6.94,
+          "end": 7.26,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kalo",
+          "start": 7.26,
+          "end": 7.74,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "biaya",
+          "start": 7.74,
+          "end": 8.64,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        }
+      ]
     },
     {
-      "index": 18,
-      "word": "produksi",
+      "id": 1,
       "start": 8.64,
-      "end": 9.48,
-      "duration": 0.84
-    },
-    {
-      "index": 19,
-      "word": "untuk",
-      "start": 9.48,
-      "end": 9.88,
-      "duration": 0.4
-    },
-    {
-      "index": 20,
-      "word": "marat",
-      "start": 9.88,
-      "end": 10.24,
-      "duration": 0.36
-    },
-    {
-      "index": 21,
-      "word": "ton",
-      "start": 10.24,
-      "end": 10.46,
-      "duration": 0.22
-    },
-    {
-      "index": 22,
-      "word": "itu",
-      "start": 10.46,
-      "end": 10.64,
-      "duration": 0.18
-    },
-    {
-      "index": 23,
-      "word": "seharinya",
-      "start": 10.64,
-      "end": 11.12,
-      "duration": 0.48
-    },
-    {
-      "index": 24,
-      "word": "itu",
-      "start": 11.12,
-      "end": 11.26,
-      "duration": 0.14
-    },
-    {
-      "index": 25,
-      "word": "tinggi",
-      "start": 11.26,
-      "end": 11.52,
-      "duration": 0.26
-    },
-    {
-      "index": 26,
-      "word": "banget",
-      "start": 11.52,
-      "end": 11.74,
-      "duration": 0.22
-    },
-    {
-      "index": 27,
-      "word": "Dan",
-      "start": 11.94,
-      "end": 12.0,
-      "duration": 0.06
-    },
-    {
-      "index": 28,
-      "word": "di",
-      "start": 12.0,
-      "end": 12.62,
-      "duration": 0.62
-    },
-    {
-      "index": 29,
-      "word": "podcast",
-      "start": 12.62,
-      "end": 12.88,
-      "duration": 0.26
-    },
-    {
-      "index": 30,
-      "word": "itu",
-      "start": 12.88,
-      "end": 13.12,
-      "duration": 0.24
-    },
-    {
-      "index": 31,
-      "word": "dia",
-      "start": 13.12,
-      "end": 13.22,
-      "duration": 0.1
-    },
-    {
-      "index": 32,
-      "word": "juga",
-      "start": 13.22,
-      "end": 13.4,
-      "duration": 0.18
-    },
-    {
-      "index": 33,
-      "word": "bilang,",
-      "start": 13.4,
-      "end": 13.64,
-      "duration": 0.24
-    },
-    {
-      "index": 34,
-      "word": "kemarin",
-      "start": 13.64,
-      "end": 14.96,
-      "duration": 1.32
-    },
-    {
-      "index": 35,
-      "word": "marat",
-      "start": 14.96,
-      "end": 15.24,
-      "duration": 0.28
-    },
-    {
-      "index": 36,
-      "word": "ton",
-      "start": 15.24,
-      "end": 15.38,
-      "duration": 0.14
-    },
-    {
-      "index": 37,
-      "word": "itu",
-      "start": 15.38,
-      "end": 15.52,
-      "duration": 0.14
-    },
-    {
-      "index": 38,
-      "word": "ga",
-      "start": 15.52,
-      "end": 15.7,
-      "duration": 0.18
-    },
-    {
-      "index": 39,
-      "word": "Gak",
-      "start": 16.34,
       "end": 16.9,
-      "duration": 0.56
+      "text": "produksiuntukmarattonituseharinyaitutinggibangetDandipodcastitudiajugabilang,kemarinmarattonitugaGak",
+      "words": [
+        {
+          "word": "produksi",
+          "start": 8.64,
+          "end": 9.48,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "untuk",
+          "start": 9.48,
+          "end": 9.88,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "marat",
+          "start": 9.88,
+          "end": 10.24,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "ton",
+          "start": 10.24,
+          "end": 10.46,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "itu",
+          "start": 10.46,
+          "end": 10.64,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "seharinya",
+          "start": 10.64,
+          "end": 11.12,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "itu",
+          "start": 11.12,
+          "end": 11.26,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "tinggi",
+          "start": 11.26,
+          "end": 11.52,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "banget",
+          "start": 11.52,
+          "end": 11.74,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "Dan",
+          "start": 11.94,
+          "end": 12.0,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "di",
+          "start": 12.0,
+          "end": 12.62,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "podcast",
+          "start": 12.62,
+          "end": 12.88,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "itu",
+          "start": 12.88,
+          "end": 13.12,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "dia",
+          "start": 13.12,
+          "end": 13.22,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "juga",
+          "start": 13.22,
+          "end": 13.4,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "bilang,",
+          "start": 13.4,
+          "end": 13.64,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kemarin",
+          "start": 13.64,
+          "end": 14.96,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "marat",
+          "start": 14.96,
+          "end": 15.24,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "ton",
+          "start": 15.24,
+          "end": 15.38,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "itu",
+          "start": 15.38,
+          "end": 15.52,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "ga",
+          "start": 15.52,
+          "end": 15.7,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "Gak",
+          "start": 16.34,
+          "end": 16.9,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        }
+      ]
     },
     {
-      "index": 40,
-      "word": "menghasilkan",
+      "id": 2,
       "start": 16.9,
-      "end": 17.62,
-      "duration": 0.72
-    },
-    {
-      "index": 41,
-      "word": "gitu",
-      "start": 17.62,
-      "end": 17.82,
-      "duration": 0.2
-    },
-    {
-      "index": 42,
-      "word": "loh,",
-      "start": 17.82,
-      "end": 18.06,
-      "duration": 0.24
-    },
-    {
-      "index": 43,
-      "word": "ga,",
-      "start": 18.06,
-      "end": 18.24,
-      "duration": 0.18
-    },
-    {
-      "index": 44,
-      "word": "ga",
-      "start": 18.24,
-      "end": 18.49,
-      "duration": 0.25
-    },
-    {
-      "index": 45,
-      "word": "yang",
-      "start": 18.24,
-      "end": 18.32,
-      "duration": 0.08
-    },
-    {
-      "index": 46,
-      "word": "sampai",
-      "start": 18.32,
-      "end": 18.56,
-      "duration": 0.24
-    },
-    {
-      "index": 47,
-      "word": "untung",
-      "start": 18.56,
-      "end": 18.82,
-      "duration": 0.26
-    },
-    {
-      "index": 48,
-      "word": "banyak",
-      "start": 18.82,
-      "end": 19.1,
-      "duration": 0.28
-    },
-    {
-      "index": 49,
-      "word": "banget",
-      "start": 19.1,
-      "end": 19.38,
-      "duration": 0.28
-    },
-    {
-      "index": 50,
-      "word": "Karena",
-      "start": 19.98,
-      "end": 20.28,
-      "duration": 0.3
-    },
-    {
-      "index": 51,
-      "word": "biaya",
-      "start": 20.28,
-      "end": 20.62,
-      "duration": 0.34
-    },
-    {
-      "index": 52,
-      "word": "produksi",
-      "start": 20.62,
-      "end": 21.06,
-      "duration": 0.44
-    },
-    {
-      "index": 53,
-      "word": "juga",
-      "start": 21.06,
-      "end": 21.24,
-      "duration": 0.18
-    },
-    {
-      "index": 54,
-      "word": "tinggi,",
-      "start": 21.24,
-      "end": 21.76,
-      "duration": 0.52
-    },
-    {
-      "index": 55,
-      "word": "gue",
-      "start": 21.76,
-      "end": 21.78,
-      "duration": 0.02
-    },
-    {
-      "index": 56,
-      "word": "juga",
-      "start": 21.78,
-      "end": 22.0,
-      "duration": 0.22
-    },
-    {
-      "index": 57,
-      "word": "kan,",
-      "start": 22.0,
-      "end": 22.24,
-      "duration": 0.24
-    },
-    {
-      "index": 58,
-      "word": "biaya",
-      "start": 22.24,
-      "end": 22.46,
-      "duration": 0.22
-    },
-    {
-      "index": 59,
-      "word": "gueira",
-      "start": 22.46,
-      "end": 22.72,
-      "duration": 0.26
-    },
-    {
-      "index": 60,
-      "word": "cuma",
-      "start": 22.72,
-      "end": 23.26,
-      "duration": 0.54
-    },
-    {
-      "index": 61,
-      "word": "ya",
-      "start": 23.26,
-      "end": 23.68,
-      "duration": 0.42
-    },
-    {
-      "index": 62,
-      "word": "udah",
-      "start": 23.68,
-      "end": 23.84,
-      "duration": 0.16
-    },
-    {
-      "index": 63,
-      "word": "sofa,",
-      "start": 23.84,
       "end": 24.92,
-      "duration": 1.08
+      "text": "menghasilkangituloh,ga,gayangsampaiuntungbanyakbangetKarenabiayaproduksijugatinggi,guejugakan,biayagueiracumayaudahsofa,",
+      "words": [
+        {
+          "word": "menghasilkan",
+          "start": 16.9,
+          "end": 17.62,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "gitu",
+          "start": 17.62,
+          "end": 17.82,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "loh,",
+          "start": 17.82,
+          "end": 18.06,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "ga,",
+          "start": 18.06,
+          "end": 18.24,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "ga",
+          "start": 18.24,
+          "end": 18.24,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "yang",
+          "start": 18.24,
+          "end": 18.32,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "sampai",
+          "start": 18.32,
+          "end": 18.56,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "untung",
+          "start": 18.56,
+          "end": 18.82,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "banyak",
+          "start": 18.82,
+          "end": 19.1,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "banget",
+          "start": 19.1,
+          "end": 19.38,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "Karena",
+          "start": 19.98,
+          "end": 20.28,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "biaya",
+          "start": 20.28,
+          "end": 20.62,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "produksi",
+          "start": 20.62,
+          "end": 21.06,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "juga",
+          "start": 21.06,
+          "end": 21.24,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "tinggi,",
+          "start": 21.24,
+          "end": 21.76,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "gue",
+          "start": 21.76,
+          "end": 21.78,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "juga",
+          "start": 21.78,
+          "end": 22.0,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kan,",
+          "start": 22.0,
+          "end": 22.24,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "biaya",
+          "start": 22.24,
+          "end": 22.46,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "gueira",
+          "start": 22.46,
+          "end": 22.72,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "cuma",
+          "start": 22.72,
+          "end": 23.26,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "ya",
+          "start": 23.26,
+          "end": 23.68,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "udah",
+          "start": 23.68,
+          "end": 23.84,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "sofa,",
+          "start": 23.84,
+          "end": 24.92,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        }
+      ]
     },
     {
-      "index": 64,
-      "word": "rumah,",
+      "id": 3,
       "start": 24.92,
-      "end": 26.0,
-      "duration": 1.08
-    },
-    {
-      "index": 65,
-      "word": "fila,",
-      "start": 26.0,
-      "end": 26.78,
-      "duration": 0.78
-    },
-    {
-      "index": 66,
-      "word": "kamera,",
-      "start": 26.78,
-      "end": 27.5,
-      "duration": 0.72
-    },
-    {
-      "index": 67,
-      "word": "dan...",
-      "start": 27.5,
       "end": 27.96,
-      "duration": 0.46
+      "text": "rumah,fila,kamera,dan...",
+      "words": [
+        {
+          "word": "rumah,",
+          "start": 24.92,
+          "end": 26.0,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "fila,",
+          "start": 26.0,
+          "end": 26.78,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kamera,",
+          "start": 26.78,
+          "end": 27.5,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "dan...",
+          "start": 27.5,
+          "end": 27.96,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        }
+      ]
     },
     {
-      "index": 68,
-      "word": "Ternyata,",
+      "id": 4,
       "start": 28.14,
-      "end": 28.5,
-      "duration": 0.36
-    },
-    {
-      "index": 69,
-      "word": "ngelakuinnya",
-      "start": 28.5,
-      "end": 29.02,
-      "duration": 0.52
-    },
-    {
-      "index": 70,
-      "word": "bener",
-      "start": 29.02,
-      "end": 29.34,
-      "duration": 0.32
-    },
-    {
-      "index": 71,
-      "word": "-bener",
-      "start": 29.34,
-      "end": 29.56,
-      "duration": 0.22
-    },
-    {
-      "index": 72,
-      "word": "banyak",
-      "start": 29.56,
-      "end": 29.88,
-      "duration": 0.32
-    },
-    {
-      "index": 73,
-      "word": "gitu,",
-      "start": 29.88,
-      "end": 30.22,
-      "duration": 0.34
-    },
-    {
-      "index": 74,
-      "word": "kayak",
-      "start": 30.22,
-      "end": 30.3,
-      "duration": 0.08
-    },
-    {
-      "index": 75,
-      "word": "udah",
-      "start": 30.3,
-      "end": 30.56,
-      "duration": 0.26
-    },
-    {
-      "index": 76,
-      "word": "mau",
-      "start": 30.56,
-      "end": 30.72,
-      "duration": 0.16
-    },
-    {
-      "index": 77,
-      "word": "shooting",
-      "start": 30.72,
-      "end": 31.04,
-      "duration": 0.32
-    },
-    {
-      "index": 78,
-      "word": "sinetron.",
-      "start": 31.04,
       "end": 32.2,
-      "duration": 1.16
+      "text": "Ternyata,ngelakuinnyabener-benerbanyakgitu,kayakudahmaushootingsinetron.",
+      "words": [
+        {
+          "word": "Ternyata,",
+          "start": 28.14,
+          "end": 28.5,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "ngelakuinnya",
+          "start": 28.5,
+          "end": 29.02,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "bener",
+          "start": 29.02,
+          "end": 29.34,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "-bener",
+          "start": 29.34,
+          "end": 29.56,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "banyak",
+          "start": 29.56,
+          "end": 29.88,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "gitu,",
+          "start": 29.88,
+          "end": 30.22,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kayak",
+          "start": 30.22,
+          "end": 30.3,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "udah",
+          "start": 30.3,
+          "end": 30.56,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "mau",
+          "start": 30.56,
+          "end": 30.72,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "shooting",
+          "start": 30.72,
+          "end": 31.04,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "sinetron.",
+          "start": 31.04,
+          "end": 32.2,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        }
+      ]
     },
     {
-      "index": 79,
-      "word": "Nah,",
+      "id": 5,
       "start": 32.64,
-      "end": 33.04,
-      "duration": 0.4
-    },
-    {
-      "index": 80,
-      "word": "ini",
-      "start": 33.04,
-      "end": 33.36,
-      "duration": 0.32
-    },
-    {
-      "index": 81,
-      "word": "juga",
-      "start": 33.36,
-      "end": 33.78,
-      "duration": 0.42
-    },
-    {
-      "index": 82,
-      "word": "menentukan,",
-      "start": 33.78,
-      "end": 34.92,
-      "duration": 1.14
-    },
-    {
-      "index": 83,
-      "word": "ya,",
-      "start": 34.92,
-      "end": 35.6,
-      "duration": 0.68
-    },
-    {
-      "index": 84,
-      "word": "kualitas",
-      "start": 35.6,
-      "end": 36.26,
-      "duration": 0.66
-    },
-    {
-      "index": 85,
-      "word": "dari",
-      "start": 36.26,
-      "end": 36.66,
-      "duration": 0.4
-    },
-    {
-      "index": 86,
-      "word": "klitingnya.",
-      "start": 36.66,
       "end": 37.48,
-      "duration": 0.82
+      "text": "Nah,inijugamenentukan,ya,kualitasdariklitingnya.",
+      "words": [
+        {
+          "word": "Nah,",
+          "start": 32.64,
+          "end": 33.04,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "ini",
+          "start": 33.04,
+          "end": 33.36,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "juga",
+          "start": 33.36,
+          "end": 33.78,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "menentukan,",
+          "start": 33.78,
+          "end": 34.92,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "ya,",
+          "start": 34.92,
+          "end": 35.6,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "kualitas",
+          "start": 35.6,
+          "end": 36.26,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "dari",
+          "start": 36.26,
+          "end": 36.66,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        },
+        {
+          "word": "klitingnya.",
+          "start": 36.66,
+          "end": 37.48,
+          "probability": 1.0,
+          "confidence_status": "ENGINE_REPORTED"
+        }
+      ]
     }
-  ]
+  ],
+  "raw_response": {
+    "text": "Bapak, satu teg, nah kurang, kurang, kurang, kurang, kurang, kurang Satu kema-satu hujalan Dia terita kalo biaya produksi untuk marat ton itu seharinya itu tinggi banget Dan di podcast itu dia juga bilang, kemarin marat ton itu ga Gak menghasilkan gitu loh, ga, ga yang sampai untung banyak banget Karena biaya produksi juga tinggi, gue juga kan, biaya gueira cuma ya udah sofa, rumah, fila, kamera, dan... Ternyata, ngelakuinnya bener-bener banyak gitu, kayak udah mau shooting sinetron. Nah, ini juga menentukan, ya, kualitas dari klitingnya.",
+    "vtt": "WEBVTT\n\n --> 02.360\nBapak, satu teg, nah kurang,\n\n02.360 --> 04.800\nkurang, kurang, kurang, kurang, kurang\n\n05.140 --> 06.940\nSatu kema -satu hujalan Dia\n\n06.940 --> 09.880\nterita kalo biaya produksi untuk\n\n09.880 --> 11.260\nmarat ton itu seharinya itu\n\n11.260 --> 12.880\ntinggi banget Dan di podcast\n\n12.880 --> 14.960\nitu dia juga bilang, kemarin\n\n14.960 --> 16.900\nmarat ton itu ga Gak\n\n16.900 --> 18.240\nmenghasilkan gitu loh, ga, ga\n\n18.240 --> 19.380\nyang sampai untung banyak banget\n\n19.980 --> 21.760\nKarena biaya produksi juga tinggi,\n\n21.760 --> 22.720\ngue juga kan, biaya gueira\n\n22.720 --> 26.000\ncuma ya udah sofa, rumah,\n\n26.000 --> 29.020\nfila, kamera, dan... Ternyata, ngelakuinnya\n\n29.020 --> 30.300\nbener -bener banyak gitu, kayak\n\n30.300 --> 33.040\nudah mau shooting sinetron. Nah,\n\n33.040 --> 36.260\nini juga menentukan, ya, kualitas\n\n36.260 --> 37.480\ndari klitingnya.",
+    "word_count": 87,
+    "words": [
+      {
+        "end": 0.62,
+        "start": 0,
+        "word": "Bapak,"
+      },
+      {
+        "end": 0.82,
+        "start": 0.62,
+        "word": "satu"
+      },
+      {
+        "end": 1.4,
+        "start": 0.82,
+        "word": "teg,"
+      },
+      {
+        "end": 1.48,
+        "start": 1.4,
+        "word": "nah"
+      },
+      {
+        "end": 2.36,
+        "start": 1.48,
+        "word": "kurang,"
+      },
+      {
+        "end": 3.78,
+        "start": 2.36,
+        "word": "kurang,"
+      },
+      {
+        "end": 4.32,
+        "start": 3.78,
+        "word": "kurang,"
+      },
+      {
+        "end": 4.36,
+        "start": 4.32,
+        "word": "kurang,"
+      },
+      {
+        "end": 4.68,
+        "start": 4.36,
+        "word": "kurang,"
+      },
+      {
+        "end": 4.8,
+        "start": 4.68,
+        "word": "kurang"
+      },
+      {
+        "end": 5.7,
+        "start": 5.14,
+        "word": "Satu"
+      },
+      {
+        "end": 5.9,
+        "start": 5.7,
+        "word": "kema"
+      },
+      {
+        "end": 6.14,
+        "start": 5.9,
+        "word": "-satu"
+      },
+      {
+        "end": 6.48,
+        "start": 6.14,
+        "word": "hujalan"
+      },
+      {
+        "end": 6.94,
+        "start": 6.82,
+        "word": "Dia"
+      },
+      {
+        "end": 7.26,
+        "start": 6.94,
+        "word": "terita"
+      },
+      {
+        "end": 7.74,
+        "start": 7.26,
+        "word": "kalo"
+      },
+      {
+        "end": 8.64,
+        "start": 7.74,
+        "word": "biaya"
+      },
+      {
+        "end": 9.48,
+        "start": 8.64,
+        "word": "produksi"
+      },
+      {
+        "end": 9.88,
+        "start": 9.48,
+        "word": "untuk"
+      },
+      {
+        "end": 10.24,
+        "start": 9.88,
+        "word": "marat"
+      },
+      {
+        "end": 10.46,
+        "start": 10.24,
+        "word": "ton"
+      },
+      {
+        "end": 10.64,
+        "start": 10.46,
+        "word": "itu"
+      },
+      {
+        "end": 11.12,
+        "start": 10.64,
+        "word": "seharinya"
+      },
+      {
+        "end": 11.26,
+        "start": 11.12,
+        "word": "itu"
+      },
+      {
+        "end": 11.52,
+        "start": 11.26,
+        "word": "tinggi"
+      },
+      {
+        "end": 11.74,
+        "start": 11.52,
+        "word": "banget"
+      },
+      {
+        "end": 12,
+        "start": 11.94,
+        "word": "Dan"
+      },
+      {
+        "end": 12.62,
+        "start": 12,
+        "word": "di"
+      },
+      {
+        "end": 12.88,
+        "start": 12.62,
+        "word": "podcast"
+      },
+      {
+        "end": 13.12,
+        "start": 12.88,
+        "word": "itu"
+      },
+      {
+        "end": 13.22,
+        "start": 13.12,
+        "word": "dia"
+      },
+      {
+        "end": 13.4,
+        "start": 13.22,
+        "word": "juga"
+      },
+      {
+        "end": 13.64,
+        "start": 13.4,
+        "word": "bilang,"
+      },
+      {
+        "end": 14.96,
+        "start": 13.64,
+        "word": "kemarin"
+      },
+      {
+        "end": 15.24,
+        "start": 14.96,
+        "word": "marat"
+      },
+      {
+        "end": 15.38,
+        "start": 15.24,
+        "word": "ton"
+      },
+      {
+        "end": 15.52,
+        "start": 15.38,
+        "word": "itu"
+      },
+      {
+        "end": 15.7,
+        "start": 15.52,
+        "word": "ga"
+      },
+      {
+        "end": 16.9,
+        "start": 16.34,
+        "word": "Gak"
+      },
+      {
+        "end": 17.62,
+        "start": 16.9,
+        "word": "menghasilkan"
+      },
+      {
+        "end": 17.82,
+        "start": 17.62,
+        "word": "gitu"
+      },
+      {
+        "end": 18.06,
+        "start": 17.82,
+        "word": "loh,"
+      },
+      {
+        "end": 18.24,
+        "start": 18.06,
+        "word": "ga,"
+      },
+      {
+        "end": 18.24,
+        "start": 18.24,
+        "word": "ga"
+      },
+      {
+        "end": 18.32,
+        "start": 18.24,
+        "word": "yang"
+      },
+      {
+        "end": 18.56,
+        "start": 18.32,
+        "word": "sampai"
+      },
+      {
+        "end": 18.82,
+        "start": 18.56,
+        "word": "untung"
+      },
+      {
+        "end": 19.1,
+        "start": 18.82,
+        "word": "banyak"
+      },
+      {
+        "end": 19.38,
+        "start": 19.1,
+        "word": "banget"
+      },
+      {
+        "end": 20.28,
+        "start": 19.98,
+        "word": "Karena"
+      },
+      {
+        "end": 20.62,
+        "start": 20.28,
+        "word": "biaya"
+      },
+      {
+        "end": 21.06,
+        "start": 20.62,
+        "word": "produksi"
+      },
+      {
+        "end": 21.24,
+        "start": 21.06,
+        "word": "juga"
+      },
+      {
+        "end": 21.76,
+        "start": 21.24,
+        "word": "tinggi,"
+      },
+      {
+        "end": 21.78,
+        "start": 21.76,
+        "word": "gue"
+      },
+      {
+        "end": 22,
+        "start": 21.78,
+        "word": "juga"
+      },
+      {
+        "end": 22.24,
+        "start": 22,
+        "word": "kan,"
+      },
+      {
+        "end": 22.46,
+        "start": 22.24,
+        "word": "biaya"
+      },
+      {
+        "end": 22.72,
+        "start": 22.46,
+        "word": "gueira"
+      },
+      {
+        "end": 23.26,
+        "start": 22.72,
+        "word": "cuma"
+      },
+      {
+        "end": 23.68,
+        "start": 23.26,
+        "word": "ya"
+      },
+      {
+        "end": 23.84,
+        "start": 23.68,
+        "word": "udah"
+      },
+      {
+        "end": 24.92,
+        "start": 23.84,
+        "word": "sofa,"
+      },
+      {
+        "end": 26,
+        "start": 24.92,
+        "word": "rumah,"
+      },
+      {
+        "end": 26.78,
+        "start": 26,
+        "word": "fila,"
+      },
+      {
+        "end": 27.5,
+        "start": 26.78,
+        "word": "kamera,"
+      },
+      {
+        "end": 27.96,
+        "start": 27.5,
+        "word": "dan..."
+      },
+      {
+        "end": 28.5,
+        "start": 28.14,
+        "word": "Ternyata,"
+      },
+      {
+        "end": 29.02,
+        "start": 28.5,
+        "word": "ngelakuinnya"
+      },
+      {
+        "end": 29.34,
+        "start": 29.02,
+        "word": "bener"
+      },
+      {
+        "end": 29.56,
+        "start": 29.34,
+        "word": "-bener"
+      },
+      {
+        "end": 29.88,
+        "start": 29.56,
+        "word": "banyak"
+      },
+      {
+        "end": 30.22,
+        "start": 29.88,
+        "word": "gitu,"
+      },
+      {
+        "end": 30.3,
+        "start": 30.22,
+        "word": "kayak"
+      },
+      {
+        "end": 30.56,
+        "start": 30.3,
+        "word": "udah"
+      },
+      {
+        "end": 30.72,
+        "start": 30.56,
+        "word": "mau"
+      },
+      {
+        "end": 31.04,
+        "start": 30.72,
+        "word": "shooting"
+      },
+      {
+        "end": 32.2,
+        "start": 31.04,
+        "word": "sinetron."
+      },
+      {
+        "end": 33.04,
+        "start": 32.64,
+        "word": "Nah,"
+      },
+      {
+        "end": 33.36,
+        "start": 33.04,
+        "word": "ini"
+      },
+      {
+        "end": 33.78,
+        "start": 33.36,
+        "word": "juga"
+      },
+      {
+        "end": 34.92,
+        "start": 33.78,
+        "word": "menentukan,"
+      },
+      {
+        "end": 35.6,
+        "start": 34.92,
+        "word": "ya,"
+      },
+      {
+        "end": 36.26,
+        "start": 35.6,
+        "word": "kualitas"
+      },
+      {
+        "end": 36.66,
+        "start": 36.26,
+        "word": "dari"
+      },
+      {
+        "end": 37.48,
+        "start": 36.66,
+        "word": "klitingnya."
+      }
+    ]
+  }
 }

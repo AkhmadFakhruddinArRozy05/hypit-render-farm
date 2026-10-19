@@ -69,12 +69,10 @@
     radius: 16;
     karaoke: current;
     active-fill: #FFF500;
-    cue-enter: spring;
-    cue-enter-frames: 3;
-    cue-enter-start-scale: 0.88;
+    cue-enter: none;
     cue-exit: none;
-    lead-frames: 2;
-    tail-frames: 2;
+    lead-frames: 0;
+    tail-frames: 1;
     handoff: cut;
   }
 
@@ -144,12 +142,10 @@
     karaoke: current;
     active-fill: #FF0050;
     active-scale: 1.15;
-    cue-enter: spring;
-    cue-enter-frames: 3;
-    cue-enter-start-scale: 0.85;
+    cue-enter: none;
     cue-exit: none;
-    lead-frames: 2;
-    tail-frames: 2;
+    lead-frames: 0;
+    tail-frames: 1;
     handoff: cut;
   }
 </sheet>
