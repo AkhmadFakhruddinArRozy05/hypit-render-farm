@@ -174,11 +174,12 @@ def main():
             ]
             run_cmd(cmd)
 
-            # 2. Dual-Audio for TikTok: download official commercial music if available
+            # 2. Dual-Audio for TikTok: download official commercial music if available into raw/ folder
             if "tiktok.com" in url.lower():
-                raw_dir = dest_path.parent
+                raw_dir = dest_path.parent if dest_path.parent.name == "raw" else (project_dir / "raw")
+                raw_dir.mkdir(parents=True, exist_ok=True)
                 music_dest = raw_dir / "official_music.mp3"
-                print(f"    🎵 Attempting Dual-Audio: official music track -> {music_dest.name}")
+                print(f"    🎵 Attempting Dual-Audio: official music track -> {music_dest}")
                 cmd_music = [
                     "yt-dlp",
                     "--no-check-certificates",
@@ -189,6 +190,11 @@ def main():
                     url,
                 ]
                 res_music = run_cmd(cmd_music, check=False)
+                # Handle possible yt-dlp double extension (official_music.mp3.mp3)
+                double_ext = raw_dir / "official_music.mp3.mp3"
+                if double_ext.is_file() and not music_dest.is_file():
+                    double_ext.rename(music_dest)
+
                 if res_music.returncode == 0 and music_dest.exists() and music_dest.stat().st_size > 0:
                     sz_kb = round(music_dest.stat().st_size / 1024, 1)
                     print(f"    ✓ Dual-Audio official music extracted: {music_dest.name} ({sz_kb} KB)")
