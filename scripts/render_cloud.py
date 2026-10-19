@@ -448,6 +448,8 @@ def main():
 
     # 5. Download Output Artifact
     dest_dist = farm_project_dir / "dist"
+    if dest_dist.exists():
+        shutil.rmtree(dest_dist, ignore_errors=True)
     dest_dist.mkdir(parents=True, exist_ok=True)
     print(f"\n📥 Downloading rendered video MP4 artifact to {dest_dist}...")
     run_cmd(["gh", "run", "download", run_id, "-n", f"final-video-{args.project}", "-D", str(dest_dist)], cwd=str(repo_root))
