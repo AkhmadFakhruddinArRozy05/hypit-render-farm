@@ -232,7 +232,8 @@ def main():
             sz_mb = round(dest_path.stat().st_size / (1024 * 1024), 2)
             print(f"    ✓ Successfully resolved: {dest_path.name} ({sz_mb} MB)")
             # Audio integrity verification on video/audio files
-            if dest_path.suffix.lower() in {".mp4", ".mov", ".mkv", ".webm", ".m4a", ".mp3", ".wav"}:
+            require_audio = src.get("require_audio", True)
+            if require_audio and dest_path.suffix.lower() in {".mp4", ".mov", ".mkv", ".webm", ".m4a", ".mp3", ".wav"}:
                 valid_audio, audio_info = verify_audio_integrity(dest_path)
                 if not valid_audio:
                     print(f"    ❌ [AUDIO INTEGRITY ERROR] {audio_info.get('error')}")
@@ -240,6 +241,8 @@ def main():
                     sys.exit(1)
                 else:
                     print(f"    ✓ Audio integrity verified: codec={audio_info.get('codec')}, channels={audio_info.get('channels')}, mean_volume={audio_info.get('mean_volume_db')} dB")
+            elif not require_audio:
+                print(f"    ℹ️ Skipping audio integrity verification for '{dest_path.name}' (require_audio: false).")
         else:
             print(f"    ✗ Failed to resolve destination file: {dest_path}")
             sys.exit(1)
