@@ -1,0 +1,155 @@
+<?svml using="@hypit/recipe@1"?>
+<sheet version="1">
+  film.vertical {
+    background: #000000;
+  }
+
+  card.headline_a {
+    stack-order: 85;
+    background: #FFF500;
+    border-color: #000000;
+    border-width: 0;
+    radius: 16;
+    padding-x: 28;
+    padding-y: 20;
+    gap: 12;
+    rotation: 0;
+    shadow-color: #00000073;
+    shadow-x: 0;
+    shadow-y: 6;
+    shadow-blur: 16;
+    shadow-spread: 0;
+    tail: false;
+    avatar-fallback: initial;
+    avatar-size: 44;
+    avatar-border-width: 2;
+    avatar-border-color: #000000;
+    avatar-background: #000000;
+    avatar-text-color: #FFF500;
+    header-size: 22;
+    header-weight: 700;
+    header-line-height: 1.2;
+    header-color: #000000;
+    body-size: 46;
+    body-weight: 900;
+    body-line-height: 1.2;
+    body-color: #000000;
+    body-max-lines: 3;
+    meta-size: 20;
+    meta-weight: 600;
+    meta-color: #000000A6;
+    enter: pop;
+    enter-frames: 8;
+    enter-start-scale: 0.9;
+    enter-rotation-delta: 0;
+    enter-easing: ease-out;
+    exit: none;
+    hold: none;
+  }
+
+  caption.subtitle_a {
+    stack-order: 70;
+    x: 0.5;
+    y: 0.82;
+    width: 0.88;
+    height: 0.16;
+    anchor-x: center;
+    anchor-y: bottom;
+    align: center;
+    block-align: end;
+    inline-size: fixed;
+    wrap: word;
+    size: 48;
+    line-height: 1.25;
+    fill: #FFFFFF;
+    stroke-color: #000000;
+    stroke-width: 3;
+    background: #000000A6;
+    padding: "12 24";
+    radius: 16;
+    karaoke: current;
+    active-fill: #FFF500;
+    cue-enter: spring;
+    cue-enter-frames: 3;
+    cue-enter-start-scale: 0.88;
+    cue-exit: none;
+    lead-frames: 2;
+    tail-frames: 2;
+    handoff: cut;
+  }
+
+  card.headline_b {
+    stack-order: 85;
+    background: #F97316;
+    border-color: #000000;
+    border-width: 3;
+    radius: 14;
+    padding-x: 32;
+    padding-y: 22;
+    gap: 12;
+    rotation: 0;
+    shadow-color: #000000B3;
+    shadow-x: 0;
+    shadow-y: 10;
+    shadow-blur: 28;
+    shadow-spread: 0;
+    tail: false;
+    avatar-fallback: initial;
+    avatar-size: 44;
+    avatar-border-width: 2;
+    avatar-border-color: #FFFFFF;
+    avatar-background: #000000;
+    avatar-text-color: #FFFFFF;
+    header-size: 22;
+    header-weight: 700;
+    header-line-height: 1.2;
+    header-color: #FFFFFF;
+    body-size: 52;
+    body-weight: 900;
+    body-line-height: 1.2;
+    body-color: #FFFFFF;
+    body-max-lines: 3;
+    meta-size: 20;
+    meta-weight: 600;
+    meta-color: #FFFFFFD9;
+    enter: pop;
+    enter-frames: 8;
+    enter-start-scale: 0.85;
+    enter-rotation-delta: 0;
+    enter-easing: ease-out;
+    exit: none;
+    hold: none;
+  }
+
+  caption.subtitle_b {
+    stack-order: 70;
+    x: 0.5;
+    y: 0.82;
+    width: 0.88;
+    height: 0.16;
+    anchor-x: center;
+    anchor-y: bottom;
+    align: center;
+    block-align: end;
+    inline-size: fixed;
+    wrap: word;
+    size: 50;
+    line-height: 1.25;
+    fill: #E5E7EB;
+    stroke-color: #FF0050;
+    stroke-width: 3;
+    background: #0F172ACC;
+    padding: "14 26";
+    radius: 14;
+    karaoke: current;
+    active-fill: #FF0050;
+    active-scale: 1.15;
+    cue-enter: spring;
+    cue-enter-frames: 3;
+    cue-enter-start-scale: 0.85;
+    cue-exit: none;
+    lead-frames: 2;
+    tail-frames: 2;
+    handoff: cut;
+  }
+</sheet>

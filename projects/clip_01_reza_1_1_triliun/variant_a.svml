@@ -1,155 +1,109 @@
 <?svml using="@hypit/markup@1"?>
-<svml version="1.0" aspect_ratio="9:16" width="1080" height="1920" fps="30">
-  <!-- Monorepo Packages -->
+<svml>
   <import from="@hypit/script@1"/>
   <import as="asset" from="@hypit/media@1"/>
+  <import as="media" from="@hypit/media@1"/>
   <import as="mediaop" from="@hypit/media-operations@1"/>
+  <import as="whisperx" from="@hypit/whisperx@1"/>
+  <import as="semantic" from="@hypit/narrative-temporal@1"/>
   <import as="time" from="@hypit/timeline-author@1"/>
   <import as="space" from="@hypit/spatial@1"/>
   <import as="visual" from="@hypit/visual-track@1"/>
   <import as="audio" from="@hypit/audio-track@1"/>
   <import as="caption" from="@hypit/caption@1"/>
   <import as="caption-fine" from="@hypit/caption-fine@1"/>
+  <import as="narrative-caption" from="@hypit/narrative-caption@1"/>
+  <import as="fonts" from="@hypit/fontsource@1"/>
+  <import as="comment" from="@hypit/comment-sticker@1"/>
   <import as="film" from="@hypit/film@1"/>
   <import as="html" from="@hypit/html-video@1"/>
+  <import as="recipes" source="./recipes.svs"/>
 
-  <!-- Canvas, Clock & Timeline -->
-  <space:Canvas id="vertical" width="1080" height="1920"/>
+  <script id="story">
+    <hook/>
+    <dialogue>
+      <REZA>
+        Bapak, satu take, || nah kurang, kurang, kurang, kurang, kurang, kurang. ||
+        Satu koma satu milyar, || dia cerita kalau biaya produksi || untuk marathon itu seharinya || itu tinggi banget. ||
+        Dan di podcast itu || dia juga bilang, || kemarin marathon itu gak, || gak menghasilkan gitu loh, ||
+        gak, gak yang sampai untung banyak banget || karena biaya produksi juga tinggi. ||
+        Gue kira cuma ya udah sofa, rumah, villa, kamera, dan... ||
+        Ternyata ngelakuinnya bener-bener banyak gitu, || kayak udah mau syuting sinetron. ||
+        Nah ini juga menentukan ya, || kualitas dari kontennya.
+    </dialogue>
+  </script>
+
+  <asset:Video id="source-video-asset" src="./assets/source.mp4"/>
+  <asset:Audio id="dialogue-audio-asset" src="./assets/dialogue_track.m4a"/>
+  <asset:Audio id="bgm-audio-asset" src="./assets/official_music.mp3"/>
+
+  <space:Canvas id="canvas" width="1080" height="1920"/>
+  <space:Frame id="full-frame" within={canvas.bounds} left="0%" top="0%" right="100%" bottom="100%"/>
+  <space:AnchoredFrame id="headline-card-frame" within={canvas.bounds} x="50%" y="16%" width="90%" height="18%" anchor="center"/>
+
   <time:Clock id="clock" frame-rate="30"/>
-  <time:Timeline id="main-timeline" clock={clock} end="video-window.end">
-    <time:Window id="video-window" from="start" for="1136f"/>
+
+  <mediaop:Normalize id="source-media" source={source-video-asset} clock={clock}
+    video="primary-moving" audio="none" span-authority="video"/>
+  <mediaop:Normalize id="dialogue-media" source={dialogue-audio-asset} clock={clock}
+    video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="bgm-media" source={bgm-audio-asset} clock={clock}
+    video="none" audio="default" span-authority="audio"/>
+
+  <whisperx:Alignment id="dialogue-semantic" narrative={story}
+    segment={story.segment.dialogue} media={dialogue-media.media} domain={dialogue-media.domain} language="id"/>
+
+  <time:Timeline id="film-time" clock={clock} end="dialogue-window.end">
+    <time:Window id="dialogue-window" from="start" for={dialogue-media.extent}/>
+    <time:Window id="headline-window" from="start" for="150f"/>
   </time:Timeline>
 
-  <!-- Assets -->
-  <asset:Video id="source-video" src="assets/source.mp4"/>
-  <mediaop:Normalize id="source-media" source={source-video}
-    video="primary-moving" audio="default" span-authority="video" clock={clock}/>
+  <semantic:Projection id="story-time" narrative={story} timeline={film-time.timeline}>
+    <semantic:Map alignment={dialogue-semantic.alignment} domain={dialogue-media.domain} window={film-time.dialogue-window}/>
+  </semantic:Projection>
 
-  <!-- Track 1: Background Creator Footage -->
-  <visual:Track id="background-track" timeline={main-timeline.timeline}>
-    <visual:Clip id="source-clip" media={source-media.media} fit="cover" z="10"
-      during={main-timeline.video-window}/>
+  <narrative-caption:Timing id="caption-timing" document={story.caption} binding={story.caption-binding} projection={story-time}/>
+
+  <fonts:Face id="montserrat-bold" package="@fontsource-variable/montserrat" weight="800" style="normal"/>
+  <media:FontStack id="ui-fonts" primary={montserrat-bold}/>
+
+  <caption-fine:Style id="caption-style" recipe={recipes.caption.subtitle_a} font={montserrat-bold}/>
+  <comment:Style id="headline-card-style" recipe={recipes.card.headline_a} font={ui-fonts}/>
+
+  <visual:Track id="video-track" timeline={film-time.timeline}>
+    <visual:Clip id="source-clip" media={source-media.media} during={film-time.dialogue-window} frame={full-frame} z="10" fit="cover"/>
   </visual:Track>
 
-  <!-- Track 2: Verbatim Headline Badge (HEADLINE_BOXED_YELLOW) -->
-  <visual:Track id="headline-track" timeline={main-timeline.timeline}>
-    <visual:Badge id="headline-badge" preset="HEADLINE_BOXED_YELLOW"
-      font="Montserrat" size="54px" color="#000000" bg="#FFF500"
-      top="160px" alignment="center" during={main-timeline.video-window}>
-      <text>REZA ARAP TOLAK MARAPHTON S4 KECUALI ADA 1.1 TRILIUN</text>
-    </visual:Badge>
-  </visual:Track>
+  <comment:Track id="headline-track" timeline={film-time.timeline}>
+    <comment:Sticker id="headline-sticker" frame={headline-card-frame} style={headline-card-style}
+      header="@bolotani_com" author="@bolotani_com" meta="HOT TOPIC · 1.1 TRILIUN" during={film-time.headline-window}>
+      REZA ARAP TOLAK MARAPHTON S4 KECUALI ADA 1.1 TRILIUN
+    </comment:Sticker>
+  </comment:Track>
 
-  <!-- Track 3: 1:1 Verbatim Word-Level Takarir Kinetik (SUB_MODERN_PILL) -->
-  <caption:Track id="subtitle-track" timeline={main-timeline.timeline}>
-    <caption-fine:Component id="captions" preset="SUB_MODERN_PILL"
-      activePaint="#FFF500" basePaint="#FFFFFF"
-      marginV="320" borderStyle="3"
-      font="Montserrat" size="48px" animation="karaoke_highlight">
-      <cue start="0.000s" end="0.620s">Bapak,</cue>
-      <cue start="0.620s" end="0.820s">satu</cue>
-      <cue start="0.820s" end="1.400s">teg,</cue>
-      <cue start="1.400s" end="1.480s">nah</cue>
-      <cue start="1.480s" end="2.360s">kurang,</cue>
-      <cue start="2.360s" end="3.780s">kurang,</cue>
-      <cue start="3.780s" end="4.320s">kurang,</cue>
-      <cue start="4.320s" end="4.360s">kurang,</cue>
-      <cue start="4.360s" end="4.680s">kurang,</cue>
-      <cue start="4.680s" end="4.800s">kurang</cue>
-      <cue start="5.140s" end="5.700s">Satu</cue>
-      <cue start="5.700s" end="5.900s">kema</cue>
-      <cue start="5.900s" end="6.140s">-satu</cue>
-      <cue start="6.140s" end="6.480s">hujalan</cue>
-      <cue start="6.820s" end="6.940s">Dia</cue>
-      <cue start="6.940s" end="7.260s">terita</cue>
-      <cue start="7.260s" end="7.740s">kalo</cue>
-      <cue start="7.740s" end="8.640s">biaya</cue>
-      <cue start="8.640s" end="9.480s">produksi</cue>
-      <cue start="9.480s" end="9.880s">untuk</cue>
-      <cue start="9.880s" end="10.240s">marat</cue>
-      <cue start="10.240s" end="10.460s">ton</cue>
-      <cue start="10.460s" end="10.640s">itu</cue>
-      <cue start="10.640s" end="11.120s">seharinya</cue>
-      <cue start="11.120s" end="11.260s">itu</cue>
-      <cue start="11.260s" end="11.520s">tinggi</cue>
-      <cue start="11.520s" end="11.740s">banget</cue>
-      <cue start="11.940s" end="12.000s">Dan</cue>
-      <cue start="12.000s" end="12.620s">di</cue>
-      <cue start="12.620s" end="12.880s">podcast</cue>
-      <cue start="12.880s" end="13.120s">itu</cue>
-      <cue start="13.120s" end="13.220s">dia</cue>
-      <cue start="13.220s" end="13.400s">juga</cue>
-      <cue start="13.400s" end="13.640s">bilang,</cue>
-      <cue start="13.640s" end="14.960s">kemarin</cue>
-      <cue start="14.960s" end="15.240s">marat</cue>
-      <cue start="15.240s" end="15.380s">ton</cue>
-      <cue start="15.380s" end="15.520s">itu</cue>
-      <cue start="15.520s" end="15.700s">ga</cue>
-      <cue start="16.340s" end="16.900s">Gak</cue>
-      <cue start="16.900s" end="17.620s">menghasilkan</cue>
-      <cue start="17.620s" end="17.820s">gitu</cue>
-      <cue start="17.820s" end="18.060s">loh,</cue>
-      <cue start="18.060s" end="18.240s">ga,</cue>
-      <cue start="18.240s" end="18.490s">ga</cue>
-      <cue start="18.240s" end="18.320s">yang</cue>
-      <cue start="18.320s" end="18.560s">sampai</cue>
-      <cue start="18.560s" end="18.820s">untung</cue>
-      <cue start="18.820s" end="19.100s">banyak</cue>
-      <cue start="19.100s" end="19.380s">banget</cue>
-      <cue start="19.980s" end="20.280s">Karena</cue>
-      <cue start="20.280s" end="20.620s">biaya</cue>
-      <cue start="20.620s" end="21.060s">produksi</cue>
-      <cue start="21.060s" end="21.240s">juga</cue>
-      <cue start="21.240s" end="21.760s">tinggi,</cue>
-      <cue start="21.760s" end="21.780s">gue</cue>
-      <cue start="21.780s" end="22.000s">juga</cue>
-      <cue start="22.000s" end="22.240s">kan,</cue>
-      <cue start="22.240s" end="22.460s">biaya</cue>
-      <cue start="22.460s" end="22.720s">gueira</cue>
-      <cue start="22.720s" end="23.260s">cuma</cue>
-      <cue start="23.260s" end="23.680s">ya</cue>
-      <cue start="23.680s" end="23.840s">udah</cue>
-      <cue start="23.840s" end="24.920s">sofa,</cue>
-      <cue start="24.920s" end="26.000s">rumah,</cue>
-      <cue start="26.000s" end="26.780s">fila,</cue>
-      <cue start="26.780s" end="27.500s">kamera,</cue>
-      <cue start="27.500s" end="27.960s">dan...</cue>
-      <cue start="28.140s" end="28.500s">Ternyata,</cue>
-      <cue start="28.500s" end="29.020s">ngelakuinnya</cue>
-      <cue start="29.020s" end="29.340s">bener</cue>
-      <cue start="29.340s" end="29.560s">-bener</cue>
-      <cue start="29.560s" end="29.880s">banyak</cue>
-      <cue start="29.880s" end="30.220s">gitu,</cue>
-      <cue start="30.220s" end="30.300s">kayak</cue>
-      <cue start="30.300s" end="30.560s">udah</cue>
-      <cue start="30.560s" end="30.720s">mau</cue>
-      <cue start="30.720s" end="31.040s">shooting</cue>
-      <cue start="31.040s" end="32.200s">sinetron.</cue>
-      <cue start="32.640s" end="33.040s">Nah,</cue>
-      <cue start="33.040s" end="33.360s">ini</cue>
-      <cue start="33.360s" end="33.780s">juga</cue>
-      <cue start="33.780s" end="34.920s">menentukan,</cue>
-      <cue start="34.920s" end="35.600s">ya,</cue>
-      <cue start="35.600s" end="36.260s">kualitas</cue>
-      <cue start="36.260s" end="36.660s">dari</cue>
-      <cue start="36.660s" end="37.480s">klitingnya.</cue>
-    </caption-fine:Component>
-  </caption:Track>
+  <caption-fine:Caption id="captions" document={story.caption} timing={caption-timing}
+    timeline={film-time.timeline} within={canvas.bounds}>
+    <caption-fine:Use style={caption-style}/>
+  </caption-fine:Caption>
 
-  <!-- Track 4: Creator Audio Master Track (Default Authority) -->
-  <audio:Track id="master-audio-track" timeline={main-timeline.timeline}>
-    <audio:Clip id="creator-vocal-audio" source={source-media.media}
-      during={main-timeline.video-window} gain="1.0"/>
+  <audio:Track id="dialogue-sound" timeline={film-time.timeline}>
+    <audio:Clip id="dialogue-clip" source={dialogue-media.media} during={film-time.dialogue-window} gain="1.0"/>
   </audio:Track>
 
-  <!-- Master Composition -->
-  <film:Film id="main" canvas={vertical.canvas} timeline={main-timeline.timeline}>
-    <film:Track source={background-track.visual}/>
+  <audio:Track id="bgm-sound" timeline={film-time.timeline}>
+    <audio:Clip id="bgm-clip" source={bgm-media.media} during={film-time.dialogue-window}
+      gain="0.08" fade-in="15f" fade-out="30f"/>
+  </audio:Track>
+
+  <film:Film id="main" canvas={canvas.canvas} timeline={film-time.timeline}
+    appearance={recipes.film.vertical}>
+    <film:Track source={video-track.visual}/>
+    <film:Track source={dialogue-sound.audio}/>
+    <film:Track source={bgm-sound.audio}/>
     <film:Track source={headline-track.visual}/>
-    <film:Track source={subtitle-track.caption}/>
-    <film:Track source={master-audio-track.audio}/>
+    <film:Track source={captions.visual}/>
   </film:Film>
 
-  <!-- Output Target -->
-  <html:Video id="final" composition={main.composition} timeline={main-timeline.timeline}/>
+  <html:Video id="final" composition={main.composition} timeline={film-time.timeline}
+    start-frame="0" end-frame-exclusive="1136"/>
 </svml>
