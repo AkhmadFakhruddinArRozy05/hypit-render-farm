@@ -44,6 +44,8 @@ def check_github_rate_limit(min_remaining: int = GITHUB_API_MIN_REMAINING) -> di
                 print(f"⚠️ [RATE-LIMIT] GitHub API core quota critically low ({remaining}/{limit})! Pacing for {wait_time}s...")
                 time.sleep(wait_time)
             return core
+        else:
+            print(f"⚠️ [RATE-LIMIT] GitHub API rate_limit check returned non-zero ({res.returncode}): {res.stderr.strip()}")
     except Exception as e:
         print(f"⚠️ [RATE-LIMIT] Could not check GitHub API rate limit: {e}")
     return None
@@ -65,24 +67,49 @@ def calculate_adaptive_concurrency(total_assets_mb: float) -> int:
         return 8
 
 
-def check_artifact_sizes(directory: Path):
+def calculate_total_assets_mb(local_files_to_upload: list[str], source_project_dir: Path) -> float:
     """
-    Checks size of downloaded artifacts, issuing warnings if approaching or exceeding 500 MB.
+    Calculates total unique raw asset size in MB with strict path deduplication.
+    Prevents double-counting files present both in local_files_to_upload and source assets/.
+    """
+    unique_files = {Path(f).resolve() for f in local_files_to_upload if f}
+    assets_dir = source_project_dir / "assets"
+    if assets_dir.exists():
+        for af in assets_dir.rglob("*"):
+            if af.is_file():
+                unique_files.add(af.resolve())
+    total_bytes = sum(f.stat().st_size for f in unique_files if f.is_file())
+    return total_bytes / (1024 * 1024)
+
+
+def check_artifact_sizes(directory: Path) -> bool:
+    """
+    Checks size of downloaded artifacts:
+    - Fails if 0 bytes (corrupt / empty download).
+    - Warns if approaching 500 MB (>= 400 MB).
+    - Warns if exceeding 500 MB limit.
+    Returns True if valid non-empty artifact found and no hard limit violation, False otherwise.
     """
     mp4_files = list(directory.glob("*.mp4"))
     if not mp4_files:
         print(f"⚠️ [ARTIFACT] No MP4 artifact found in {directory}")
-        return
+        return False
 
+    all_valid = True
     for mp4 in mp4_files:
         sz_bytes = mp4.stat().st_size
         sz_mb = sz_bytes / (1024 * 1024)
-        if sz_mb >= ARTIFACT_MAX_MB:
+        if sz_bytes == 0:
+            print(f"❌ [ARTIFACT ERROR] File '{mp4.name}' is empty (0 bytes)! Corrupt artifact detected.")
+            all_valid = False
+        elif sz_mb >= ARTIFACT_MAX_MB:
             print(f"⚠️ [ARTIFACT WARNING] File '{mp4.name}' ({sz_mb:.2f} MB) exceeds GitHub Actions 500 MB recommended limit!")
         elif sz_mb >= ARTIFACT_WARN_THRESHOLD_MB:
             print(f"⚠️ [ARTIFACT WARNING] File '{mp4.name}' ({sz_mb:.2f} MB) is approaching 500 MB limit (>= 400 MB).")
         else:
             print(f"✓ [ARTIFACT OK] File '{mp4.name}' ({sz_mb:.2f} MB) is within safe 500 MB threshold.")
+
+    return all_valid
 
 
 def run_cmd(cmd, check=True, cwd=None, max_retries=3, base_delay=5):
@@ -274,13 +301,8 @@ def main():
                 print(f"   Declared path was: {declared_path}")
                 sys.exit(1)
 
-    # Evaluate total raw asset size & concurrency policy
-    total_asset_bytes = sum(os.path.getsize(f) for f in local_files_to_upload)
-    if (source_project_dir / "assets").exists():
-        for af in (source_project_dir / "assets").rglob("*"):
-            if af.is_file():
-                total_asset_bytes += af.stat().st_size
-    total_asset_mb = total_asset_bytes / (1024 * 1024)
+    # Evaluate total raw asset size & concurrency policy with deduplication
+    total_asset_mb = calculate_total_assets_mb(local_files_to_upload, source_project_dir)
     adaptive_default = calculate_adaptive_concurrency(total_asset_mb)
 
     if args.concurrency is not None:
@@ -376,28 +398,50 @@ def main():
     # 4. Watch Execution with fail-closed timeout guard (120 minutes / 7200 seconds)
     print("\n⏳ Monitoring cloud render progress (Mac M1 remains 100% idle & cool)...")
     print(f"🛡️ Timeout Guard: {TIMEOUT_MINUTES} minutes ({TIMEOUT_SECONDS}s) fail-closed ceiling")
-    try:
-        subprocess.run(["gh", "run", "watch", run_id], cwd=str(repo_root), timeout=TIMEOUT_SECONDS)
-    except subprocess.TimeoutExpired:
-        print(f"\n❌ [ERROR] Cloud render timed out after {TIMEOUT_MINUTES} minutes ({TIMEOUT_SECONDS}s)! Fail-closed guard triggered.")
-        print(f"🛑 [FAIL-CLOSED] Cancelling active GitHub Actions workflow run {run_id}...")
-        subprocess.run(["gh", "run", "cancel", run_id], cwd=str(repo_root))
-        sys.exit(1)
+    start_time = time.time()
+    while True:
+        elapsed = time.time() - start_time
+        remaining_timeout = int(TIMEOUT_SECONDS - elapsed)
+        if remaining_timeout <= 0:
+            print(f"\n❌ [ERROR] Cloud render timed out after {TIMEOUT_MINUTES} minutes ({TIMEOUT_SECONDS}s)! Fail-closed guard triggered.")
+            print(f"🛑 [FAIL-CLOSED] Cancelling active GitHub Actions workflow run {run_id}...")
+            subprocess.run(["gh", "run", "cancel", run_id], cwd=str(repo_root))
+            sys.exit(1)
 
-    # Authoritative check of workflow conclusion
-    view_res = run_cmd(["gh", "run", "view", run_id, "--json", "conclusion"], cwd=str(repo_root))
-    conclusion = json.loads(view_res.stdout).get("conclusion")
-    if conclusion != "success":
-        print(f"\n[ERROR] Workflow completed with failure: '{conclusion}'.")
-        print(f"🔗 Check failed logs with: gh run view --log-failed {run_id}")
-        sys.exit(1)
+        try:
+            subprocess.run(["gh", "run", "watch", run_id], cwd=str(repo_root), timeout=remaining_timeout)
+        except subprocess.TimeoutExpired:
+            print(f"\n❌ [ERROR] Cloud render timed out after {TIMEOUT_MINUTES} minutes ({TIMEOUT_SECONDS}s)! Fail-closed guard triggered.")
+            print(f"🛑 [FAIL-CLOSED] Cancelling active GitHub Actions workflow run {run_id}...")
+            subprocess.run(["gh", "run", "cancel", run_id], cwd=str(repo_root))
+            sys.exit(1)
+
+        # Authoritative check of workflow status and conclusion
+        view_res = run_cmd(["gh", "run", "view", run_id, "--json", "status,conclusion"], cwd=str(repo_root), check=False)
+        if view_res.returncode == 0:
+            run_info = json.loads(view_res.stdout)
+            wf_status = run_info.get("status")
+            wf_conclusion = run_info.get("conclusion")
+            if wf_status == "completed":
+                if wf_conclusion != "success":
+                    print(f"\n[ERROR] Workflow completed with failure: '{wf_conclusion}'.")
+                    print(f"🔗 Check failed logs with: gh run view --log-failed {run_id}")
+                    sys.exit(1)
+                break
+            else:
+                print(f"ℹ️ Workflow still {wf_status}... Re-attaching watcher (elapsed: {int(elapsed)}s)...")
+                time.sleep(5)
+        else:
+            time.sleep(5)
 
     # 5. Download Output Artifact
     dest_dist = farm_project_dir / "dist"
     dest_dist.mkdir(parents=True, exist_ok=True)
     print(f"\n📥 Downloading rendered video MP4 artifact to {dest_dist}...")
     run_cmd(["gh", "run", "download", run_id, "-n", f"final-video-{args.project}", "-D", str(dest_dist)], cwd=str(repo_root))
-    check_artifact_sizes(dest_dist)
+    if not check_artifact_sizes(dest_dist):
+        print("❌ [FAIL-CLOSED] Artifact validation failed! Check corrupted or empty output files.")
+        sys.exit(1)
 
     # Flexible mirroring to output destinations
     mirror_targets = set()

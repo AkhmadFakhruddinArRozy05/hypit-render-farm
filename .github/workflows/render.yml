@@ -127,7 +127,7 @@ jobs:
           export HYPIT_WHISPERX_INPUT_ROOTS="$GITHUB_WORKSPACE:/tmp"
           node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" programs up --runtime hypit.runtime.json || true
 
-          echo "Building target: $RUN_FILE using 16 GB RAM cloud runner..."
+          echo "Building target: $RUN_FILE using 16 GB RAM cloud runner (Concurrency: ${{ inputs.concurrency }})..."
           node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" build "$RUN_FILE" --runtime hypit.runtime.json --follow
 
           echo "Retrieving latest completed Build ID..."
@@ -137,6 +137,20 @@ jobs:
           rm -f "dist/$OUTPUT_NAME"
           node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" get "$BUILD_ID" --output final.video --to "dist/$OUTPUT_NAME"
           ls -lh dist/
+
+      - name: Inspect & Validate Rendered Artifact Size
+        run: |
+          cd "projects/${{ inputs.project }}"
+          for f in dist/*.mp4; do
+            [ -f "$f" ] || continue
+            sz_mb=$(du -m "$f" | cut -f1)
+            echo "Artifact: $f ($sz_mb MB)"
+            if [ "$sz_mb" -ge 500 ]; then
+              echo "::warning title=Artifact Size Exceeded::Rendered artifact $f ($sz_mb MB) exceeds recommended 500 MB limit!"
+            elif [ "$sz_mb" -ge 400 ]; then
+              echo "::notice title=Artifact Size Warning::Rendered artifact $f ($sz_mb MB) approaches 500 MB limit (>= 400 MB)."
+            fi
+          done
 
       - name: Upload Final Rendered MP4 Artifact
         uses: actions/upload-artifact@v4
