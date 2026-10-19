@@ -126,6 +126,7 @@ def main():
     parser.add_argument("--project-dir", default=None, help="Explicit path to source project directory containing source_manifest.json")
     parser.add_argument("--output-dir", default=None, help="Explicit destination directory for downloaded MP4 artifact")
     parser.add_argument("--skip-push", action="store_true", help="Skip git add/commit/push before triggering")
+    parser.add_argument("--dry-run", action="store_true", help="Perform full preflight validation without git push, release creation, or workflow dispatch")
     args = parser.parse_args()
 
     repo_root = Path(__file__).resolve().parent.parent
@@ -151,16 +152,17 @@ def main():
     print(f"=======================================================")
 
     # Sync definitions to farm_project_dir if working from external source directory
-    if source_project_dir != farm_project_dir:
+    if source_project_dir != farm_project_dir and not args.dry_run:
         farm_project_dir.mkdir(parents=True, exist_ok=True)
         sync_exts = [".svml", ".svs", ".svrun", ".json"]
         for f in source_project_dir.iterdir():
             if f.is_file() and any(f.name.endswith(ext) for ext in sync_exts):
                 shutil.copy2(f, farm_project_dir / f.name)
+        media_ignore = shutil.ignore_patterns("*.mp4", "*.m4a", "*.mov", "*.wav", "*.mp3", "*.avi", "*.mkv")
         if (source_project_dir / "assets").exists():
-            shutil.copytree(source_project_dir / "assets", farm_project_dir / "assets", dirs_exist_ok=True)
+            shutil.copytree(source_project_dir / "assets", farm_project_dir / "assets", dirs_exist_ok=True, ignore=media_ignore)
         if (source_project_dir / "references").exists():
-            shutil.copytree(source_project_dir / "references", farm_project_dir / "references", dirs_exist_ok=True)
+            shutil.copytree(source_project_dir / "references", farm_project_dir / "references", dirs_exist_ok=True, ignore=media_ignore)
         print("✓ Synchronized project definition and assets to farm project directory.")
 
     # 1. Check for local assets requiring temporary release upload
@@ -198,6 +200,24 @@ def main():
             sz_mb = round(os.path.getsize(f) / (1024 * 1024), 2)
             print(f"   • {os.path.basename(f)} ({sz_mb} MB)")
 
+    if args.dry_run:
+        print("\n=======================================================")
+        print("🔍 DRY-RUN PREFLIGHT SUMMARY (Zero Remote Mutation)")
+        print("=======================================================")
+        print(f"✓ Project Manifest:  {manifest_file}")
+        print(f"✓ Target Run File:   {manifest.get('run_file')}")
+        print(f"✓ Output Target:     {manifest.get('output_name')}")
+        print(f"✓ Local Assets:      {len(local_files_to_upload)} verified")
+        for f in local_files_to_upload:
+            print(f"   • {f} ({round(os.path.getsize(f) / (1024 * 1024), 2)} MB)")
+        if release_tag:
+            print(f"✓ Simulated Release: {release_tag}")
+        wf_sim = f"gh workflow run render.yml -f project={args.project}" + (f" -f release_tag={release_tag}" if release_tag else "")
+        print(f"✓ Simulated Command: {wf_sim}")
+        print("✓ Dry run preflight completed successfully with zero mutations.")
+        return
+
+    if local_files_to_upload:
         create_rel_cmd = [
             "gh", "release", "create", release_tag,
             *local_files_to_upload,
