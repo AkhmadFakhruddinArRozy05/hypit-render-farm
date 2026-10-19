@@ -7,7 +7,7 @@
       "id": "source-video",
       "type": "local_asset",
       "file_name": "source.mp4",
-      "local_path": "/Users/ozy/Projects/zaraleolaa-tiktok-clone/references/source.mp4",
+      "local_path": "/Users/ozy/Projects/hypit-render-farm/projects/zaraleolaa-tiktok-clone/references/source.mp4",
       "destination": "references/source.mp4"
     }
   ]

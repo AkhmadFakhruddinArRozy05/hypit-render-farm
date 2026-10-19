@@ -7,35 +7,35 @@
       "id": "hook-ronaldo",
       "type": "local_asset",
       "file_name": "hook_ronaldo.mp4",
-      "local_path": "/Users/ozy/Projects/nutriflakes-cr7-hypit/assets/hook_ronaldo.mp4",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__nutriflakes-cr7/raw/hook_ronaldo.mp4",
       "destination": "assets/hook_ronaldo.mp4"
     },
     {
       "id": "body-ery-makmur",
       "type": "local_asset",
       "file_name": "body_ery_makmur.mp4",
-      "local_path": "/Users/ozy/Projects/nutriflakes-cr7-hypit/assets/body_ery_makmur.mp4",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__nutriflakes-cr7/raw/body_ery_makmur.mp4",
       "destination": "assets/body_ery_makmur.mp4"
     },
     {
       "id": "outro-nutriflakes",
       "type": "local_asset",
       "file_name": "outro_nutriflakes.mp4",
-      "local_path": "/Users/ozy/Projects/nutriflakes-cr7-hypit/assets/outro_nutriflakes.mp4",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__nutriflakes-cr7/raw/outro_nutriflakes.mp4",
       "destination": "assets/outro_nutriflakes.mp4"
     },
     {
       "id": "dialogue-track",
       "type": "local_asset",
       "file_name": "dialogue_track.m4a",
-      "local_path": "/Users/ozy/Projects/nutriflakes-cr7-hypit/assets/dialogue_track.m4a",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__nutriflakes-cr7/raw/dialogue_track.m4a",
       "destination": "assets/dialogue_track.m4a"
     },
     {
       "id": "bgm-track",
       "type": "local_asset",
       "file_name": "bgm_track.m4a",
-      "local_path": "/Users/ozy/Projects/nutriflakes-cr7-hypit/assets/bgm_track.m4a",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__nutriflakes-cr7/raw/bgm_track.m4a",
       "destination": "assets/bgm_track.m4a"
     }
   ]

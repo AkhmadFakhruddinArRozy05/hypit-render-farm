@@ -1,0 +1,261 @@
+{
+  "format": "hypit.transcript@1",
+  "source": "/Users/ozy/Projects/zaraleolaa-tiktok-clone/references/source.mp4",
+  "language": "id",
+  "audio_seconds": 145.032,
+  "passages": [
+    {
+      "text": "Maksud saya, saya tidak bisa menangis.",
+      "start_seconds": 0.551,
+      "end_seconds": 6.115,
+      "words": [
+        {
+          "text": "Maksud",
+          "start_seconds": 0.551,
+          "end_seconds": 1.192,
+          "score": 0.531
+        },
+        {
+          "text": "saya,",
+          "start_seconds": 1.332,
+          "end_seconds": 2.413,
+          "score": 0.871
+        },
+        {
+          "text": "saya",
+          "start_seconds": 2.873,
+          "end_seconds": 3.934,
+          "score": 0.631
+        },
+        {
+          "text": "tidak",
+          "start_seconds": 3.974,
+          "end_seconds": 4.414,
+          "score": 0.487
+        },
+        {
+          "text": "bisa",
+          "start_seconds": 4.474,
+          "end_seconds": 4.914,
+          "score": 0.594
+        },
+        {
+          "text": "menangis.",
+          "start_seconds": 4.934,
+          "end_seconds": 6.115,
+          "score": 0.643
+        }
+      ]
+    },
+    {
+      "text": "Maksud saya, saya tidak bisa menangis.",
+      "start_seconds": 6.155,
+      "end_seconds": 9.578,
+      "words": [
+        {
+          "text": "Maksud",
+          "start_seconds": 6.155,
+          "end_seconds": 7.196,
+          "score": 0.732
+        },
+        {
+          "text": "saya,",
+          "start_seconds": 7.236,
+          "end_seconds": 8.017,
+          "score": 0.624
+        },
+        {
+          "text": "saya",
+          "start_seconds": 8.077,
+          "end_seconds": 8.357,
+          "score": 0.406
+        },
+        {
+          "text": "tidak",
+          "start_seconds": 8.497,
+          "end_seconds": 8.937,
+          "score": 0.593
+        },
+        {
+          "text": "bisa",
+          "start_seconds": 8.977,
+          "end_seconds": 9.097,
+          "score": 0.166
+        },
+        {
+          "text": "menangis.",
+          "start_seconds": 9.137,
+          "end_seconds": 9.578,
+          "score": 0.427
+        }
+      ]
+    },
+    {
+      "text": "Maksud saya, saya tidak bisa menangis.",
+      "start_seconds": 9.618,
+      "end_seconds": 15.101,
+      "words": [
+        {
+          "text": "Maksud",
+          "start_seconds": 9.618,
+          "end_seconds": 10.238,
+          "score": 0.674
+        },
+        {
+          "text": "saya,",
+          "start_seconds": 10.558,
+          "end_seconds": 11.139,
+          "score": 0.54
+        },
+        {
+          "text": "saya",
+          "start_seconds": 11.339,
+          "end_seconds": 11.779,
+          "score": 0.619
+        },
+        {
+          "text": "tidak",
+          "start_seconds": 11.959,
+          "end_seconds": 13.32,
+          "score": 0.566
+        },
+        {
+          "text": "bisa",
+          "start_seconds": 13.821,
+          "end_seconds": 14.241,
+          "score": 0.374
+        },
+        {
+          "text": "menangis.",
+          "start_seconds": 14.301,
+          "end_seconds": 15.101,
+          "score": 0.606
+        }
+      ]
+    },
+    {
+      "text": "Terima kasih sudah menonton!",
+      "start_seconds": 31.323,
+      "end_seconds": 34.385,
+      "words": [
+        {
+          "text": "Terima",
+          "start_seconds": 31.323,
+          "end_seconds": 32.404,
+          "score": 0.59
+        },
+        {
+          "text": "kasih",
+          "start_seconds": 32.584,
+          "end_seconds": 33.325,
+          "score": 0.584
+        },
+        {
+          "text": "sudah",
+          "start_seconds": 33.505,
+          "end_seconds": 33.925,
+          "score": 0.484
+        },
+        {
+          "text": "menonton!",
+          "start_seconds": 33.985,
+          "end_seconds": 34.385,
+          "score": 0.469
+        }
+      ]
+    },
+    {
+      "text": "Terima kasih sudah menonton",
+      "start_seconds": 61.16,
+      "end_seconds": 64.082,
+      "words": [
+        {
+          "text": "Terima",
+          "start_seconds": 61.16,
+          "end_seconds": 61.48,
+          "score": 0.374
+        },
+        {
+          "text": "kasih",
+          "start_seconds": 61.52,
+          "end_seconds": 61.741,
+          "score": 0.571
+        },
+        {
+          "text": "sudah",
+          "start_seconds": 61.781,
+          "end_seconds": 62.361,
+          "score": 0.736
+        },
+        {
+          "text": "menonton",
+          "start_seconds": 62.881,
+          "end_seconds": 64.082,
+          "score": 0.592
+        }
+      ]
+    },
+    {
+      "text": "KAMU MENJUK KAMU MENJUK",
+      "start_seconds": 100.37,
+      "end_seconds": 102.091,
+      "words": [
+        {
+          "text": "KAMU",
+          "start_seconds": 100.37,
+          "end_seconds": 100.51,
+          "score": 0.493
+        },
+        {
+          "text": "MENJUK",
+          "start_seconds": 100.57,
+          "end_seconds": 101.131,
+          "score": 0.504
+        },
+        {
+          "text": "KAMU",
+          "start_seconds": 101.171,
+          "end_seconds": 101.371,
+          "score": 0.507
+        },
+        {
+          "text": "MENJUK",
+          "start_seconds": 101.391,
+          "end_seconds": 102.091,
+          "score": 0.363
+        }
+      ]
+    },
+    {
+      "text": "Terima kasih sudah menonton",
+      "start_seconds": 131.327,
+      "end_seconds": 134.209,
+      "words": [
+        {
+          "text": "Terima",
+          "start_seconds": 131.327,
+          "end_seconds": 132.388,
+          "score": 0.707
+        },
+        {
+          "text": "kasih",
+          "start_seconds": 132.888,
+          "end_seconds": 133.308,
+          "score": 0.561
+        },
+        {
+          "text": "sudah",
+          "start_seconds": 133.508,
+          "end_seconds": 133.749,
+          "score": 0.394
+        },
+        {
+          "text": "menonton",
+          "start_seconds": 133.809,
+          "end_seconds": 134.209,
+          "score": 0.48
+        }
+      ]
+    }
+  ]
+}

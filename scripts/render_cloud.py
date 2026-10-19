@@ -9,10 +9,12 @@ import argparse
 import datetime
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
 from pathlib import Path
+
 
 def run_cmd(cmd, check=True, cwd=None):
     print(f"[RUN] {' '.join(cmd)}")
@@ -24,18 +26,119 @@ def run_cmd(cmd, check=True, cwd=None):
         sys.exit(res.returncode)
     return res
 
+
+def resolve_project_dir(repo_root: Path, project_name: str, explicit_dir: str | None = None) -> tuple[Path, Path]:
+    """
+    Resolves the source project directory and the farm project directory.
+    Returns: (source_project_dir, farm_project_dir)
+    """
+    farm_project_dir = (repo_root / "projects" / project_name).resolve()
+
+    if explicit_dir:
+        source_dir = Path(explicit_dir).resolve()
+        if not source_dir.exists():
+            print(f"[ERROR] Specified --project-dir does not exist: {source_dir}")
+            sys.exit(1)
+        return source_dir, farm_project_dir
+
+    if farm_project_dir.exists():
+        return farm_project_dir, farm_project_dir
+
+    # Hierarchical search candidates in Clipper and workspace
+    clipper_root = repo_root.parent / "Clipper"
+    clean_name = project_name.replace("-hypit", "")
+    candidates = [
+        clipper_root / "Production" / f"clippo__{clean_name}" / "hypit",
+        clipper_root / "Production" / f"clippo__{project_name}" / "hypit",
+        clipper_root / "Production" / project_name / "hypit",
+        clipper_root / "Production" / f"clippo__{clean_name}",
+        clipper_root / "Production" / f"clippo__{project_name}",
+        clipper_root / "Production" / project_name,
+        clipper_root / "References" / "Reproduction" / project_name,
+    ]
+
+    for candidate in candidates:
+        if candidate.exists() and (candidate / "source_manifest.json").exists():
+            return candidate.resolve(), farm_project_dir
+
+    return farm_project_dir, farm_project_dir
+
+
+def find_local_asset(
+    file_name: str,
+    declared_local_path: str | None,
+    destination: str | None,
+    source_dir: Path,
+    farm_dir: Path,
+    repo_root: Path,
+    project_name: str,
+) -> Path | None:
+    """Finds a local asset using hierarchical search without hardcoded absolute project paths."""
+    candidates = []
+
+    # 1. Declared local_path
+    if declared_local_path:
+        candidates.append(Path(declared_local_path).resolve())
+
+    # 2. Inside source_dir
+    if destination:
+        candidates.append(source_dir / destination)
+    candidates.append(source_dir / file_name)
+    candidates.append(source_dir / "assets" / file_name)
+    candidates.append(source_dir / "references" / file_name)
+
+    # 3. If source_dir is a hypit subfolder, check parent raw / assets
+    if source_dir.name == "hypit":
+        candidates.append(source_dir.parent / "raw" / file_name)
+        candidates.append(source_dir.parent / "assets" / file_name)
+        candidates.append(source_dir.parent / file_name)
+
+    # 4. Inside farm_dir
+    if destination:
+        candidates.append(farm_dir / destination)
+    candidates.append(farm_dir / file_name)
+    candidates.append(farm_dir / "assets" / file_name)
+    candidates.append(farm_dir / "references" / file_name)
+
+    # 5. Clipper Production / References candidates
+    clipper_root = repo_root.parent / "Clipper"
+    clean_name = project_name.replace("-hypit", "")
+    candidates.extend([
+        clipper_root / "Production" / f"clippo__{clean_name}" / "raw" / file_name,
+        clipper_root / "Production" / f"clippo__{project_name}" / "raw" / file_name,
+        clipper_root / "Production" / clean_name / "raw" / file_name,
+        clipper_root / "Production" / project_name / "raw" / file_name,
+        clipper_root / "References" / "Reproduction" / project_name / "references" / file_name,
+        clipper_root / "References" / "Reproduction" / project_name / "assets" / file_name,
+        clipper_root / "References" / "Reproduction" / project_name / file_name,
+    ])
+
+    for c in candidates:
+        if c.exists() and c.is_file() and c.stat().st_size > 0:
+            return c.resolve()
+
+    return None
+
+
 def main():
     parser = argparse.ArgumentParser(description="Trigger Cloud Render on GitHub Actions (16 GB RAM)")
     parser.add_argument("--project", required=True, help="Project name inside projects/ (e.g. nutriflakes-cr7-hypit)")
+    parser.add_argument("--project-dir", default=None, help="Explicit path to source project directory containing source_manifest.json")
+    parser.add_argument("--output-dir", default=None, help="Explicit destination directory for downloaded MP4 artifact")
     parser.add_argument("--skip-push", action="store_true", help="Skip git add/commit/push before triggering")
     args = parser.parse_args()
 
     repo_root = Path(__file__).resolve().parent.parent
-    project_dir = repo_root / "projects" / args.project
-    manifest_file = project_dir / "source_manifest.json"
+    source_project_dir, farm_project_dir = resolve_project_dir(repo_root, args.project, args.project_dir)
+
+    manifest_file = source_project_dir / "source_manifest.json"
+    if not manifest_file.exists():
+        manifest_file = farm_project_dir / "source_manifest.json"
 
     if not manifest_file.exists():
-        print(f"[ERROR] Project manifest not found at: {manifest_file}")
+        print(f"[ERROR] Project manifest not found in:")
+        print(f"   • {source_project_dir / 'source_manifest.json'}")
+        print(f"   • {farm_project_dir / 'source_manifest.json'}")
         sys.exit(1)
 
     with open(manifest_file, "r") as f:
@@ -43,25 +146,47 @@ def main():
 
     print(f"\n=======================================================")
     print(f"🚀 INITIATING CLOUD RENDER: {args.project.upper()}")
+    print(f"📁 Source Directory: {source_project_dir}")
+    print(f"🚜 Farm Directory:   {farm_project_dir}")
     print(f"=======================================================")
+
+    # Sync definitions to farm_project_dir if working from external source directory
+    if source_project_dir != farm_project_dir:
+        farm_project_dir.mkdir(parents=True, exist_ok=True)
+        sync_exts = [".svml", ".svs", ".svrun", ".json"]
+        for f in source_project_dir.iterdir():
+            if f.is_file() and any(f.name.endswith(ext) for ext in sync_exts):
+                shutil.copy2(f, farm_project_dir / f.name)
+        if (source_project_dir / "assets").exists():
+            shutil.copytree(source_project_dir / "assets", farm_project_dir / "assets", dirs_exist_ok=True)
+        if (source_project_dir / "references").exists():
+            shutil.copytree(source_project_dir / "references", farm_project_dir / "references", dirs_exist_ok=True)
+        print("✓ Synchronized project definition and assets to farm project directory.")
 
     # 1. Check for local assets requiring temporary release upload
     local_files_to_upload = []
     sources = manifest.get("sources", [])
     for src in sources:
         if src.get("type") == "local_asset":
-            local_path = src.get("local_path")
             file_name = src.get("file_name")
-            p = Path(local_path) if local_path else (project_dir / src.get("destination"))
-            if not p.exists():
-                # Fallback to standard project location
-                fallback = Path(f"/Users/ozy/Projects/{args.project}/assets/{file_name}")
-                if fallback.exists():
-                    p = fallback
-            if p.exists() and p.stat().st_size > 0:
+            destination = src.get("destination")
+            declared_path = src.get("local_path")
+
+            p = find_local_asset(
+                file_name=file_name,
+                declared_local_path=declared_path,
+                destination=destination,
+                source_dir=source_project_dir,
+                farm_dir=farm_project_dir,
+                repo_root=repo_root,
+                project_name=args.project,
+            )
+
+            if p and p.exists() and p.stat().st_size > 0:
                 local_files_to_upload.append(str(p))
             else:
-                print(f"[ERROR] Required local asset not found: {file_name}")
+                print(f"[ERROR] Required local asset not found: '{file_name}' (id: {src.get('id')})")
+                print(f"   Declared path was: {declared_path}")
                 sys.exit(1)
 
     release_tag = ""
@@ -86,7 +211,6 @@ def main():
     if not args.skip_push:
         print("\n🔄 Syncing project timeline, scripts, and workflow to GitHub...")
         run_cmd(["git", "add", "-A"], cwd=str(repo_root))
-        # Check if there are changes to commit
         status = run_cmd(["git", "status", "--porcelain"], cwd=str(repo_root)).stdout.strip()
         if status:
             run_cmd(["git", "commit", "-m", f"chore: sync timeline and workflow for {args.project}"], cwd=str(repo_root))
@@ -128,26 +252,32 @@ def main():
         sys.exit(1)
 
     # 5. Download Output Artifact
-    dest_dist = project_dir / "dist"
+    dest_dist = farm_project_dir / "dist"
     dest_dist.mkdir(parents=True, exist_ok=True)
     print(f"\n📥 Downloading rendered video MP4 artifact to {dest_dist}...")
     run_cmd(["gh", "run", "download", run_id, "-n", f"final-video-{args.project}", "-D", str(dest_dist)], cwd=str(repo_root))
 
-    # Also mirror to original standalone project directory if it exists
-    original_project_dist = Path(f"/Users/ozy/Projects/{args.project}/dist")
-    if original_project_dist.parent.exists():
-        original_project_dist.mkdir(parents=True, exist_ok=True)
+    # Flexible mirroring to output destinations
+    mirror_targets = set()
+    if args.output_dir:
+        mirror_targets.add(Path(args.output_dir).resolve())
+    elif source_project_dir != farm_project_dir:
+        mirror_targets.add((source_project_dir / "dist").resolve())
+        # If source is a Clipper hypit subfolder, also mirror to final/
+        if source_project_dir.name == "hypit" and (source_project_dir.parent / "final").exists():
+            mirror_targets.add((source_project_dir.parent / "final").resolve())
+
+    for target_dir in mirror_targets:
+        target_dir.mkdir(parents=True, exist_ok=True)
         for mp4 in dest_dist.glob("*.mp4"):
-            import shutil
-            shutil.copy2(mp4, original_project_dist / mp4.name)
-            print(f"✓ Mirrored MP4 to standalone project: {original_project_dist / mp4.name}")
+            shutil.copy2(mp4, target_dir / mp4.name)
+            print(f"✓ Mirrored MP4 to target: {target_dir / mp4.name}")
 
     print("\n=======================================================")
     print("🎉 CLOUD RENDER COMPLETED SUCCESSFULLY!")
     print("=======================================================")
     for mp4 in dest_dist.glob("*.mp4"):
         print(f"🎬 Output File: {mp4}")
-        # Run ffprobe check
         probe_res = subprocess.run([
             "ffprobe", "-v", "error", "-select_streams", "v:0",
             "-show_entries", "stream=width,height,duration,r_frame_rate",
@@ -157,6 +287,7 @@ def main():
             print("📊 Stream Probe:")
             for l in probe_res.stdout.strip().split("\n"):
                 print(f"   {l}")
+
 
 if __name__ == "__main__":
     main()
