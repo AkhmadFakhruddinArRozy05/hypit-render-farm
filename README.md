@@ -24,9 +24,25 @@ Offloads heavy video rasterization (Chromium Headless 30 fps), AI voice alignmen
 ## 💻 How to Trigger Render from Mac (Antigravity CLI)
 
 ```bash
-# Render Nutriflakes x CR7 clip (106s)
+# Render Nutriflakes x CR7 clip (106s) - Adaptive default concurrency
 python3 scripts/render_cloud.py --project nutriflakes-cr7-hypit
 
-# Render Zara Leola TikTok clone
-python3 scripts/render_cloud.py --project zaraleolaa-tiktok-clone
+# Render Zara Leola TikTok clone with custom concurrency (1 to 10)
+python3 scripts/render_cloud.py --project zaraleolaa-tiktok-clone --concurrency 5
+
+# Preflight validation without mutations (Dry-run)
+python3 scripts/render_cloud.py --project nutriflakes-cr7-hypit --dry-run
 ```
+
+---
+
+## ⚙️ GitHub Actions Technical Limits & Guardrails
+
+| Parameter | Kebijakan / Batasan | Deskripsi & Penegakan Sistem |
+|---|---|---|
+| **Max Concurrent Jobs** | `5` s.d. `10` (Hard ceiling: `10`) | Default adaptif berbasis aset: `< 20 MB` ➔ 10 jobs; `>= 50 MB` ➔ 5 jobs; `20–50 MB` ➔ 8 jobs. Fleksibel `1..10` via `--concurrency`. Nilai `> 10` ditolak (*fail-closed*). |
+| **Max Job Duration (Timeout)** | `120 menit` (2 jam) | Ditegakkan ganda di workflow (`timeout-minutes: 120`) dan monitoring watcher (`render_cloud.py`). Run dibatalkan otomatis jika melampaui batas. |
+| **Max Artifact Size** | `500 MB` per job | Peringatan preventif jika artefak download $\ge 400\text{ MB}$, peringatan keras jika melampaui batas resmi 500 MB. |
+| **Artifact Retention** | `1 hari` (`retention-days: 1`) | Efisiensi penyimpanan cloud maksimal untuk mencegah penumpukan storage. |
+| **GitHub API Rate Limit** | `5.000 requests / jam` | Pemantauan kuota API core via `gh api rate_limit`. Pacing otomatis jika sisa kuota $< 100$ dan *exponential backoff* pada error HTTP 403/429. |
+

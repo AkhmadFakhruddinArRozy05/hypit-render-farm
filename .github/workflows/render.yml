@@ -12,6 +12,11 @@ on:
         required: false
         type: string
         default: ''
+      concurrency:
+        description: 'Maximum concurrent render jobs (1-10, default adaptive)'
+        required: false
+        type: string
+        default: '10'
 
 permissions:
   contents: write
@@ -20,7 +25,7 @@ jobs:
   render:
     name: "Render: ${{ inputs.project }}"
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
 
     steps:
       - name: Checkout Render Farm Repository
@@ -139,7 +144,7 @@ jobs:
           name: final-video-${{ inputs.project }}
           path: projects/${{ inputs.project }}/dist/*.mp4
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 1
 
       - name: Cleanup Temporary Release (Security & Storage)
         if: always() && inputs.release_tag != ''
