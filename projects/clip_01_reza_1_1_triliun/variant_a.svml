@@ -33,7 +33,8 @@
     </dialogue>
   </script>
 
-  <asset:Video id="source-video-asset" src="./assets/source.mp4"/>
+  <asset:Video id="hook-video-asset" src="./assets/hook.mp4"/>
+  <asset:Video id="body-video-asset" src="./assets/body.mp4"/>
   <asset:Audio id="dialogue-audio-asset" src="./assets/dialogue_track.m4a"/>
   <asset:Audio id="bgm-audio-asset" src="./assets/official_music.mp3"/>
 
@@ -43,7 +44,9 @@
 
   <time:Clock id="clock" frame-rate="30"/>
 
-  <mediaop:Normalize id="source-media" source={source-video-asset} clock={clock}
+  <mediaop:Normalize id="hook-media" source={hook-video-asset} clock={clock}
+    video="primary-moving" audio="none" span-authority="video"/>
+  <mediaop:Normalize id="body-media" source={body-video-asset} clock={clock}
     video="primary-moving" audio="none" span-authority="video"/>
   <mediaop:Normalize id="dialogue-media" source={dialogue-audio-asset} clock={clock}
     video="none" audio="default" span-authority="audio"/>
@@ -55,6 +58,8 @@
 
   <time:Timeline id="film-time" clock={clock} end="dialogue-window.end">
     <time:Window id="dialogue-window" from="start" for={dialogue-media.extent}/>
+    <time:Window id="hook-window" from="start" for="354f"/>
+    <time:Window id="body-window" from="hook-window.end" for="782f"/>
     <time:Window id="headline-window" from="start" for="150f"/>
   </time:Timeline>
 
@@ -71,7 +76,8 @@
   <comment:Style id="headline-card-style" recipe={recipes.card.headline_a} font={ui-fonts}/>
 
   <visual:Track id="video-track" timeline={film-time.timeline}>
-    <visual:Clip id="source-clip" media={source-media.media} during={film-time.dialogue-window} frame={full-frame} z="10" fit="cover"/>
+    <visual:Clip id="hook-clip" media={hook-media.media} during={film-time.hook-window} frame={full-frame} z="10" fit="cover"/>
+    <visual:Clip id="body-clip" media={body-media.media} during={film-time.body-window} frame={full-frame} z="10" fit="cover"/>
   </visual:Track>
 
   <comment:Track id="headline-track" timeline={film-time.timeline}>

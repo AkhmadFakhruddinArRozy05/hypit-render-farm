@@ -7,11 +7,18 @@
   "subtitle_preset": "SUB_KARAOKE_PULSE",
   "sources": [
     {
-      "id": "source-video",
+      "id": "hook-video",
       "type": "local_asset",
-      "file_name": "source.mp4",
-      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__leo-giovanni/clip_01_reza_1_1_triliun/raw/source.mp4",
-      "destination": "assets/source.mp4"
+      "file_name": "hook.mp4",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__leo-giovanni/clip_01_reza_1_1_triliun/raw/hook.mp4",
+      "destination": "assets/hook.mp4"
+    },
+    {
+      "id": "body-video",
+      "type": "local_asset",
+      "file_name": "body.mp4",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__leo-giovanni/clip_01_reza_1_1_triliun/raw/body.mp4",
+      "destination": "assets/body.mp4"
     },
     {
       "id": "dialogue-audio",
