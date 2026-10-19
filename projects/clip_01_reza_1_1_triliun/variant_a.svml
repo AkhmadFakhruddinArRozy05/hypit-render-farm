@@ -85,16 +85,9 @@
     <visual:Clip id="body-clip" media={body-media.media} during={film-time.body-window} frame={full-frame} z="10" fit="cover"/>
   </visual:Track>
 
-  <comment:Track id="headline-track" timeline={film-time.timeline}>
-    <comment:Sticker id="headline-sticker" frame={headline-card-frame} style={headline-card-style}
-      header="@bolotani_com" author="@bolotani_com" meta="HOT TOPIC · 1.1 TRILIUN" during={film-time.headline-window}>
-      REZA ARAP TOLAK MARAPHTON S4 KECUALI ADA 1.1 TRILIUN
-    </comment:Sticker>
-  </comment:Track>
-
   <caption-fine:Caption id="captions" document={story.caption} timing={caption-timing}
     timeline={film-time.timeline} within={canvas.bounds}>
-    <caption-fine:Use style={caption-style}/>
+    <caption-fine:Use during={film-time.body-window} style={caption-style}/>
   </caption-fine:Caption>
 
   <audio:Track id="dialogue-sound" timeline={film-time.timeline}>
@@ -111,7 +104,6 @@
     <film:Track source={video-track.visual}/>
     <film:Track source={dialogue-sound.audio}/>
     <film:Track source={bgm-sound.audio}/>
-    <film:Track source={headline-track.visual}/>
     <film:Track source={captions.visual}/>
   </film:Film>
 
