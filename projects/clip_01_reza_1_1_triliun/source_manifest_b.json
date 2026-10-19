@@ -1,0 +1,42 @@
+{
+  "project_name": "clip_01_reza_1_1_triliun",
+  "run_file": "variant_b.svrun",
+  "output_name": "variant_b.mp4",
+  "headline_text": "REZA ARAP TOLAK MARAPHTON S4 KECUALI ADA 1.1 TRILIUN",
+  "headline_preset": "HEADLINE_PILL_DARK",
+  "subtitle_preset": "SUB_KINETIC_BOUNCE",
+  "sources": [
+    {
+      "id": "hook-video",
+      "type": "local_asset",
+      "file_name": "hook.mp4",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__leo-giovanni/clip_01_reza_1_1_triliun/raw/hook.mp4",
+      "destination": "assets/hook.mp4",
+      "require_audio": false
+    },
+    {
+      "id": "body-video",
+      "type": "local_asset",
+      "file_name": "body.mp4",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__leo-giovanni/clip_01_reza_1_1_triliun/raw/body.mp4",
+      "destination": "assets/body.mp4",
+      "require_audio": false
+    },
+    {
+      "id": "dialogue-audio",
+      "type": "local_asset",
+      "file_name": "dialogue_track.m4a",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__leo-giovanni/clip_01_reza_1_1_triliun/raw/dialogue_track.m4a",
+      "destination": "assets/dialogue_track.m4a",
+      "require_audio": true
+    },
+    {
+      "id": "official-music",
+      "type": "local_asset",
+      "file_name": "official_music.mp3",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__leo-giovanni/clip_01_reza_1_1_triliun/raw/official_music.mp3",
+      "destination": "assets/official_music.mp3",
+      "require_audio": true
+    }
+  ]
+}
