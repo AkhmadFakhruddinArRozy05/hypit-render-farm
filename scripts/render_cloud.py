@@ -235,6 +235,8 @@ def main():
     parser.add_argument("--project-dir", default=None, help="Explicit path to source project directory containing source_manifest.json")
     parser.add_argument("--output-dir", default=None, help="Explicit destination directory for downloaded MP4 artifact")
     parser.add_argument("--concurrency", type=int, default=None, help="Maximum concurrent render jobs (1 to 10). If omitted, adaptively defaults based on raw asset size (<20MB: 10, >=50MB: 5, 20-50MB: 8).")
+    parser.add_argument("--headline-preset", default=None, help="Visual headline preset ID (overrides source_manifest.json)")
+    parser.add_argument("--subtitle-preset", default=None, help="Kinetic subtitle preset ID (overrides source_manifest.json)")
     parser.add_argument("--skip-push", action="store_true", help="Skip git add/commit/push before triggering")
     parser.add_argument("--dry-run", action="store_true", help="Perform full preflight validation without git push, release creation, or workflow dispatch")
     args = parser.parse_args()
@@ -255,10 +257,18 @@ def main():
     with open(manifest_file, "r") as f:
         manifest = json.load(f)
 
+    # Resolve Presets with fallback to source_manifest.json
+    headline_preset = (args.headline_preset or manifest.get("headline_preset") or "HEADLINE_BOXED_YELLOW").strip()
+    subtitle_preset = (args.subtitle_preset or manifest.get("subtitle_preset") or "SUB_MODERN_PILL").strip()
+    headline_source = "CLI override" if args.headline_preset else ("manifest" if manifest.get("headline_preset") else "default")
+    subtitle_source = "CLI override" if args.subtitle_preset else ("manifest" if manifest.get("subtitle_preset") else "default")
+
     print(f"\n=======================================================")
     print(f"🚀 INITIATING CLOUD RENDER: {args.project.upper()}")
     print(f"📁 Source Directory: {source_project_dir}")
     print(f"🚜 Farm Directory:   {farm_project_dir}")
+    print(f"🎨 Headline Preset:  {headline_preset} [{headline_source}]")
+    print(f"📝 Subtitle Preset:  {subtitle_preset} [{subtitle_source}]")
     print(f"=======================================================")
 
     # Sync definitions to farm_project_dir if working from external source directory
@@ -339,6 +349,8 @@ def main():
         print(f"✓ Local Assets:      {len(local_files_to_upload)} verified ({total_asset_mb:.2f} MB total)")
         for f in local_files_to_upload:
             print(f"   • {f} ({round(os.path.getsize(f) / (1024 * 1024), 2)} MB)")
+        print(f"✓ Headline Preset:  {headline_preset} [{headline_source}]")
+        print(f"✓ Subtitle Preset:  {subtitle_preset} [{subtitle_source}]")
         print(f"✓ Concurrency:       {concurrency} concurrent job(s) [{concurrency_source}]")
         print(f"✓ Timeout Guard:     {TIMEOUT_MINUTES} minutes ({TIMEOUT_SECONDS}s fail-closed ceiling)")
         print(f"✓ Artifact Ceiling:  {ARTIFACT_MAX_MB} MB max (warning at {ARTIFACT_WARN_THRESHOLD_MB} MB)")
