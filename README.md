@@ -45,4 +45,5 @@ python3 scripts/render_cloud.py --project nutriflakes-cr7-hypit --dry-run
 | **Max Artifact Size** | `500 MB` per job | Peringatan preventif jika artefak download $\ge 400\text{ MB}$, peringatan keras jika melampaui batas resmi 500 MB. |
 | **Artifact Retention** | `1 hari` (`retention-days: 1`) | Efisiensi penyimpanan cloud maksimal untuk mencegah penumpukan storage. |
 | **GitHub API Rate Limit** | `5.000 requests / jam` | Pemantauan kuota API core via `gh api rate_limit`. Pacing otomatis jika sisa kuota $< 100$ dan *exponential backoff* pada error HTTP 403/429. |
+| **Video Codec & Hardware** | `Apple VideoToolbox` (Mac) vs `libx264` (Ubuntu) | Mac M1 memanfaatkan akselerasi GPU Apple Silicon (`-hwaccel videotoolbox -c:v h264_videotoolbox -b:v 6000k`), sedangkan runner cloud Ubuntu menggunakan CPU software encoding (`-c:v libx264 -preset veryfast -crf 18`). Single-Pass In-Browser compositing menghilangkan overhead WebM VP9 alpha. |
 
