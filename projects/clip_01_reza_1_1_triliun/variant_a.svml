@@ -22,14 +22,19 @@
   <script id="story">
     <hook/>
     <dialogue>
+      <DENSU>
+        Bapak, satu T, ||
       <REZA>
-        Bapak, satu take, || nah kurang, kurang, kurang, kurang, kurang, kurang. ||
-        Satu koma satu milyar, || dia cerita kalau biaya produksi || untuk marathon itu seharinya || itu tinggi banget. ||
-        Dan di podcast itu || dia juga bilang, || kemarin marathon itu gak, || gak menghasilkan gitu loh, ||
-        gak, gak yang sampai untung banyak banget || karena biaya produksi juga tinggi. ||
-        Gue kira cuma ya udah sofa, rumah, villa, kamera, dan... ||
+        nah kurang, kurang, kurang, kurang, kurang, kurang! ||
+      <DENSU>
+        Satu koma satu T, lu jalan! ||
+      <LEO>
+        Dia cerita kalau biaya produksi || untuk marapthon itu seharinya || itu tinggi banget. ||
+        Dan di podcast itu dia juga bilang, || kemarin marapthon itu gak, || gak menghasilkan gitu loh, ||
+        gak, gak yang sampai untung banyak banget || karena biaya produksinya juga tinggi. ||
+        Gue juga kaget, || biaya gue kira cuma ya udah sofa, || rumah, villa, kamera, dan... ||
         Ternyata ngelakuinnya bener-bener banyak gitu, || kayak udah mau syuting sinetron. ||
-        Nah ini juga menentukan ya, || kualitas dari kontennya.
+        Nah ini juga menentukan ya, || kualitas dari clipping-nya.
     </dialogue>
   </script>
 
@@ -58,9 +63,9 @@
 
   <time:Timeline id="film-time" clock={clock} end="dialogue-window.end">
     <time:Window id="dialogue-window" from="start" for={dialogue-media.extent}/>
-    <time:Window id="hook-window" from="start" for="354f"/>
-    <time:Window id="body-window" from="hook-window.end" for="782f"/>
-    <time:Window id="headline-window" from="start" for="150f"/>
+    <time:Window id="hook-window" from="start" for="203f"/>
+    <time:Window id="body-window" from="hook-window.end" for="933f"/>
+    <time:Window id="headline-window" from="start" for="203f"/>
   </time:Timeline>
 
   <semantic:Projection id="story-time" narrative={story} timeline={film-time.timeline}>
@@ -98,7 +103,7 @@
 
   <audio:Track id="bgm-sound" timeline={film-time.timeline}>
     <audio:Clip id="bgm-clip" source={bgm-media.media} during={film-time.dialogue-window}
-      gain="0.08" fade-in="15f" fade-out="30f"/>
+      gain="0.0"/>
   </audio:Track>
 
   <film:Film id="main" canvas={canvas.canvas} timeline={film-time.timeline}
