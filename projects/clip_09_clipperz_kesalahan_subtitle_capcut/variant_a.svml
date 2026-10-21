@@ -133,5 +133,5 @@
   </film:Film>
 
   <html:Video id="final" composition={main.composition} timeline={film-time.timeline}
-    start-frame="0" end-frame-exclusive="1182"/>
+    start-frame="0" end-frame-exclusive="1180"/>
 </svml>

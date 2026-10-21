@@ -8,8 +8,8 @@
   "subtitle_preset": "SUB_MODERN_PILL",
   "timing": {
     "fps": 30,
-    "total_duration_seconds": 39.4,
-    "total_frames": 1182,
+    "total_duration_seconds": 39.33,
+    "total_frames": 1180,
     "hook_duration_seconds": 6.8,
     "hook_frames": 204,
     "body_duration_seconds": 32.6,
