@@ -1,0 +1,41 @@
+{
+  "project_name": "clip_07_nauki_clipper_ai_50klip",
+  "clip_id": "clip_07_nauki_clipper_ai_50klip",
+  "run_file": "build.svrun",
+  "output_name": "variant_a.mp4",
+  "headline_text": "PILIH MANUAL 3-5 VIDEO ATAU PAKAI AI BISA DAPET 50 KLIP SEHARI!?",
+  "headline_preset": "HEADLINE_BOXED_YELLOW",
+  "subtitle_preset": "SUB_MODERN_PILL",
+  "timing": {
+    "fps": 30,
+    "total_duration_seconds": 41.93,
+    "total_frames": 1258,
+    "hook_duration_seconds": 5.0,
+    "hook_frames": 150,
+    "body_duration_seconds": 36.93,
+    "body_frames": 1108
+  },
+  "sources": [
+    {
+      "id": "main-video",
+      "type": "local_asset",
+      "file_name": "video_source.mp4",
+      "destination": "assets/video_source.mp4",
+      "require_audio": false
+    },
+    {
+      "id": "dialogue-audio",
+      "type": "local_asset",
+      "file_name": "dialogue_track.m4a",
+      "destination": "assets/dialogue_track.m4a",
+      "require_audio": true
+    },
+    {
+      "id": "official-music",
+      "type": "local_asset",
+      "file_name": "official_music.mp3",
+      "destination": "assets/official_music.mp3",
+      "require_audio": true
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "project_name": "clip_09_clipperz_kesalahan_subtitle_capcut",
+  "clip_id": "clip_09_clipperz_kesalahan_subtitle_capcut",
+  "run_file": "build.svrun",
+  "output_name": "variant_a.mp4",
+  "headline_text": "KESALAHAN FATAL SUBTITLE CAPCUT BIKIN KONTEN MARAPTHON GAGAL VIRAL!?",
+  "headline_preset": "HEADLINE_BOXED_YELLOW",
+  "subtitle_preset": "SUB_MODERN_PILL",
+  "timing": {
+    "fps": 30,
+    "total_duration_seconds": 39.4,
+    "total_frames": 1182,
+    "hook_duration_seconds": 6.8,
+    "hook_frames": 204,
+    "body_duration_seconds": 32.6,
+    "body_frames": 978
+  },
+  "sources": [
+    {
+      "id": "main-video",
+      "type": "local_asset",
+      "file_name": "video_source.mp4",
+      "destination": "assets/video_source.mp4",
+      "require_audio": false
+    },
+    {
+      "id": "dialogue-audio",
+      "type": "local_asset",
+      "file_name": "dialogue_track.m4a",
+      "destination": "assets/dialogue_track.m4a",
+      "require_audio": true
+    },
+    {
+      "id": "official-music",
+      "type": "local_asset",
+      "file_name": "official_music.mp3",
+      "destination": "assets/official_music.mp3",
+      "require_audio": true
+    }
+  ]
+}

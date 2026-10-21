@@ -1,0 +1,41 @@
+{
+  "project_name": "clip_05_sekilasberkelas_gajian_2digit",
+  "clip_id": "clip_05_sekilasberkelas_gajian_2digit",
+  "run_file": "build.svrun",
+  "output_name": "variant_a.mp4",
+  "headline_text": "LEO GIOVANNI BONGKAR REALITA BIAYA MARAPTHON: SYUTING KELAS ATAS BIKIN KAGET!?",
+  "headline_preset": "HEADLINE_BOXED_YELLOW",
+  "subtitle_preset": "SUB_MODERN_PILL",
+  "timing": {
+    "fps": 30,
+    "total_duration_seconds": 80.2,
+    "total_frames": 2406,
+    "hook_duration_seconds": 6.8,
+    "hook_frames": 204,
+    "body_duration_seconds": 73.4,
+    "body_frames": 2202
+  },
+  "sources": [
+    {
+      "id": "main-video",
+      "type": "local_asset",
+      "file_name": "video_source.mp4",
+      "destination": "assets/video_source.mp4",
+      "require_audio": false
+    },
+    {
+      "id": "dialogue-audio",
+      "type": "local_asset",
+      "file_name": "dialogue_track.m4a",
+      "destination": "assets/dialogue_track.m4a",
+      "require_audio": true
+    },
+    {
+      "id": "official-music",
+      "type": "local_asset",
+      "file_name": "official_music.mp3",
+      "destination": "assets/official_music.mp3",
+      "require_audio": true
+    }
+  ]
+}

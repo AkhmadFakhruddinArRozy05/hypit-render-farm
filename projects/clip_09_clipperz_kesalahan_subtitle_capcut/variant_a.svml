@@ -1,0 +1,137 @@
+<?svml using="@hypit/markup@1"?>
+<svml>
+  <import from="@hypit/script@1"/>
+  <import as="asset" from="@hypit/media@1"/>
+  <import as="media" from="@hypit/media@1"/>
+  <import as="mediaop" from="@hypit/media-operations@1"/>
+  <import as="whisperx" from="@hypit/whisperx@1"/>
+  <import as="semantic" from="@hypit/narrative-temporal@1"/>
+  <import as="time" from="@hypit/timeline-author@1"/>
+  <import as="space" from="@hypit/spatial@1"/>
+  <import as="visual" from="@hypit/visual-track@1"/>
+  <import as="audio" from="@hypit/audio-track@1"/>
+  <import as="caption" from="@hypit/caption@1"/>
+  <import as="caption-fine" from="@hypit/caption-fine@1"/>
+  <import as="narrative-caption" from="@hypit/narrative-caption@1"/>
+  <import as="fonts" from="@hypit/fontsource@1"/>
+  <import as="comment" from="@hypit/comment-sticker@1"/>
+  <import as="film" from="@hypit/film@1"/>
+  <import as="html" from="@hypit/html-video@1"/>
+  <import as="recipes" source="./recipes.svs"/>
+
+  <script id="story">
+    <hook/>
+    <dialogue>
+      <DENSU>
+        Bapak, satu T, ||
+      <REZA>
+        nah kurang, kurang, kurang, kurang, kurang, kurang! ||
+      <DENSU>
+        Satu koma satu T, lu jalan! ||
+      <LEO>
+        Dia cerita kalau ||
+        biaya produksi ||
+        untuk maraton itu ||
+        seharinya itu tinggi ||
+        banget. ||
+        Dan di podcast ||
+        itu dia juga ||
+        bilang, ||
+        kemarin maraton itu ||
+        nggak, nggak ||
+        menghasilkan gitu ||
+        loh, ||
+        nggak, nggak ||
+        yang sampai untung ||
+        banyak banget ||
+        karena biaya produksinya ||
+        juga tinggi. ||
+        Gue juga kaget, ||
+        biaya gue kira cuma ||
+        ya udah sofa, ||
+        rumah, villa, ||
+        kamera, dan ternyata ||
+        ngelakuinnya bener-bener ||
+        banyak gitu, ||
+        kayak udah mau ||
+        syuting sinetron. ||
+        Nah ini juga ||
+        menentukan ya, ||
+        kualitas dari clipping-nya.
+    </dialogue>
+  </script>
+
+  <asset:Video id="main-video-asset" src="./assets/video_source.mp4"/>
+  <asset:Audio id="dialogue-audio-asset" src="./assets/dialogue_track.m4a"/>
+  <asset:Audio id="bgm-audio-asset" src="./assets/official_music.mp3"/>
+
+  <space:Canvas id="canvas" width="1080" height="1920"/>
+  <space:Frame id="full-frame" within={canvas.bounds} left="0%" top="0%" right="100%" bottom="100%"/>
+  <space:AnchoredFrame id="headline-card-frame" within={canvas.bounds} x="50%" y="16%" width="90%" height="18%" anchor="center"/>
+
+  <time:Clock id="clock" frame-rate="30"/>
+
+  <mediaop:Normalize id="main-video-media" source={main-video-asset} clock={clock}
+    video="primary-moving" audio="none" span-authority="video"/>
+  <mediaop:Normalize id="dialogue-media" source={dialogue-audio-asset} clock={clock}
+    video="none" audio="default" span-authority="audio"/>
+  <mediaop:Normalize id="bgm-media" source={bgm-audio-asset} clock={clock}
+    video="none" audio="default" span-authority="audio"/>
+
+  <whisperx:Alignment id="dialogue-semantic" narrative={story}
+    segment={story.segment.dialogue} media={dialogue-media.media} domain={dialogue-media.domain} language="id"/>
+
+  <time:Timeline id="film-time" clock={clock} end="dialogue-window.end">
+    <time:Window id="dialogue-window" from="start" for={dialogue-media.extent}/>
+    <time:Window id="video-window" from="start" for={dialogue-media.extent}/>
+    <time:Window id="headline-window" from="start" for="203f"/>
+  </time:Timeline>
+
+  <semantic:Projection id="story-time" narrative={story} timeline={film-time.timeline}>
+    <semantic:Map alignment={dialogue-semantic.alignment} domain={dialogue-media.domain} window={film-time.dialogue-window}/>
+  </semantic:Projection>
+
+  <narrative-caption:Timing id="caption-timing" document={story.caption} binding={story.caption-binding} projection={story-time}/>
+
+  <fonts:Face id="montserrat-bold" package="@fontsource-variable/montserrat" weight="800" style="normal"/>
+  <media:FontStack id="ui-fonts" primary={montserrat-bold}/>
+
+  <caption-fine:Style id="caption-style" recipe={recipes.caption.subtitle_a} font={montserrat-bold}/>
+  <comment:Style id="headline-card-style" recipe={recipes.card.headline_a} font={ui-fonts}/>
+
+  <visual:Track id="video-track" timeline={film-time.timeline}>
+    <visual:Clip id="main-clip" media={main-video-media.media} during={film-time.video-window} frame={full-frame} z="10" fit="cover"/>
+  </visual:Track>
+
+  <comment:Track id="headline-track" timeline={film-time.timeline}>
+    <comment:Sticker id="headline-sticker" frame={headline-card-frame} style={headline-card-style}
+      header="@_cliperasix" author="@_cliperasix" meta="LEO GIOVANNI · EDITING SUBTITLE CAPCUT" during={film-time.headline-window}>
+      KESALAHAN FATAL SUBTITLE CAPCUT BIKIN KONTEN MARAPTHON GAGAL VIRAL!?
+    </comment:Sticker>
+  </comment:Track>
+
+  <caption-fine:Caption id="captions" document={story.caption} timing={caption-timing}
+    timeline={film-time.timeline} within={canvas.bounds}>
+    <caption-fine:Use style={caption-style}/>
+  </caption-fine:Caption>
+
+  <audio:Track id="dialogue-sound" timeline={film-time.timeline}>
+    <audio:Clip id="dialogue-clip" source={dialogue-media.media} during={film-time.dialogue-window} gain="1.0"/>
+  </audio:Track>
+
+  <audio:Track id="bgm-sound" timeline={film-time.timeline}>
+    <audio:Clip id="bgm-clip" source={bgm-media.media} during={film-time.dialogue-window} gain="0.15"/>
+  </audio:Track>
+
+  <film:Film id="main" canvas={canvas.canvas} timeline={film-time.timeline}
+    appearance={recipes.film.vertical}>
+    <film:Track source={video-track.visual}/>
+    <film:Track source={dialogue-sound.audio}/>
+    <film:Track source={bgm-sound.audio}/>
+    <film:Track source={headline-track.visual}/>
+    <film:Track source={captions.visual}/>
+  </film:Film>
+
+  <html:Video id="final" composition={main.composition} timeline={film-time.timeline}
+    start-frame="0" end-frame-exclusive="1182"/>
+</svml>
