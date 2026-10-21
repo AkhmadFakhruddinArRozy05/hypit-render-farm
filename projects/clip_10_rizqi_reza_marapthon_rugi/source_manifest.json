@@ -1,0 +1,48 @@
+{
+  "project_name": "clip_10_rizqi_reza_marapthon_rugi",
+  "clip_id": "clip_10_rizqi_reza_marapthon_rugi",
+  "run_file": "build.svrun",
+  "output_name": "variant_a.mp4",
+  "headline_text": "REZA ARAP BLAK-BLAKAN MARAPTHON GAK UNTUNG BANYAK",
+  "headline_preset": "HEADLINE_BOXED_YELLOW",
+  "subtitle_preset": "SUB_MODERN_PILL",
+  "timing": {
+    "fps": 30,
+    "total_duration_seconds": 37.0,
+    "total_frames": 1110,
+    "hook_duration_seconds": 6.8,
+    "hook_frames": 204,
+    "body_duration_seconds": 30.2,
+    "body_frames": 906
+  },
+  "sources": [
+    {
+      "id": "hook-video",
+      "type": "local_asset",
+      "file_name": "hook.mp4",
+      "destination": "assets/hook.mp4",
+      "require_audio": false
+    },
+    {
+      "id": "body-video",
+      "type": "local_asset",
+      "file_name": "body.mp4",
+      "destination": "assets/body.mp4",
+      "require_audio": false
+    },
+    {
+      "id": "dialogue-audio",
+      "type": "local_asset",
+      "file_name": "dialogue_track.m4a",
+      "destination": "assets/dialogue_track.m4a",
+      "require_audio": true
+    },
+    {
+      "id": "official-music",
+      "type": "local_asset",
+      "file_name": "official_music.mp3",
+      "destination": "assets/official_music.mp3",
+      "require_audio": true
+    }
+  ]
+}
