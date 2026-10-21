@@ -1,0 +1,54 @@
+{
+  "project_name": "clip_02_jei_toko_keliling",
+  "clip_id": "clip_02_jei_toko_keliling",
+  "run_file": "build.svrun",
+  "output_name": "variant_a.mp4",
+  "headline_text": "PEMBONGKARAN MODUS TOKO EMAS KELILING! CEK LIONTIN DAN KALUNG ADA SURATNYA!?",
+  "headline_preset": "BOXED_PILL",
+  "subtitle_preset": "SUB_MODERN_PILL",
+  "timing": {
+    "fps": 30,
+    "total_duration_seconds": 48.0,
+    "total_frames": 1440,
+    "hook_duration_seconds": 5.0,
+    "hook_frames": 150,
+    "body_duration_seconds": 43.0,
+    "body_frames": 1290
+  },
+  "sources": [
+    {
+      "id": "hook-video",
+      "type": "local_asset",
+      "file_name": "hook.mp4",
+      "sha256": "daaf900141574859be89d62a2fba81ab39e19bf854a3f1bce4012ea1d4a6d452",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_02_jei_toko_keliling/raw/hook.mp4",
+      "destination": "assets/hook.mp4"
+    },
+    {
+      "id": "body-video",
+      "type": "local_asset",
+      "file_name": "body.mp4",
+      "sha256": "de4568692484ee337137aecfabde2f412121b32ea531ba739522ab379b6d12c2",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_02_jei_toko_keliling/raw/body.mp4",
+      "destination": "assets/body.mp4"
+    },
+    {
+      "id": "dialogue-audio",
+      "type": "local_asset",
+      "file_name": "dialogue_track.m4a",
+      "sha256": "3b14f86e6d5f504424daac2e5dd1b6027d181dd1e413c29df0eb1013fae36565",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_02_jei_toko_keliling/raw/dialogue_track.m4a",
+      "destination": "assets/dialogue_track.m4a"
+    },
+    {
+      "id": "bgm-audio",
+      "type": "local_asset",
+      "file_name": "bgm_track.m4a",
+      "title": "Official BGM Track",
+      "ducking_gain": 0.15,
+      "sha256": "9af14db79ad7c7676c68bb3743c23870321e1ff37ab30bd2372711639974fc89",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_02_jei_toko_keliling/raw/bgm_track.m4a",
+      "destination": "assets/bgm_track.m4a"
+    }
+  ]
+}

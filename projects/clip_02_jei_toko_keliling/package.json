@@ -1,0 +1,9 @@
+{
+  "name": "clip_02_jei_toko_keliling",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "hypit": {
+    "project": true
+  }
+}

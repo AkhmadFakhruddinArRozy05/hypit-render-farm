@@ -1,0 +1,64 @@
+{
+  "project_name": "clip_03_jei_cincin_nikah",
+  "clip_id": "clip_03_jei_cincin_nikah",
+  "run_file": "build.svrun",
+  "output_name": "variant_a.mp4",
+  "headline_text": "PASANGAN MUDA CEK CINCIN NIKAH BERLIAN! TERNYATA CUMA DIHARGAI SEGINI!?",
+  "headline_preset": "BOXED_PILL",
+  "subtitle_preset": "SUB_MODERN_PILL",
+  "timing": {
+    "fps": 30,
+    "total_duration_seconds": 68.41,
+    "total_frames": 2053,
+    "hook_duration_seconds": 5.0,
+    "hook_frames": 150,
+    "body_duration_seconds": 57.0,
+    "body_frames": 1710,
+    "outro_duration_seconds": 6.41,
+    "outro_frames": 193
+  },
+  "sources": [
+    {
+      "id": "hook-video",
+      "type": "local_asset",
+      "file_name": "hook.mp4",
+      "sha256": "94d469f92d8c40197465ef0548a4e214e83dfeb2470a998326ac6ad749ace93c",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/hook.mp4",
+      "destination": "assets/hook.mp4"
+    },
+    {
+      "id": "body-video",
+      "type": "local_asset",
+      "file_name": "body.mp4",
+      "sha256": "647ea83113c6e9050361d67b322944c95180b2682cc849c3f52037c59c5f0783",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/body.mp4",
+      "destination": "assets/body.mp4"
+    },
+    {
+      "id": "outro-video",
+      "type": "local_asset",
+      "file_name": "outro.mp4",
+      "sha256": "6d81264cc8145feb6e9d18c5a3461339c9b7088ea3bb35c810f33236ad2d0cb2",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/outro.mp4",
+      "destination": "assets/outro.mp4"
+    },
+    {
+      "id": "dialogue-audio",
+      "type": "local_asset",
+      "file_name": "dialogue_track.m4a",
+      "sha256": "a9ec8410c40f379216098ac1b8a98a3078769de7b8b708b54f6057bbeda0b279",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/dialogue_track.m4a",
+      "destination": "assets/dialogue_track.m4a"
+    },
+    {
+      "id": "bgm-audio",
+      "type": "local_asset",
+      "file_name": "bgm_track.m4a",
+      "title": "Sisa Rasa by Mahalini",
+      "ducking_gain": 0.15,
+      "sha256": "2766d632672f2449c85bda4cea4af909d2ecb89eabb336ca7f723cab27970339",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/bgm_track.m4a",
+      "destination": "assets/bgm_track.m4a"
+    }
+  ]
+}

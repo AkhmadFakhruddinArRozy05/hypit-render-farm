@@ -1,0 +1,510 @@
+{
+  "text": "Gue pernah ya, itu gue jatuh banget Padahal kamera cinema Cuma ada dua di Indonesia, dua -duanya Saya pegang di hari itu Walaupun pasti gak boleh marah Cuma pada setiap pagi, kan gue nampak kamera Gue setiap kamera nya pas nyalain setting-annya mau segala macam dulu Gua pas nyalainnya nih Belum gua belum sentuh Dia masuk ke sistemnya Ada login gitu loh Oke login, masuk, ada login mengenai saya Baru gua sentuh",
+  "duration": 35.0,
+  "words": [
+    {
+      "index": 0,
+      "word": "Gue",
+      "start": 5.78,
+      "end": 6.4,
+      "duration": 0.62
+    },
+    {
+      "index": 1,
+      "word": "pernah",
+      "start": 6.4,
+      "end": 6.74,
+      "duration": 0.34
+    },
+    {
+      "index": 2,
+      "word": "ya,",
+      "start": 6.74,
+      "end": 7.52,
+      "duration": 0.78
+    },
+    {
+      "index": 3,
+      "word": "itu",
+      "start": 7.52,
+      "end": 7.66,
+      "duration": 0.14
+    },
+    {
+      "index": 4,
+      "word": "gue",
+      "start": 7.66,
+      "end": 7.8,
+      "duration": 0.14
+    },
+    {
+      "index": 5,
+      "word": "jatuh",
+      "start": 7.8,
+      "end": 8.12,
+      "duration": 0.32
+    },
+    {
+      "index": 6,
+      "word": "banget",
+      "start": 8.12,
+      "end": 8.34,
+      "duration": 0.22
+    },
+    {
+      "index": 7,
+      "word": "Padahal",
+      "start": 9.2,
+      "end": 9.56,
+      "duration": 0.36
+    },
+    {
+      "index": 8,
+      "word": "kamera",
+      "start": 9.56,
+      "end": 10.2,
+      "duration": 0.64
+    },
+    {
+      "index": 9,
+      "word": "cinema",
+      "start": 10.2,
+      "end": 10.4,
+      "duration": 0.2
+    },
+    {
+      "index": 10,
+      "word": "Cuma",
+      "start": 11.6,
+      "end": 11.88,
+      "duration": 0.28
+    },
+    {
+      "index": 11,
+      "word": "ada",
+      "start": 11.88,
+      "end": 12.12,
+      "duration": 0.24
+    },
+    {
+      "index": 12,
+      "word": "dua",
+      "start": 12.12,
+      "end": 12.42,
+      "duration": 0.3
+    },
+    {
+      "index": 13,
+      "word": "di",
+      "start": 12.42,
+      "end": 12.58,
+      "duration": 0.16
+    },
+    {
+      "index": 14,
+      "word": "Indonesia,",
+      "start": 12.58,
+      "end": 13.58,
+      "duration": 1.0
+    },
+    {
+      "index": 15,
+      "word": "dua",
+      "start": 13.58,
+      "end": 13.78,
+      "duration": 0.2
+    },
+    {
+      "index": 16,
+      "word": "-duanya",
+      "start": 13.78,
+      "end": 14.16,
+      "duration": 0.38
+    },
+    {
+      "index": 17,
+      "word": "Saya",
+      "start": 15.04,
+      "end": 15.38,
+      "duration": 0.34
+    },
+    {
+      "index": 18,
+      "word": "pegang",
+      "start": 15.38,
+      "end": 15.68,
+      "duration": 0.3
+    },
+    {
+      "index": 19,
+      "word": "di",
+      "start": 15.68,
+      "end": 15.86,
+      "duration": 0.18
+    },
+    {
+      "index": 20,
+      "word": "hari",
+      "start": 15.86,
+      "end": 15.96,
+      "duration": 0.1
+    },
+    {
+      "index": 21,
+      "word": "itu",
+      "start": 15.96,
+      "end": 16.22,
+      "duration": 0.26
+    },
+    {
+      "index": 22,
+      "word": "Walaupun",
+      "start": 16.84,
+      "end": 17.04,
+      "duration": 0.2
+    },
+    {
+      "index": 23,
+      "word": "pasti",
+      "start": 17.04,
+      "end": 17.32,
+      "duration": 0.28
+    },
+    {
+      "index": 24,
+      "word": "gak",
+      "start": 17.32,
+      "end": 17.44,
+      "duration": 0.12
+    },
+    {
+      "index": 25,
+      "word": "boleh",
+      "start": 17.44,
+      "end": 17.62,
+      "duration": 0.18
+    },
+    {
+      "index": 26,
+      "word": "marah",
+      "start": 17.62,
+      "end": 17.8,
+      "duration": 0.18
+    },
+    {
+      "index": 27,
+      "word": "Cuma",
+      "start": 18.36,
+      "end": 19.72,
+      "duration": 1.36
+    },
+    {
+      "index": 28,
+      "word": "pada",
+      "start": 19.72,
+      "end": 19.92,
+      "duration": 0.2
+    },
+    {
+      "index": 29,
+      "word": "setiap",
+      "start": 19.92,
+      "end": 20.12,
+      "duration": 0.2
+    },
+    {
+      "index": 30,
+      "word": "pagi,",
+      "start": 20.12,
+      "end": 20.7,
+      "duration": 0.58
+    },
+    {
+      "index": 31,
+      "word": "kan",
+      "start": 20.7,
+      "end": 20.76,
+      "duration": 0.06
+    },
+    {
+      "index": 32,
+      "word": "gue",
+      "start": 20.76,
+      "end": 20.94,
+      "duration": 0.18
+    },
+    {
+      "index": 33,
+      "word": "nampak",
+      "start": 20.94,
+      "end": 21.1,
+      "duration": 0.16
+    },
+    {
+      "index": 34,
+      "word": "kamera",
+      "start": 21.1,
+      "end": 21.44,
+      "duration": 0.34
+    },
+    {
+      "index": 35,
+      "word": "Gue",
+      "start": 22.38,
+      "end": 22.5,
+      "duration": 0.12
+    },
+    {
+      "index": 36,
+      "word": "setiap",
+      "start": 22.5,
+      "end": 22.74,
+      "duration": 0.24
+    },
+    {
+      "index": 37,
+      "word": "kamera",
+      "start": 22.74,
+      "end": 22.94,
+      "duration": 0.2
+    },
+    {
+      "index": 38,
+      "word": "nya",
+      "start": 22.94,
+      "end": 23.16,
+      "duration": 0.22
+    },
+    {
+      "index": 39,
+      "word": "pas",
+      "start": 23.16,
+      "end": 23.28,
+      "duration": 0.12
+    },
+    {
+      "index": 40,
+      "word": "nyalain",
+      "start": 23.28,
+      "end": 23.48,
+      "duration": 0.2
+    },
+    {
+      "index": 41,
+      "word": "setting-annya",
+      "start": 23.48,
+      "end": 23.8,
+      "duration": 0.32
+    },
+    {
+      "index": 42,
+      "word": "mau",
+      "start": 23.8,
+      "end": 23.92,
+      "duration": 0.12
+    },
+    {
+      "index": 43,
+      "word": "segala",
+      "start": 23.92,
+      "end": 24.12,
+      "duration": 0.2
+    },
+    {
+      "index": 44,
+      "word": "macam",
+      "start": 24.12,
+      "end": 24.4,
+      "duration": 0.28
+    },
+    {
+      "index": 45,
+      "word": "dulu",
+      "start": 24.4,
+      "end": 24.62,
+      "duration": 0.22
+    },
+    {
+      "index": 46,
+      "word": "Gua",
+      "start": 24.94,
+      "end": 25.16,
+      "duration": 0.22
+    },
+    {
+      "index": 47,
+      "word": "pas",
+      "start": 25.16,
+      "end": 25.26,
+      "duration": 0.1
+    },
+    {
+      "index": 48,
+      "word": "nyalainnya",
+      "start": 25.26,
+      "end": 25.86,
+      "duration": 0.6
+    },
+    {
+      "index": 49,
+      "word": "nih",
+      "start": 25.86,
+      "end": 25.98,
+      "duration": 0.12
+    },
+    {
+      "index": 50,
+      "word": "Belum",
+      "start": 27.3,
+      "end": 27.78,
+      "duration": 0.48
+    },
+    {
+      "index": 51,
+      "word": "gua",
+      "start": 27.78,
+      "end": 27.98,
+      "duration": 0.2
+    },
+    {
+      "index": 52,
+      "word": "belum",
+      "start": 27.98,
+      "end": 29.02,
+      "duration": 1.04
+    },
+    {
+      "index": 53,
+      "word": "sentuh",
+      "start": 29.02,
+      "end": 29.38,
+      "duration": 0.36
+    },
+    {
+      "index": 54,
+      "word": "Dia",
+      "start": 29.52,
+      "end": 29.66,
+      "duration": 0.14
+    },
+    {
+      "index": 55,
+      "word": "masuk",
+      "start": 29.66,
+      "end": 30.22,
+      "duration": 0.56
+    },
+    {
+      "index": 56,
+      "word": "ke",
+      "start": 30.22,
+      "end": 30.36,
+      "duration": 0.14
+    },
+    {
+      "index": 57,
+      "word": "sistemnya",
+      "start": 30.36,
+      "end": 30.7,
+      "duration": 0.34
+    },
+    {
+      "index": 58,
+      "word": "Ada",
+      "start": 31.36,
+      "end": 31.52,
+      "duration": 0.16
+    },
+    {
+      "index": 59,
+      "word": "login",
+      "start": 31.52,
+      "end": 31.78,
+      "duration": 0.26
+    },
+    {
+      "index": 60,
+      "word": "gitu",
+      "start": 31.78,
+      "end": 31.94,
+      "duration": 0.16
+    },
+    {
+      "index": 61,
+      "word": "loh",
+      "start": 31.94,
+      "end": 32.06,
+      "duration": 0.12
+    },
+    {
+      "index": 62,
+      "word": "Oke",
+      "start": 32.22,
+      "end": 32.36,
+      "duration": 0.14
+    },
+    {
+      "index": 63,
+      "word": "login,",
+      "start": 32.36,
+      "end": 32.84,
+      "duration": 0.48
+    },
+    {
+      "index": 64,
+      "word": "masuk,",
+      "start": 32.84,
+      "end": 33.26,
+      "duration": 0.42
+    },
+    {
+      "index": 65,
+      "word": "ada",
+      "start": 33.26,
+      "end": 33.36,
+      "duration": 0.1
+    },
+    {
+      "index": 66,
+      "word": "login",
+      "start": 33.36,
+      "end": 33.54,
+      "duration": 0.18
+    },
+    {
+      "index": 67,
+      "word": "mengenai",
+      "start": 33.54,
+      "end": 33.7,
+      "duration": 0.16
+    },
+    {
+      "index": 68,
+      "word": "saya",
+      "start": 33.7,
+      "end": 33.84,
+      "duration": 0.14
+    },
+    {
+      "index": 69,
+      "word": "Baru",
+      "start": 33.96,
+      "end": 34.22,
+      "duration": 0.26
+    },
+    {
+      "index": 70,
+      "word": "gua",
+      "start": 34.22,
+      "end": 34.36,
+      "duration": 0.14
+    },
+    {
+      "index": 71,
+      "word": "sentuh",
+      "start": 34.36,
+      "end": 34.76,
+      "duration": 0.4
+    }
+  ]
+}

@@ -1,0 +1,804 @@
+{
+  "text": "*musik* Ilman dan Dea, mau cek emas apa saya bantu ya? Halo, sama liantin. Ah enak nih masih ada suratnya. Jadi tau belinya berapa? Biasanya kalau ada surat tuh biar kita tau aja untung apa enggak. Dulu belinya gimana Pak? Di ******. ****** juga ada banget. Pasar Anyang. Dulu berapa? Ingat gak? Ini kalau liantinnya 590. 590 ribu? Iya, kalau kalungnya 3.500 ribu. Oke, ini saya izin kasih liat ya. Belinya udah berapa lama ya Kak? Tahun 2021 deh kayaknya. Oke, saya jamin pasti untung. Lantinnya disini tulisannya no cap ya. Nah kalau misalnya biasa gak ada capnya, kita gak tau tuh sebenarnya aslinya berapa. Jadi makanya kita cek pakai mesin. Oke. Kalau yang kalungnya,",
+  "duration": 48.0,
+  "words": [
+    {
+      "index": 0,
+      "word": "Ilman",
+      "start": 5.0,
+      "end": 5.9,
+      "duration": 0.9
+    },
+    {
+      "index": 1,
+      "word": "dan",
+      "start": 5.9,
+      "end": 6.44,
+      "duration": 0.54
+    },
+    {
+      "index": 2,
+      "word": "Dea,",
+      "start": 6.44,
+      "end": 7.08,
+      "duration": 0.64
+    },
+    {
+      "index": 3,
+      "word": "mau",
+      "start": 7.08,
+      "end": 7.2,
+      "duration": 0.12
+    },
+    {
+      "index": 4,
+      "word": "cek",
+      "start": 7.2,
+      "end": 7.32,
+      "duration": 0.12
+    },
+    {
+      "index": 5,
+      "word": "emas",
+      "start": 7.32,
+      "end": 7.48,
+      "duration": 0.16
+    },
+    {
+      "index": 6,
+      "word": "apa",
+      "start": 7.48,
+      "end": 7.6,
+      "duration": 0.12
+    },
+    {
+      "index": 7,
+      "word": "saya",
+      "start": 7.6,
+      "end": 7.76,
+      "duration": 0.16
+    },
+    {
+      "index": 8,
+      "word": "bantu",
+      "start": 7.76,
+      "end": 8.0,
+      "duration": 0.24
+    },
+    {
+      "index": 9,
+      "word": "ya?",
+      "start": 8.0,
+      "end": 8.0,
+      "duration": 0.0
+    },
+    {
+      "index": 10,
+      "word": "Halo,",
+      "start": 8.0,
+      "end": 9.15,
+      "duration": 1.15
+    },
+    {
+      "index": 11,
+      "word": "sama",
+      "start": 9.15,
+      "end": 9.45,
+      "duration": 0.3
+    },
+    {
+      "index": 12,
+      "word": "liantin.",
+      "start": 9.45,
+      "end": 10.0,
+      "duration": 0.55
+    },
+    {
+      "index": 13,
+      "word": "Ah",
+      "start": 10.0,
+      "end": 10.16,
+      "duration": 0.16
+    },
+    {
+      "index": 14,
+      "word": "enak",
+      "start": 10.16,
+      "end": 10.47,
+      "duration": 0.31
+    },
+    {
+      "index": 15,
+      "word": "nih",
+      "start": 10.47,
+      "end": 10.71,
+      "duration": 0.24
+    },
+    {
+      "index": 16,
+      "word": "masih",
+      "start": 10.71,
+      "end": 11.1,
+      "duration": 0.39
+    },
+    {
+      "index": 17,
+      "word": "ada",
+      "start": 11.1,
+      "end": 11.34,
+      "duration": 0.24
+    },
+    {
+      "index": 18,
+      "word": "suratnya.",
+      "start": 11.34,
+      "end": 12.0,
+      "duration": 0.66
+    },
+    {
+      "index": 19,
+      "word": "Jadi",
+      "start": 12.0,
+      "end": 12.4,
+      "duration": 0.4
+    },
+    {
+      "index": 20,
+      "word": "tau",
+      "start": 12.4,
+      "end": 12.7,
+      "duration": 0.3
+    },
+    {
+      "index": 21,
+      "word": "belinya",
+      "start": 12.7,
+      "end": 13.39,
+      "duration": 0.69
+    },
+    {
+      "index": 22,
+      "word": "berapa?",
+      "start": 13.39,
+      "end": 14.0,
+      "duration": 0.61
+    },
+    {
+      "index": 23,
+      "word": "Biasanya",
+      "start": 14.0,
+      "end": 14.41,
+      "duration": 0.41
+    },
+    {
+      "index": 24,
+      "word": "kalau",
+      "start": 14.41,
+      "end": 14.67,
+      "duration": 0.26
+    },
+    {
+      "index": 25,
+      "word": "ada",
+      "start": 14.67,
+      "end": 14.82,
+      "duration": 0.15
+    },
+    {
+      "index": 26,
+      "word": "surat",
+      "start": 14.82,
+      "end": 15.07,
+      "duration": 0.25
+    },
+    {
+      "index": 27,
+      "word": "tuh",
+      "start": 15.07,
+      "end": 15.22,
+      "duration": 0.15
+    },
+    {
+      "index": 28,
+      "word": "biar",
+      "start": 15.22,
+      "end": 15.42,
+      "duration": 0.2
+    },
+    {
+      "index": 29,
+      "word": "kita",
+      "start": 15.42,
+      "end": 15.63,
+      "duration": 0.21
+    },
+    {
+      "index": 30,
+      "word": "tau",
+      "start": 15.63,
+      "end": 15.78,
+      "duration": 0.15
+    },
+    {
+      "index": 31,
+      "word": "aja",
+      "start": 15.78,
+      "end": 16.0,
+      "duration": 0.22
+    },
+    {
+      "index": 32,
+      "word": "untung",
+      "start": 16.0,
+      "end": 16.39,
+      "duration": 0.39
+    },
+    {
+      "index": 33,
+      "word": "apa",
+      "start": 16.39,
+      "end": 16.59,
+      "duration": 0.2
+    },
+    {
+      "index": 34,
+      "word": "enggak.",
+      "start": 16.59,
+      "end": 17.0,
+      "duration": 0.41
+    },
+    {
+      "index": 35,
+      "word": "Dulu",
+      "start": 17.0,
+      "end": 17.17,
+      "duration": 0.17
+    },
+    {
+      "index": 36,
+      "word": "belinya",
+      "start": 17.17,
+      "end": 17.47,
+      "duration": 0.3
+    },
+    {
+      "index": 37,
+      "word": "gimana",
+      "start": 17.47,
+      "end": 17.73,
+      "duration": 0.26
+    },
+    {
+      "index": 38,
+      "word": "Pak?",
+      "start": 17.73,
+      "end": 18.0,
+      "duration": 0.27
+    },
+    {
+      "index": 39,
+      "word": "Di",
+      "start": 18.0,
+      "end": 18.8,
+      "duration": 0.8
+    },
+    {
+      "index": 40,
+      "word": "******.",
+      "start": 18.8,
+      "end": 20.0,
+      "duration": 1.2
+    },
+    {
+      "index": 41,
+      "word": "******",
+      "start": 20.0,
+      "end": 20.3,
+      "duration": 0.3
+    },
+    {
+      "index": 42,
+      "word": "juga",
+      "start": 20.3,
+      "end": 20.51,
+      "duration": 0.21
+    },
+    {
+      "index": 43,
+      "word": "ada",
+      "start": 20.51,
+      "end": 20.66,
+      "duration": 0.15
+    },
+    {
+      "index": 44,
+      "word": "banget.",
+      "start": 20.66,
+      "end": 21.0,
+      "duration": 0.34
+    },
+    {
+      "index": 45,
+      "word": "Pasar",
+      "start": 21.0,
+      "end": 21.45,
+      "duration": 0.45
+    },
+    {
+      "index": 46,
+      "word": "Anyang.",
+      "start": 21.45,
+      "end": 22.0,
+      "duration": 0.55
+    },
+    {
+      "index": 47,
+      "word": "Dulu",
+      "start": 22.0,
+      "end": 22.3,
+      "duration": 0.3
+    },
+    {
+      "index": 48,
+      "word": "berapa?",
+      "start": 22.3,
+      "end": 23.0,
+      "duration": 0.7
+    },
+    {
+      "index": 49,
+      "word": "Ingat",
+      "start": 23.0,
+      "end": 23.0,
+      "duration": 0.0
+    },
+    {
+      "index": 50,
+      "word": "gak?",
+      "start": 23.0,
+      "end": 23.0,
+      "duration": 0.0
+    },
+    {
+      "index": 51,
+      "word": "Ini",
+      "start": 23.0,
+      "end": 23.3,
+      "duration": 0.3
+    },
+    {
+      "index": 52,
+      "word": "kalau",
+      "start": 23.3,
+      "end": 23.8,
+      "duration": 0.5
+    },
+    {
+      "index": 53,
+      "word": "liantinnya",
+      "start": 23.8,
+      "end": 24.77,
+      "duration": 0.97
+    },
+    {
+      "index": 54,
+      "word": "590.",
+      "start": 24.77,
+      "end": 26.0,
+      "duration": 1.23
+    },
+    {
+      "index": 55,
+      "word": "590",
+      "start": 26.0,
+      "end": 26.69,
+      "duration": 0.69
+    },
+    {
+      "index": 56,
+      "word": "ribu?",
+      "start": 26.69,
+      "end": 27.0,
+      "duration": 0.31
+    },
+    {
+      "index": 57,
+      "word": "Iya,",
+      "start": 27.0,
+      "end": 27.25,
+      "duration": 0.25
+    },
+    {
+      "index": 58,
+      "word": "kalau",
+      "start": 27.25,
+      "end": 27.51,
+      "duration": 0.26
+    },
+    {
+      "index": 59,
+      "word": "kalungnya",
+      "start": 27.51,
+      "end": 27.96,
+      "duration": 0.45
+    },
+    {
+      "index": 60,
+      "word": "3.500",
+      "start": 27.96,
+      "end": 28.73,
+      "duration": 0.77
+    },
+    {
+      "index": 61,
+      "word": "ribu.",
+      "start": 28.73,
+      "end": 29.0,
+      "duration": 0.27
+    },
+    {
+      "index": 62,
+      "word": "Oke,",
+      "start": 29.03,
+      "end": 31.08,
+      "duration": 2.05
+    },
+    {
+      "index": 63,
+      "word": "ini",
+      "start": 31.08,
+      "end": 31.2,
+      "duration": 0.12
+    },
+    {
+      "index": 64,
+      "word": "saya",
+      "start": 31.2,
+      "end": 31.36,
+      "duration": 0.16
+    },
+    {
+      "index": 65,
+      "word": "izin",
+      "start": 31.36,
+      "end": 31.52,
+      "duration": 0.16
+    },
+    {
+      "index": 66,
+      "word": "kasih",
+      "start": 31.52,
+      "end": 31.72,
+      "duration": 0.2
+    },
+    {
+      "index": 67,
+      "word": "liat",
+      "start": 31.72,
+      "end": 31.88,
+      "duration": 0.16
+    },
+    {
+      "index": 68,
+      "word": "ya.",
+      "start": 31.88,
+      "end": 32.0,
+      "duration": 0.12
+    },
+    {
+      "index": 69,
+      "word": "Belinya",
+      "start": 32.0,
+      "end": 32.47,
+      "duration": 0.47
+    },
+    {
+      "index": 70,
+      "word": "udah",
+      "start": 32.47,
+      "end": 32.74,
+      "duration": 0.27
+    },
+    {
+      "index": 71,
+      "word": "berapa",
+      "start": 32.74,
+      "end": 33.14,
+      "duration": 0.4
+    },
+    {
+      "index": 72,
+      "word": "lama",
+      "start": 33.14,
+      "end": 33.41,
+      "duration": 0.27
+    },
+    {
+      "index": 73,
+      "word": "ya",
+      "start": 33.41,
+      "end": 33.54,
+      "duration": 0.13
+    },
+    {
+      "index": 74,
+      "word": "Kak?",
+      "start": 33.54,
+      "end": 34.0,
+      "duration": 0.46
+    },
+    {
+      "index": 75,
+      "word": "Tahun",
+      "start": 34.0,
+      "end": 34.35,
+      "duration": 0.35
+    },
+    {
+      "index": 76,
+      "word": "2021",
+      "start": 34.35,
+      "end": 35.2,
+      "duration": 0.85
+    },
+    {
+      "index": 77,
+      "word": "deh",
+      "start": 35.2,
+      "end": 35.41,
+      "duration": 0.21
+    },
+    {
+      "index": 78,
+      "word": "kayaknya.",
+      "start": 35.41,
+      "end": 36.0,
+      "duration": 0.59
+    },
+    {
+      "index": 79,
+      "word": "Oke,",
+      "start": 36.0,
+      "end": 37.09,
+      "duration": 1.09
+    },
+    {
+      "index": 80,
+      "word": "saya",
+      "start": 37.09,
+      "end": 37.27,
+      "duration": 0.18
+    },
+    {
+      "index": 81,
+      "word": "jamin",
+      "start": 37.27,
+      "end": 37.49,
+      "duration": 0.22
+    },
+    {
+      "index": 82,
+      "word": "pasti",
+      "start": 37.49,
+      "end": 37.71,
+      "duration": 0.22
+    },
+    {
+      "index": 83,
+      "word": "untung.",
+      "start": 37.71,
+      "end": 38.0,
+      "duration": 0.29
+    },
+    {
+      "index": 84,
+      "word": "Lantinnya",
+      "start": 38.0,
+      "end": 38.33,
+      "duration": 0.33
+    },
+    {
+      "index": 85,
+      "word": "disini",
+      "start": 38.33,
+      "end": 38.56,
+      "duration": 0.23
+    },
+    {
+      "index": 86,
+      "word": "tulisannya",
+      "start": 38.56,
+      "end": 39.0,
+      "duration": 0.44
+    },
+    {
+      "index": 87,
+      "word": "no",
+      "start": 39.0,
+      "end": 39.28,
+      "duration": 0.28
+    },
+    {
+      "index": 88,
+      "word": "cap",
+      "start": 39.28,
+      "end": 39.7,
+      "duration": 0.42
+    },
+    {
+      "index": 89,
+      "word": "ya.",
+      "start": 39.7,
+      "end": 40.0,
+      "duration": 0.3
+    },
+    {
+      "index": 90,
+      "word": "Nah",
+      "start": 40.0,
+      "end": 40.18,
+      "duration": 0.18
+    },
+    {
+      "index": 91,
+      "word": "kalau",
+      "start": 40.18,
+      "end": 40.48,
+      "duration": 0.3
+    },
+    {
+      "index": 92,
+      "word": "misalnya",
+      "start": 40.48,
+      "end": 40.96,
+      "duration": 0.48
+    },
+    {
+      "index": 93,
+      "word": "biasa",
+      "start": 40.96,
+      "end": 41.26,
+      "duration": 0.3
+    },
+    {
+      "index": 94,
+      "word": "gak",
+      "start": 41.26,
+      "end": 41.44,
+      "duration": 0.18
+    },
+    {
+      "index": 95,
+      "word": "ada",
+      "start": 41.44,
+      "end": 41.62,
+      "duration": 0.18
+    },
+    {
+      "index": 96,
+      "word": "capnya,",
+      "start": 41.62,
+      "end": 42.0,
+      "duration": 0.38
+    },
+    {
+      "index": 97,
+      "word": "kita",
+      "start": 42.0,
+      "end": 42.22,
+      "duration": 0.22
+    },
+    {
+      "index": 98,
+      "word": "gak",
+      "start": 42.22,
+      "end": 42.38,
+      "duration": 0.16
+    },
+    {
+      "index": 99,
+      "word": "tau",
+      "start": 42.38,
+      "end": 42.54,
+      "duration": 0.16
+    },
+    {
+      "index": 100,
+      "word": "tuh",
+      "start": 42.54,
+      "end": 42.7,
+      "duration": 0.16
+    },
+    {
+      "index": 101,
+      "word": "sebenarnya",
+      "start": 42.7,
+      "end": 43.24,
+      "duration": 0.54
+    },
+    {
+      "index": 102,
+      "word": "aslinya",
+      "start": 43.24,
+      "end": 43.62,
+      "duration": 0.38
+    },
+    {
+      "index": 103,
+      "word": "berapa.",
+      "start": 43.62,
+      "end": 44.0,
+      "duration": 0.38
+    },
+    {
+      "index": 104,
+      "word": "Jadi",
+      "start": 44.0,
+      "end": 44.28,
+      "duration": 0.28
+    },
+    {
+      "index": 105,
+      "word": "makanya",
+      "start": 44.28,
+      "end": 44.77,
+      "duration": 0.49
+    },
+    {
+      "index": 106,
+      "word": "kita",
+      "start": 44.77,
+      "end": 45.05,
+      "duration": 0.28
+    },
+    {
+      "index": 107,
+      "word": "cek",
+      "start": 45.05,
+      "end": 45.26,
+      "duration": 0.21
+    },
+    {
+      "index": 108,
+      "word": "pakai",
+      "start": 45.26,
+      "end": 45.61,
+      "duration": 0.35
+    },
+    {
+      "index": 109,
+      "word": "mesin.",
+      "start": 45.61,
+      "end": 46.0,
+      "duration": 0.39
+    },
+    {
+      "index": 110,
+      "word": "Oke.",
+      "start": 46.0,
+      "end": 47.0,
+      "duration": 1.0
+    },
+    {
+      "index": 111,
+      "word": "Kalau",
+      "start": 47.0,
+      "end": 47.27,
+      "duration": 0.27
+    },
+    {
+      "index": 112,
+      "word": "yang",
+      "start": 47.27,
+      "end": 47.49,
+      "duration": 0.22
+    },
+    {
+      "index": 113,
+      "word": "kalungnya,",
+      "start": 47.49,
+      "end": 48.0,
+      "duration": 0.51
+    }
+  ]
+}

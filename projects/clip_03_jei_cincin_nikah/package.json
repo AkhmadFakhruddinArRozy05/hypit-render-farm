@@ -1,0 +1,9 @@
+{
+  "name": "clip_03_jei_cincin_nikah",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "hypit": {
+    "project": true
+  }
+}

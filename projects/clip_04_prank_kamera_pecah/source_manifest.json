@@ -1,0 +1,54 @@
+{
+  "project_name": "clip_04_prank_kamera_pecah",
+  "clip_id": "clip_04_prank_kamera_pecah",
+  "run_file": "build.svrun",
+  "output_name": "variant_a.mp4",
+  "headline_text": "KAMERA DIKIRA RUSAK BIASA, EH PAS CEK HARGA BIKIN LANGSUNG LEMES SEKETIKA!?",
+  "headline_preset": "BOXED_PILL",
+  "subtitle_preset": "SUB_MODERN_PILL",
+  "timing": {
+    "fps": 30,
+    "total_duration_seconds": 35.0,
+    "total_frames": 1050,
+    "hook_duration_seconds": 4.5,
+    "hook_frames": 135,
+    "body_duration_seconds": 30.5,
+    "body_frames": 915
+  },
+  "sources": [
+    {
+      "id": "hook-video",
+      "type": "local_asset",
+      "file_name": "hook.mp4",
+      "sha256": "16d4016fba1fa138460684057ddd49f80a1df02a541e4a9c6590908cb5ea5e5b",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__web3-week/clip_04_prank_kamera_pecah/raw/hook.mp4",
+      "destination": "assets/hook.mp4"
+    },
+    {
+      "id": "body-video",
+      "type": "local_asset",
+      "file_name": "body.mp4",
+      "sha256": "2db8eec78b89af5284a99db2a0d22d1256cb8c642d5fd8241e87eac434adefee",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__web3-week/clip_04_prank_kamera_pecah/raw/body.mp4",
+      "destination": "assets/body.mp4"
+    },
+    {
+      "id": "dialogue-audio",
+      "type": "local_asset",
+      "file_name": "dialogue_track.m4a",
+      "sha256": "29f49b75b8fcd0c4b710bcc21b3dc1cb69b219a00bdee7e8a39adc7e44370e3b",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__web3-week/clip_04_prank_kamera_pecah/raw/dialogue_track.m4a",
+      "destination": "assets/dialogue_track.m4a"
+    },
+    {
+      "id": "bgm-audio",
+      "type": "local_asset",
+      "file_name": "bgm_track.m4a",
+      "title": "Official BGM Track",
+      "ducking_gain": 0.15,
+      "sha256": "d0a77dd901bb0f20e199ebfdcd771791a84196573ea462dae5dd9f185eb6ec5b",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__web3-week/clip_04_prank_kamera_pecah/raw/bgm_track.m4a",
+      "destination": "assets/bgm_track.m4a"
+    }
+  ]
+}
