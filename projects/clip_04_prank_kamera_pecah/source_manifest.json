@@ -22,7 +22,8 @@
       "file_name": "hook.mp4",
       "sha256": "16d4016fba1fa138460684057ddd49f80a1df02a541e4a9c6590908cb5ea5e5b",
       "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__web3-week/clip_04_prank_kamera_pecah/raw/hook.mp4",
-      "destination": "assets/hook.mp4"
+      "destination": "assets/hook.mp4",
+      "require_audio": false
     },
     {
       "id": "body-video",
@@ -30,7 +31,8 @@
       "file_name": "body.mp4",
       "sha256": "2db8eec78b89af5284a99db2a0d22d1256cb8c642d5fd8241e87eac434adefee",
       "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__web3-week/clip_04_prank_kamera_pecah/raw/body.mp4",
-      "destination": "assets/body.mp4"
+      "destination": "assets/body.mp4",
+      "require_audio": false
     },
     {
       "id": "dialogue-audio",
@@ -38,7 +40,8 @@
       "file_name": "dialogue_track.m4a",
       "sha256": "29f49b75b8fcd0c4b710bcc21b3dc1cb69b219a00bdee7e8a39adc7e44370e3b",
       "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__web3-week/clip_04_prank_kamera_pecah/raw/dialogue_track.m4a",
-      "destination": "assets/dialogue_track.m4a"
+      "destination": "assets/dialogue_track.m4a",
+      "require_audio": true
     },
     {
       "id": "bgm-audio",
@@ -48,7 +51,8 @@
       "ducking_gain": 0.15,
       "sha256": "d0a77dd901bb0f20e199ebfdcd771791a84196573ea462dae5dd9f185eb6ec5b",
       "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__web3-week/clip_04_prank_kamera_pecah/raw/bgm_track.m4a",
-      "destination": "assets/bgm_track.m4a"
+      "destination": "assets/bgm_track.m4a",
+      "require_audio": true
     }
   ]
 }

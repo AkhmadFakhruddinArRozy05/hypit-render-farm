@@ -24,7 +24,8 @@
       "file_name": "hook.mp4",
       "sha256": "94d469f92d8c40197465ef0548a4e214e83dfeb2470a998326ac6ad749ace93c",
       "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/hook.mp4",
-      "destination": "assets/hook.mp4"
+      "destination": "assets/hook.mp4",
+      "require_audio": false
     },
     {
       "id": "body-video",
@@ -32,7 +33,8 @@
       "file_name": "body.mp4",
       "sha256": "647ea83113c6e9050361d67b322944c95180b2682cc849c3f52037c59c5f0783",
       "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/body.mp4",
-      "destination": "assets/body.mp4"
+      "destination": "assets/body.mp4",
+      "require_audio": false
     },
     {
       "id": "outro-video",
@@ -40,7 +42,8 @@
       "file_name": "outro.mp4",
       "sha256": "6d81264cc8145feb6e9d18c5a3461339c9b7088ea3bb35c810f33236ad2d0cb2",
       "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/outro.mp4",
-      "destination": "assets/outro.mp4"
+      "destination": "assets/outro.mp4",
+      "require_audio": false
     },
     {
       "id": "dialogue-audio",
@@ -48,7 +51,8 @@
       "file_name": "dialogue_track.m4a",
       "sha256": "a9ec8410c40f379216098ac1b8a98a3078769de7b8b708b54f6057bbeda0b279",
       "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/dialogue_track.m4a",
-      "destination": "assets/dialogue_track.m4a"
+      "destination": "assets/dialogue_track.m4a",
+      "require_audio": true
     },
     {
       "id": "bgm-audio",
@@ -58,7 +62,8 @@
       "ducking_gain": 0.15,
       "sha256": "2766d632672f2449c85bda4cea4af909d2ecb89eabb336ca7f723cab27970339",
       "local_path": "/Users/ozy/Projects/Clipper/Production/clippo__juan-jual-emas/clip_03_jei_cincin_nikah/raw/bgm_track.m4a",
-      "destination": "assets/bgm_track.m4a"
+      "destination": "assets/bgm_track.m4a",
+      "require_audio": true
     }
   ]
 }
