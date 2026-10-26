@@ -207,6 +207,7 @@ def main():
                 print(f"    Downloading '{file_name}' from temporary GitHub Release '{args.release_tag}'...")
                 cmd = [
                     "gh", "release", "download", args.release_tag,
+                    "--clobber",
                     "-p", file_name,
                     "-D", str(dest_path.parent),
                 ]
