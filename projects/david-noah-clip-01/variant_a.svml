@@ -23,32 +23,37 @@
     <hook/>
     <dialogue>
       <DAVID_NOAH>
-        Ini pelajaran ||
-        paling mahal ||
-        seumur hidup gua ||
-        di pasar saham. ||
-        Jangan pernah ||
-        merasa pintar ||
-        melawan arus ||
-        bandar besar! ||
-        Di pasar modal ||
-        kita cuma ||
-        penumpang di atas ||
-        kapal kecil ||
-        di tengah ||
-        samudra luas. ||
-        Smart money ||
-        gerakkan triliunan ||
-        rupiah setiap hari ||
-        di bursa. ||
-        Tugas kita ||
-        bukan melawan mereka, ||
-        tapi membaca ||
-        jejak volume ||
-        dan berenang ||
-        searah arus besar. ||
-        Pahami logika pasar ||
-        secara sehat. ||
+        Page Instagram yang ||
+        memberikan motivasi untuk ||
+        orang jadi pengusaha, ||
+        orang jadi investor. ||
+        Akhirnya saya pelan-pelan ||
+        belajar dari situ. ||
+        Terus saya juga ||
+        dulu belajar, ||
+        saya ngelihat ada yang ||
+        namanya Forbes Riches List. ||
+        Jadi kumpulan orang terkaya. ||
+        Saya pelajarin tuh, ||
+        kok orang-orang bisa ||
+        kaya gitu kan. ||
+        Ada yang kaya ||
+        dari bisnis, ||
+        ada yang kaya ||
+        dari saham, ||
+        ada yang kaya ||
+        dari properti. ||
+        Akhirnya saya ngelihat ||
+        cara orang kaya tuh ||
+        jadi kaya itu-itu ||
+        aja sebenarnya. ||
+        Akhirnya saya pilih ||
+        mana yang bisa ditekuni ||
+        supaya bisa kaya ||
+        mereka juga. ||
+        Ya udah akhirnya ||
+        saya milih saham ||
+        waktu itu. ||
         Belajar mandiri ||
         bareng Fortis Circle ||
         di fortiscircle.id/class!
@@ -111,9 +116,8 @@
 
   <comment:Track id="headline-track" timeline={film-time.timeline}>
     <comment:Sticker id="headline-sticker" frame={headline-card-frame} style={headline-card-style}
-      header="@davidnoah" author="@davidnoah" meta="FORTIS CIRCLE · PASAR SAHAM" during={film-time.headline-window}>
-      PELAJARAN MAHAL 100 MILIAR:
-      JANGAN LAWAN ARUS BANDAR!
+      header="@davidnoah" author="@davidnoah" meta="FORTIS CIRCLE · FORBES LIST" during={film-time.headline-window}>
+      RAHASIA DARI FORBES LIST: CARA ORANG KAYA JADI KAYA
     </comment:Sticker>
   </comment:Track>
 
@@ -123,11 +127,11 @@
   </caption-fine:Caption>
 
   <audio:Track id="dialogue-sound" timeline={film-time.timeline}>
-    <audio:Clip id="dialogue-clip" source={dialogue-media.media} during={film-time.dialogue-window} gain="1.0"/>
+    <audio:Clip id="dialogue-clip" source={dialogue-media.media} during={film-time.dialogue-window} gain="0.92"/>
   </audio:Track>
 
   <audio:Track id="bgm-sound" timeline={film-time.timeline}>
-    <audio:Clip id="bgm-clip" source={bgm-media.media} during={film-time.dialogue-window} gain="0.15"/>
+    <audio:Clip id="bgm-clip" source={bgm-media.media} during={film-time.dialogue-window} gain="0.12"/>
   </audio:Track>
 
   <film:Film id="main" canvas={canvas.canvas} timeline={film-time.timeline}
