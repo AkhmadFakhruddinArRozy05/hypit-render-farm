@@ -48,6 +48,14 @@
       "local_path": "/Users/ozy/Projects/Clipper/Production/konten__david-noah-instagram-only/CLIP-01/raw/official_music.mp3",
       "destination": "assets/official_music.mp3",
       "require_audio": true
+    },
+    {
+      "id": "fortis-logo",
+      "type": "local_asset",
+      "file_name": "fortis_logo.png",
+      "local_path": "/Users/ozy/Projects/Clipper/Production/konten__david-noah-instagram-only/assets/fortis_logo.png",
+      "destination": "assets/fortis_logo.png",
+      "require_audio": false
     }
   ]
 }
