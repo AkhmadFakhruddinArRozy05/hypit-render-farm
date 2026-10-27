@@ -1,169 +1,63 @@
-name: Hypit Cloud Render Farm
+name: Clipper trusted Hypit render
+run-name: 'clipper:${{ inputs.job_id }}'
 
 on:
   workflow_dispatch:
     inputs:
-      project:
-        description: 'Target project folder inside projects/ (e.g. nutriflakes-cr7-hypit or zaraleolaa-tiktok-clone)'
+      job_id:
+        description: 'Persisted Clipper cloud job ID (bounded edit data fetched with GitHub OIDC)'
         required: true
         type: string
-      release_tag:
-        description: 'Temporary GitHub Release tag containing local media assets (leave empty if none)'
-        required: false
-        type: string
-        default: ''
-      concurrency:
-        description: 'Maximum concurrent render jobs (1-10, default adaptive)'
-        required: false
-        type: string
-        default: '10'
 
 permissions:
-  contents: write
+  contents: read
+  id-token: write
+
+# Free-tier MVP: exactly one render at a time. Never cancel a running revision.
+concurrency:
+  group: clipper-trusted-render
+  cancel-in-progress: false
 
 jobs:
   render:
-    name: "Render: ${{ inputs.project }}"
-    runs-on: ubuntu-latest
-    timeout-minutes: 120
-
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      CLIPPER_API_ORIGIN: ${{ vars.CLIPPER_API_ORIGIN }}
+      HYPIT_ROOT: ${{ github.workspace }}/hypit
     steps:
-      - name: Checkout Render Farm Repository
-        uses: actions/checkout@v4
-
-      - name: Install System Dependencies & FFmpeg
+      - name: Checkout trusted farm revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Authorize exact job before provisioning expensive dependencies
+        env:
+          CLIPPER_JOB_ID: ${{ inputs.job_id }}
+        run: python3 scripts/cloud_runner.py --job-id "$CLIPPER_JOB_ID" --preflight-only
+      - name: Checkout pinned Hypit engine
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: hypit-ai/hypit
+          ref: 1efedb925d375686ab107b6e67f914dced7b102b
+          path: hypit
+          persist-credentials: false
+      - name: Node 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22.16.0
+      - name: Pinned pnpm matching Hypit lockfile
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 10.33.0
+      - name: Install technical media dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2t64
-
-      - name: Setup Node.js 22 & pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Setup Python 3.11 & uv
-        uses: astral-sh/setup-uv@v5
-        with:
-          version: "latest"
-          python-version: "3.11"
-
-      - name: Cache Hypit Engine, Browser & Models
-        id: cache-hypit
-        uses: actions/cache@v4
-        with:
-          path: |
-            hypit
-            ~/.cache/hypit
-            ~/.cache/huggingface
-            ~/.cache/torch
-            ~/.cache/puppeteer
-          key: hypit-engine-ubuntu-v3-${{ hashFiles('.github/workflows/render.yml') }}
-          restore-keys: |
-            hypit-engine-ubuntu-v3-
-
-      - name: Setup Hypit Monorepo Engine
+      - name: Install only pinned engine dependencies
+        working-directory: hypit
         run: |
-          if [ ! -d "hypit" ]; then
-            echo "Cloning official hypit-ai/hypit engine..."
-            git clone --depth 1 https://github.com/hypit-ai/hypit.git hypit
-          fi
-          cd hypit
-          pnpm install --frozen-lockfile=false
-          # Setup WhisperX local runtime virtualenv
-          cd packages/provider-whisperx-local/runtime
-          uv sync
-          cd ../../../..
-
-      - name: Install Project Dependencies (if needed)
-        run: |
-          cd "projects/${{ inputs.project }}"
-          if [ -f "package.json" ]; then
-            pnpm install --no-frozen-lockfile || true
-          fi
-
-      - name: Universal Ingest Media Assets
+          pnpm install --frozen-lockfile
+      - name: Execute exact persisted job and upload private receipts
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          pip install "yt-dlp[default,curl-cffi]"
-          python3 scripts/ingest.py --project "${{ inputs.project }}" --release-tag "${{ inputs.release_tag }}"
-
-      - name: Prepare Hypit Programs & Headless Browser
-        run: |
-          cd "projects/${{ inputs.project }}"
-          echo "Preparing Hypit runtime programs and headless shell..."
-          node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" programs prepare --runtime hypit.runtime.json
-
-      - name: Start Warm WhisperX Service (if needed)
-        run: |
-          if grep -q "whisperx" "projects/${{ inputs.project }}/hypit.runtime.json"; then
-            echo "Starting local WhisperX service..."
-            cd hypit/packages/provider-whisperx-local/runtime
-            export HYPIT_WHISPERX_INPUT_ROOTS="$GITHUB_WORKSPACE:/tmp"
-            uv run hypit-whisperx-service &
-            echo "Waiting for WhisperX service on port 8765..."
-            for i in {1..30}; do
-              if curl -s http://127.0.0.1:8765/health 2>/dev/null; then
-                echo "WhisperX service is live!"
-                break
-              fi
-              sleep 1
-            done
-            cd ../../../..
-          else
-            echo "Project does not require WhisperX service, skipping."
-          fi
-
-      - name: Execute Hypit Build
-        run: |
-          cd "projects/${{ inputs.project }}"
-          RUN_FILE=$(python3 -c "import json; print(json.load(open('source_manifest.json'))['run_file'])")
-          OUTPUT_NAME=$(python3 -c "import json; print(json.load(open('source_manifest.json'))['output_name'])")
-
-          # Ensure all declared runtime programs (browser, whisperx) are active
-          export HYPIT_WHISPERX_INPUT_ROOTS="$GITHUB_WORKSPACE:/tmp"
-          node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" programs up --runtime hypit.runtime.json || true
-
-          echo "Building target: $RUN_FILE using 16 GB RAM cloud runner (Concurrency: ${{ inputs.concurrency }})..."
-          node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" build "$RUN_FILE" --runtime hypit.runtime.json --follow
-
-          echo "Retrieving latest completed Build ID..."
-          BUILD_ID=$(node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" builds --limit 1 --json | python3 -c "import sys, json; print(json.load(sys.stdin)['builds'][0]['id'])")
-          echo "Exporting target final.video from Build $BUILD_ID to dist/$OUTPUT_NAME..."
-          mkdir -p dist
-          rm -f "dist/$OUTPUT_NAME"
-          node "$GITHUB_WORKSPACE/hypit/bin/hypit.mjs" get "$BUILD_ID" --output final.video --to "dist/$OUTPUT_NAME"
-          ls -lh dist/
-
-      - name: Inspect & Validate Rendered Artifact Size
-        run: |
-          cd "projects/${{ inputs.project }}"
-          for f in dist/*.mp4; do
-            [ -f "$f" ] || continue
-            sz_mb=$(du -m "$f" | cut -f1)
-            echo "Artifact: $f ($sz_mb MB)"
-            if [ "$sz_mb" -ge 500 ]; then
-              echo "::warning title=Artifact Size Exceeded::Rendered artifact $f ($sz_mb MB) exceeds recommended 500 MB limit!"
-            elif [ "$sz_mb" -ge 400 ]; then
-              echo "::notice title=Artifact Size Warning::Rendered artifact $f ($sz_mb MB) approaches 500 MB limit (>= 400 MB)."
-            fi
-          done
-
-      - name: Upload Final Rendered MP4 Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: final-video-${{ inputs.project }}
-          path: projects/${{ inputs.project }}/dist/*.mp4
-          if-no-files-found: error
-          retention-days: 1
-
-      - name: Cleanup Temporary Release (Security & Storage)
-        if: always() && inputs.release_tag != ''
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "Cleaning up temporary release: ${{ inputs.release_tag }}"
-          gh release delete "${{ inputs.release_tag }}" --yes --cleanup-tag || true
+          CLIPPER_JOB_ID: ${{ inputs.job_id }}
+        run: python3 scripts/cloud_runner.py --job-id "$CLIPPER_JOB_ID"

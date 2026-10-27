@@ -1,49 +1,53 @@
-# 🎬 Hypit Cloud Render Farm
+# Clipper trusted Hypit render farm
 
-Universal Cloud Render Farm for **Hypit** video compositions using **GitHub Actions (Ubuntu 16 GB RAM, 4 vCPU)**.
+Private-media rendering for persisted Clipper cloud jobs. Heavy processing runs in GitHub Actions; the Mac performs inventory, authoring and lightweight checks only. Source files remain in the private R2 library. The runner never receives Buffer credentials or publication approval tokens.
 
-Offloads heavy video rasterization (Chromium Headless 30 fps), AI voice alignment (WhisperX), and FFmpeg muxing from Apple Silicon Mac M1 (8 GB RAM) into free, high-performance cloud runners.
+The canonical dispatcher is the Clipper Worker. It saves the exact GitHub run ID returned by API version `2026-03-10` before authorizing runner requests. Run identity must match repository ID `1423099026`, configured trusted workflow/ref and OIDC audience `clipper-render`.
 
----
+## Workflow
 
-## 🚀 Projects Included
+1. Worker validates rights/source evidence, bounded revision and free-tier quota; persists the job and dispatches `.github/workflows/render.yml` with only `job_id`.
+2. Runner authenticates the exact job using fresh GitHub OIDC, then installs frozen dependencies from Hypit commit `1efedb925d375686ab107b6e67f914dced7b102b`.
+3. Runner streams authorized source objects, verifies their SHA-256 and size, and executes the requested phase.
+4. Runner uploads private artifact receipts, then submits the result for that exact revision. Failed, stale or cancelled jobs cannot become publishable through runner claims.
 
-1. **`zaraleolaa-tiktok-clone`**: 100% editable TikTok video clone with custom comment stickers and glitch transitions.
-2. **`nutriflakes-cr7-hypit`**: Vertical short-form clip (106s) combining CR7 Supercopa hook, podcast discussion, and nutrition outro.
+| Phase | Output | Evidence |
+|---|---|---|
+| analysis | `analysis.json` | Actual source stream metadata, scene changes and silence; semantic analysis and transcription explicitly not performed |
+| preview | 540×960 H.264/AAC MP4 + QA JSON | Full-artifact decode, duration/FPS/codecs, measured loudness/true peak, SHA-256 |
+| final | 1080×1920 H.264/AAC MP4 + QA JSON | Same actual-artifact QA; human creative/rights review remains required |
 
----
+`vertical-v1` is trusted Python-generated native Hypit SVML, using only `STORYTELLING`, `PODCAST`, `JJ`. Accepted edit parameters are `clips[{asset_id,start_s,end_s}]`, `title`, timed `subtitles[{start_s,end_s,text}]`, and optional `music_asset_id`. Text is escaped. No user JS, SVML, filesystem paths, URLs, projects or packages are executed. FFmpeg prepares bounded trims, center crops, source audio and optional looped music; Hypit composes clips/title/subtitles/music; FFmpeg masters audio and mechanically validates the final physical file.
 
-## 🛠️ Architecture & Multi-Source Ingest
+Limits: one active workflow globally, 90-minute runner timeout, at most 16 assets / 2 GiB per asset / 4 GiB total, 24 clips, 180-second output, 300 non-overlapping subtitle cues, artifact strictly below 500 MiB. Source clip audio is required. Loudness acceptance is −18..−12 LUFS and true peak ≤−1 dBTP after two-pass mastering. Center cropping and timed plain subtitles require human review; there is no claim of automatic face tracking, word alignment or semantic editorial certification.
 
-- **Social Media Sources (TikTok, IG, YouTube)**: Runner downloads directly via `yt-dlp`.
-- **Local Mac Assets**: Ephemeral handoff via temporary GitHub Release (`gh release create`), downloaded by runner and purged immediately after build.
-- **Output**: Rendered 1080×1920 MP4 video uploaded to GitHub Actions Artifacts and synced back to Mac.
+## Configuration and activation
 
----
+Set repository variable `CLIPPER_API_ORIGIN` to the trusted HTTPS Worker origin. Worker bindings, approved workflow/ref, verified free-tier quota, schema and private R2 must exist first. This patch does not provision, deploy, push or dispatch anything. Workflow content is read-only and its checkout cannot push. Dependencies and actions are pinned; no public releases or GitHub artifact storage are used.
 
-## 💻 How to Trigger Render from Mac (Antigravity CLI)
+The runner consumes shared protocol v1:
 
-```bash
-# Render Nutriflakes x CR7 clip (106s) - Adaptive default concurrency
-python3 scripts/render_cloud.py --project nutriflakes-cr7-hypit
+- `GET /runner/jobs/:id` → `{job,assets:[{asset_id,sha256,size,mime}]}`
+- `GET /runner/assets/:sha?job_id=:id` → authorized private source stream
+- `PUT /runner/jobs/:id/artifacts/:kind` with `Content-Type`, `Content-Length`, `X-Content-SHA256` → `{object_key,sha256,size,kind,mime}`
+- `POST /runner/jobs/:id/result` → `{status,build_id,artifacts,qa?,error?}`
 
-# Render Zara Leola TikTok clone with custom concurrency (1 to 10)
-python3 scripts/render_cloud.py --project zaraleolaa-tiktok-clone --concurrency 5
+Every request mints fresh OIDC. Redirects are forbidden; FFmpeg source protocols/containers are allowlisted. No secret appears in URLs, process arguments, callbacks or logs. `build_id` is the exact completed Hypit CLI submission ID, and `null` for analysis or failure before submission. No latest-run/build lookup exists.
 
-# Preflight validation without mutations (Dry-run)
-python3 scripts/render_cloud.py --project nutriflakes-cr7-hypit --dry-run
+## Local diagnostics
+
+Use the Clipper virtualenv when this farm has no `.venv`:
+
+```sh
+/Users/ozy/Projects/Clipper/.venv/bin/python scripts/render_cloud.py \
+  --job-id job_example --repo owner/repo --ref refs/heads/approved --dry-run
+
+/Users/ozy/Projects/Clipper/.venv/bin/python scripts/render_cloud.py \
+  --project clip_03_jei_cincin_nikah --dry-run
+
+/Users/ozy/Projects/Clipper/.venv/bin/pytest -q tests/test_secure_runner.py tests/test_render_cloud.py tests/test_ingest.py
 ```
 
----
+Legacy project preflight and asset lookup helpers remain available; legacy project dispatch, auto Git add/commit/push and public release upload are disabled. Live `--job-id` dispatch is a low-level integration diagnostic: the authoritative Worker must reconcile and persist its returned run ID. It dispatches once and fails `DISPATCH_UNKNOWN` on ambiguous responses; never redispatch blindly. Production uses the Worker dispatcher so exact run binding is durable.
 
-## ⚙️ GitHub Actions Technical Limits & Guardrails
-
-| Parameter | Kebijakan / Batasan | Deskripsi & Penegakan Sistem |
-|---|---|---|
-| **Max Concurrent Jobs** | `5` s.d. `10` (Hard ceiling: `10`, Fleksibel `1..10`) | Default adaptif berbasis ukuran aset: `< 20 MB` ➔ 10 jobs; `>= 50 MB` ➔ 5 jobs; `20–50 MB` ➔ 8 jobs. Pengguna bebas menentukan `1`, `2`, `3` hingga `10` sesuai kebutuhan via `--concurrency <N>`. Nilai `> 10` ditolak keras (*fail-closed*). |
-| **Max Job Duration (Timeout)** | `120 menit` (2 jam) | Ditegakkan ganda di workflow (`timeout-minutes: 120`) dan monitoring watcher (`render_cloud.py`). Run dibatalkan otomatis jika melampaui batas. |
-| **Max Artifact Size** | `500 MB` per job | Peringatan preventif jika artefak download $\ge 400\text{ MB}$, peringatan keras jika melampaui batas resmi 500 MB. |
-| **Artifact Retention** | `1 hari` (`retention-days: 1`) | Efisiensi penyimpanan cloud maksimal untuk mencegah penumpukan storage. |
-| **GitHub API Rate Limit** | `5.000 requests / jam` | Pemantauan kuota API core via `gh api rate_limit`. Pacing otomatis jika sisa kuota $< 100$ dan *exponential backoff* pada error HTTP 403/429. |
-| **Video Codec & Hardware** | `Apple VideoToolbox` (Mac) vs `libx264` (Ubuntu) | Mac M1 memanfaatkan akselerasi GPU Apple Silicon (`-hwaccel videotoolbox -c:v h264_videotoolbox -b:v 6000k`), sedangkan runner cloud Ubuntu menggunakan CPU software encoding (`-c:v libx264 -preset veryfast -crf 18`). Single-Pass In-Browser compositing menghilangkan overhead WebM VP9 alpha. |
-
+Full cloud rendering, OIDC interoperability, private R2 transfer and human approval pilots remain activation acceptance checks. Passing local fixtures or the native author compiler does not certify rendered production quality.

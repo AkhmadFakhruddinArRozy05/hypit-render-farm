@@ -9,6 +9,7 @@ import argparse
 import datetime
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -229,7 +230,7 @@ def find_local_asset(
     return None
 
 
-def main():
+def legacy_preflight():
     parser = argparse.ArgumentParser(description="Trigger Cloud Render on GitHub Actions (16 GB RAM)")
     parser.add_argument("--project", required=True, help="Project name inside projects/ (e.g. nutriflakes-cr7-hypit)")
     parser.add_argument("--project-dir", default=None, help="Explicit path to source project directory containing source_manifest.json")
@@ -237,9 +238,12 @@ def main():
     parser.add_argument("--concurrency", type=int, default=None, help="Maximum concurrent render jobs (1 to 10). If omitted, adaptively defaults based on raw asset size (<20MB: 10, >=50MB: 5, 20-50MB: 8).")
     parser.add_argument("--headline-preset", default=None, help="Visual headline preset ID (overrides source_manifest.json)")
     parser.add_argument("--subtitle-preset", default=None, help="Kinetic subtitle preset ID (overrides source_manifest.json)")
-    parser.add_argument("--skip-push", action="store_true", help="Skip git add/commit/push before triggering")
+    parser.add_argument("--skip-push", action="store_true", help="Deprecated compatibility flag; script never mutates Git")
     parser.add_argument("--dry-run", action="store_true", help="Perform full preflight validation without git push, release creation, or workflow dispatch")
     args = parser.parse_args()
+
+    if not args.dry_run:
+        parser.error("Legacy project dispatch is disabled. Use --job-id with a persisted cloud job; local --project --dry-run remains available.")
 
     repo_root = Path(__file__).resolve().parent.parent
     source_project_dir, farm_project_dir = resolve_project_dir(repo_root, args.project, args.project_dir)
@@ -270,20 +274,6 @@ def main():
     print(f"🎨 Headline Preset:  {headline_preset} [{headline_source}]")
     print(f"📝 Subtitle Preset:  {subtitle_preset} [{subtitle_source}]")
     print(f"=======================================================")
-
-    # Sync definitions to farm_project_dir if working from external source directory
-    if source_project_dir != farm_project_dir and not args.dry_run:
-        farm_project_dir.mkdir(parents=True, exist_ok=True)
-        sync_exts = [".svml", ".svs", ".svrun", ".json"]
-        for f in source_project_dir.iterdir():
-            if f.is_file() and any(f.name.endswith(ext) for ext in sync_exts):
-                shutil.copy2(f, farm_project_dir / f.name)
-        media_ignore = shutil.ignore_patterns("*.mp4", "*.m4a", "*.mov", "*.wav", "*.mp3", "*.avi", "*.mkv")
-        if (source_project_dir / "assets").exists():
-            shutil.copytree(source_project_dir / "assets", farm_project_dir / "assets", dirs_exist_ok=True, ignore=media_ignore)
-        if (source_project_dir / "references").exists():
-            shutil.copytree(source_project_dir / "references", farm_project_dir / "references", dirs_exist_ok=True, ignore=media_ignore)
-        print("✓ Synchronized project definition and assets to farm project directory.")
 
     # 1. Check for local assets requiring temporary release upload
     local_files_to_upload = []
@@ -330,15 +320,6 @@ def main():
 
     print(f"⚡ Concurrency Setting: {concurrency} concurrent job(s) [{concurrency_source}]")
 
-    release_tag = ""
-    if local_files_to_upload:
-        ts = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-        release_tag = f"temp-assets-{args.project[:12]}-{ts}"
-        print(f"\n📦 Found {len(local_files_to_upload)} local asset(s) to upload to temporary release: '{release_tag}'")
-        for f in local_files_to_upload:
-            sz_mb = round(os.path.getsize(f) / (1024 * 1024), 2)
-            print(f"   • {os.path.basename(f)} ({sz_mb} MB)")
-
     if args.dry_run:
         print("\n=======================================================")
         print("🔍 DRY-RUN PREFLIGHT SUMMARY (Zero Remote Mutation)")
@@ -354,139 +335,58 @@ def main():
         print(f"✓ Concurrency:       {concurrency} concurrent job(s) [{concurrency_source}]")
         print(f"✓ Timeout Guard:     {TIMEOUT_MINUTES} minutes ({TIMEOUT_SECONDS}s fail-closed ceiling)")
         print(f"✓ Artifact Ceiling:  {ARTIFACT_MAX_MB} MB max (warning at {ARTIFACT_WARN_THRESHOLD_MB} MB)")
-        check_github_rate_limit()
-        if release_tag:
-            print(f"✓ Simulated Release: {release_tag}")
-        wf_sim = f"gh workflow run render.yml -f project={args.project} -f concurrency={concurrency}" + (f" -f release_tag={release_tag}" if release_tag else "")
-        print(f"✓ Simulated Command: {wf_sim}")
-        print("✓ Dry run preflight completed successfully with zero mutations.")
+        print("✓ Legacy asset preflight complete. Migrate verified assets to the private library and create a persisted cloud job.")
+        print("✓ Legacy project/concurrency options do not dispatch the secure workflow; cloud concurrency is 1.")
         return
 
-    if local_files_to_upload:
-        create_rel_cmd = [
-            "gh", "release", "create", release_tag,
-            *local_files_to_upload,
-            "--title", f"Temporary Render Assets - {args.project}",
-            "--notes", f"Ephemeral media handoff for job {release_tag}. Auto-deleted upon completion."
-        ]
-        run_cmd(create_rel_cmd, cwd=str(repo_root))
-        print("✓ Temporary asset release created successfully.")
 
-    # 2. Sync Git changes
-    if not args.skip_push:
-        print("\n🔄 Syncing project timeline, scripts, and workflow to GitHub...")
-        run_cmd(["git", "add", "-A"], cwd=str(repo_root))
-        status = run_cmd(["git", "status", "--porcelain"], cwd=str(repo_root)).stdout.strip()
-        if status:
-            run_cmd(["git", "commit", "-m", f"chore: sync timeline and workflow for {args.project}"], cwd=str(repo_root))
-            run_cmd(["git", "push", "origin", "main"], cwd=str(repo_root))
-            print("✓ Pushed latest timeline and workflow to GitHub origin/main.")
-        else:
-            print("✓ Working tree clean, no pending changes.")
 
-    # Check rate limit before dispatch
-    check_github_rate_limit()
+def dispatch_job(repo, ref, job_id):
+    """Dispatch exactly once. Ambiguous responses must be reconciled, never retried."""
+    if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repo):
+        raise ValueError("Invalid GitHub repository")
+    if not ref or not ref.startswith("refs/") or not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", job_id):
+        raise ValueError("Explicit approved full ref and bounded job ID required")
+    body = json.dumps({"ref": ref, "inputs": {"job_id": job_id}})
+    try:
+        result = subprocess.run([
+            "gh", "api", "--include", "--method", "POST",
+            f"repos/{repo}/actions/workflows/render.yml/dispatches",
+            "-H", "Accept: application/vnd.github+json", "-H", "X-GitHub-Api-Version: 2026-03-10",
+            "--input", "-"], input=body, capture_output=True, text=True, timeout=60)
+    except (subprocess.TimeoutExpired, OSError):
+        raise RuntimeError("DISPATCH_UNKNOWN: transport interrupted; reconcile exact run before any redispatch") from None
+    # HTTP 200 is required under API 2026-03-10. 204 cannot identify this run.
+    match = re.fullmatch(r"HTTP/[^ ]+ 200[^\n]*\n(?:[^\n]+\n)*?\n(.*)", result.stdout.replace("\r\n", "\n"), re.S)
+    if result.returncode or match is None:
+        raise RuntimeError("DISPATCH_UNKNOWN: preserve job and reconcile exact run; do not redispatch")
+    try:
+        details = json.loads(match.group(1))
+        run_id = details["workflow_run_id"]
+        if (type(run_id) is not int or run_id < 1
+            or details["run_url"] != f"https://api.github.com/repos/{repo}/actions/runs/{run_id}"
+            or details["html_url"] != f"https://github.com/{repo}/actions/runs/{run_id}"):
+            raise ValueError("Missing exact run details")
+    except (ValueError, KeyError, TypeError) as error:
+        raise RuntimeError("DISPATCH_UNKNOWN: response has no trustworthy exact run ID") from error
+    return details
 
-    # 3. Trigger GitHub Actions Workflow
-    print(f"\n⚡ Dispatching GitHub Actions Workflow on 16 GB RAM Runner (Concurrency: {concurrency})...")
-    dispatch_cmd = ["gh", "workflow", "run", "render.yml", "-f", f"project={args.project}", "-f", f"concurrency={concurrency}"]
-    if release_tag:
-        dispatch_cmd.extend(["-f", f"release_tag={release_tag}"])
-    run_cmd(dispatch_cmd, cwd=str(repo_root))
 
-    # Wait 5 seconds for GitHub to create the workflow run
-    time.sleep(5)
-    runs_json = run_cmd(["gh", "run", "list", "--workflow=render.yml", "--limit", "1", "--json", "databaseId,status,url"], cwd=str(repo_root)).stdout
-    runs_data = json.loads(runs_json)
-    if not runs_data:
-        print("[ERROR] Could not find triggered workflow run!")
-        sys.exit(1)
-
-    run_id = str(runs_data[0]["databaseId"])
-    run_url = runs_data[0]["url"]
-    print(f"✓ Workflow Run Started: ID {run_id}")
-    print(f"🔗 Live Logs: {run_url}")
-
-    # 4. Watch Execution with fail-closed timeout guard (120 minutes / 7200 seconds)
-    print("\n⏳ Monitoring cloud render progress (Mac M1 remains 100% idle & cool)...")
-    print(f"🛡️ Timeout Guard: {TIMEOUT_MINUTES} minutes ({TIMEOUT_SECONDS}s) fail-closed ceiling")
-    start_time = time.time()
-    while True:
-        elapsed = time.time() - start_time
-        remaining_timeout = int(TIMEOUT_SECONDS - elapsed)
-        if remaining_timeout <= 0:
-            print(f"\n❌ [ERROR] Cloud render timed out after {TIMEOUT_MINUTES} minutes ({TIMEOUT_SECONDS}s)! Fail-closed guard triggered.")
-            print(f"🛑 [FAIL-CLOSED] Cancelling active GitHub Actions workflow run {run_id}...")
-            subprocess.run(["gh", "run", "cancel", run_id], cwd=str(repo_root))
-            sys.exit(1)
-
-        try:
-            subprocess.run(["gh", "run", "watch", run_id], cwd=str(repo_root), timeout=remaining_timeout)
-        except subprocess.TimeoutExpired:
-            print(f"\n❌ [ERROR] Cloud render timed out after {TIMEOUT_MINUTES} minutes ({TIMEOUT_SECONDS}s)! Fail-closed guard triggered.")
-            print(f"🛑 [FAIL-CLOSED] Cancelling active GitHub Actions workflow run {run_id}...")
-            subprocess.run(["gh", "run", "cancel", run_id], cwd=str(repo_root))
-            sys.exit(1)
-
-        # Authoritative check of workflow status and conclusion
-        view_res = run_cmd(["gh", "run", "view", run_id, "--json", "status,conclusion"], cwd=str(repo_root), check=False)
-        if view_res.returncode == 0:
-            run_info = json.loads(view_res.stdout)
-            wf_status = run_info.get("status")
-            wf_conclusion = run_info.get("conclusion")
-            if wf_status == "completed":
-                if wf_conclusion != "success":
-                    print(f"\n[ERROR] Workflow completed with failure: '{wf_conclusion}'.")
-                    print(f"🔗 Check failed logs with: gh run view --log-failed {run_id}")
-                    sys.exit(1)
-                break
-            else:
-                print(f"ℹ️ Workflow still {wf_status}... Re-attaching watcher (elapsed: {int(elapsed)}s)...")
-                time.sleep(5)
-        else:
-            time.sleep(5)
-
-    # 5. Download Output Artifact
-    dest_dist = farm_project_dir / "dist"
-    if dest_dist.exists():
-        shutil.rmtree(dest_dist, ignore_errors=True)
-    dest_dist.mkdir(parents=True, exist_ok=True)
-    print(f"\n📥 Downloading rendered video MP4 artifact to {dest_dist}...")
-    run_cmd(["gh", "run", "download", run_id, "-n", f"final-video-{args.project}", "-D", str(dest_dist)], cwd=str(repo_root))
-    if not check_artifact_sizes(dest_dist):
-        print("❌ [FAIL-CLOSED] Artifact validation failed! Check corrupted or empty output files.")
-        sys.exit(1)
-
-    # Flexible mirroring to output destinations
-    mirror_targets = set()
-    if args.output_dir:
-        mirror_targets.add(Path(args.output_dir).resolve())
-    elif source_project_dir != farm_project_dir:
-        mirror_targets.add((source_project_dir / "dist").resolve())
-        # If source is a Clipper hypit subfolder, also mirror to final/
-        if source_project_dir.name == "hypit" and (source_project_dir.parent / "final").exists():
-            mirror_targets.add((source_project_dir.parent / "final").resolve())
-
-    for target_dir in mirror_targets:
-        target_dir.mkdir(parents=True, exist_ok=True)
-        for mp4 in dest_dist.glob("*.mp4"):
-            shutil.copy2(mp4, target_dir / mp4.name)
-            print(f"✓ Mirrored MP4 to target: {target_dir / mp4.name}")
-
-    print("\n=======================================================")
-    print("🎉 CLOUD RENDER COMPLETED SUCCESSFULLY!")
-    print("=======================================================")
-    for mp4 in dest_dist.glob("*.mp4"):
-        print(f"🎬 Output File: {mp4}")
-        probe_res = subprocess.run([
-            "ffprobe", "-v", "error", "-select_streams", "v:0",
-            "-show_entries", "stream=width,height,duration,r_frame_rate",
-            "-of", "default=noprint_wrappers=1", str(mp4)
-        ], capture_output=True, text=True)
-        if probe_res.returncode == 0:
-            print("📊 Stream Probe:")
-            for l in probe_res.stdout.strip().split("\n"):
-                print(f"   {l}")
+def main():
+    if any(argument == "--project" or argument.startswith("--project=") for argument in sys.argv[1:]):
+        legacy_preflight()
+        return
+    parser = argparse.ArgumentParser(description="Secure persisted-job dispatch; no auto Git mutations or public release handoff")
+    parser.add_argument("--job-id", required=True)
+    parser.add_argument("--repo", required=True)
+    parser.add_argument("--ref", required=True, help="Exact approved full Git ref")
+    parser.add_argument("--dry-run", action="store_true")
+    args = parser.parse_args()
+    if args.dry_run:
+        print(json.dumps({"mode": "DRY_RUN", "repository": args.repo, "ref": args.ref,
+            "workflow": "render.yml", "inputs": {"job_id": args.job_id}, "api_version": "2026-03-10"}))
+        return
+    print(json.dumps(dispatch_job(args.repo, args.ref, args.job_id)))
 
 
 if __name__ == "__main__":
